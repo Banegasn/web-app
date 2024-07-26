@@ -1,6 +1,11 @@
 {
     "hosting": {
-      "site": "banegasn",
-      "public": "public"
+        "site": "banegasn",
+        "public": "dist/banegasn/browser",
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ]
     }
 }
