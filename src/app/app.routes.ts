@@ -6,7 +6,13 @@ import { PostsService } from './services/posts.service';
 export const routes: Routes = [
     {
         path: 'blog',
-        loadComponent: () => import('./blog-list/blog-list.component').then(m => m.BlogListComponent)
+        resolve: {
+            posts: () => {
+                const postsService = inject(PostsService);
+                return postsService.getAllPosts();
+            }
+        },
+        loadComponent: () => import('./blog/blog-list/blog-list.component').then(m => m.BlogListComponent)
     },
     {
         path: 'blog/:id',
@@ -16,7 +22,7 @@ export const routes: Routes = [
                 return postsService.getPostById(route.params['id']);
             }
         },
-        loadComponent: () => import('./blog-entry/blog-entry.component').then(m => m.BlogEntryComponent)
+        loadComponent: () => import('./blog/blog-post/blog-post.component').then(m => m.BlogPostComponent)
     },
     { path: '', component: HomeComponent },
     { path: '**', redirectTo: '/' }

@@ -2,20 +2,20 @@ import { Component, input, ElementRef, Renderer2, effect, viewChild, ChangeDetec
 import { isPlatformBrowser, DOCUMENT, DatePipe } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { Post } from '../models/blog-post.model';
+import { Post } from '../../models/post.model';
 import { marked } from 'marked';
-import { ButtonComponent } from "../shared/components/button/button.component";
+import { ButtonComponent } from "../../components/button/button.component";
 
 @Component({
-    selector: 'app-blog-entry',
-    host: { class: 'blog-entry' },
+    selector: 'app-blog-post',
+    host: { class: 'blog-post' },
     imports: [DatePipe, ButtonComponent],
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./blog-entry.component.css'],
-    templateUrl: './blog-entry.component.html',
+    styleUrls: ['./blog-post.component.css'],
+    templateUrl: './blog-post.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush // Optional: Optimize change detection
 })
-export class BlogEntryComponent implements OnDestroy {
+export class BlogPostComponent implements OnDestroy {
     post = input.required<Post>();
 
     markdownContent = viewChild<ElementRef<HTMLDivElement>>('markdownContent');

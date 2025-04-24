@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { Post } from '../models/blog-post.model';
+import { Post } from '../../models/post.model';
 
 @Component({
     selector: 'app-blog-post-card',
