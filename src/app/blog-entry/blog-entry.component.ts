@@ -39,8 +39,9 @@ export class BlogEntryComponent implements OnDestroy {
                 this.titleService.setTitle('banegasn.dev | ' + postTitle);
 
                 const description = post.summary;
-                const canonicalUrl = this.document.location.origin + this.router.url;
-                const imageUrl = post.imageUrl || `${this.document.location.origin}/assets/default-og-image.png`;
+                const origin = this.document.location.origin;
+                const canonicalUrl = origin + this.router.url;
+                const imageUrl = post.imageUrl ? `${origin}/${post.imageUrl}` : `${origin}/images/default.png`;
 
                 this.metaService.updateTag({ name: 'description', content: description });
                 this.metaService.updateTag({ property: 'og:title', content: postTitle });
