@@ -1,17 +1,17 @@
 <div class="container mx-auto px-4 py-8">
-    <!-- Optional: Add filters or sorting controls here -->
+    <app-search-bar [(search)]="search" />
 
-    @if(posts(); as posts) {
+    @if(filteredPosts(); as posts) {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @for(post of posts; track post.id) {
-                <app-blog-post-card [post]="post"></app-blog-post-card>
+                <app-blog-post-card [post]="post" />
             } @empty {
                 <div class="col-span-full text-center text-muted dark:text-muted-dark">
-                    No blog posts found.
+                    No blog posts found matching your search.
                 </div>
             }
         </div>
-    } @else {
+    } @else if (!posts()) {
         <p class="text-center text-muted dark:text-muted-dark">Loading posts...</p>
     }
 
