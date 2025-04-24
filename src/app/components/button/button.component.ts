@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -9,7 +9,8 @@ import { RouterLink } from '@angular/router';
         }
     `,
     imports: [RouterLink],
-    templateUrl: './button.component.html'
+    templateUrl: './button.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ButtonComponent {
     link = input.required<string | unknown[]>();

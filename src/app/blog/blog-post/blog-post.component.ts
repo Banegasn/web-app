@@ -1,10 +1,10 @@
 import { Component, input, ElementRef, Renderer2, effect, viewChild, ChangeDetectionStrategy, inject, ViewEncapsulation, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { isPlatformBrowser, DOCUMENT, DatePipe } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ButtonComponent } from '../../components/button/button.component';
 import { Post } from '../../models/post.model';
+import { Router } from '@angular/router';
 import { marked } from 'marked';
-import { ButtonComponent } from "../../components/button/button.component";
 
 @Component({
     selector: 'app-blog-post',
@@ -13,7 +13,7 @@ import { ButtonComponent } from "../../components/button/button.component";
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./blog-post.component.css'],
     templateUrl: './blog-post.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush // Optional: Optimize change detection
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BlogPostComponent implements OnDestroy {
     post = input.required<Post>();
