@@ -44,7 +44,6 @@ export class PostsService {
     private postsUrl = '/posts/'; // Assumes posts are in src/assets/posts/
     private postsManifestUrl = `${this.postsUrl}posts.json`; // Assumes manifest file lists post IDs
 
-    // Cache posts to avoid refetching
     private allPostsCache$: Observable<Post[]> | null = null;
 
     getAllPosts(): Observable<Post[]> {
@@ -52,30 +51,28 @@ export class PostsService {
             this.allPostsCache$ = this.http.get<{ posts: string[] }>(this.postsManifestUrl).pipe(
                 mergeMap(manifest => {
                     if (!manifest || !manifest.posts || manifest.posts.length === 0) {
-                        return of([]); // No posts listed
+                        return of([]);
                     }
                     const postObservables = manifest.posts.map(id =>
                         this.getPostById(id).pipe(
                             catchError(err => {
                                 console.error(`Error fetching post ${id}:`, err);
-                                return of(undefined); // Return undefined if a post fails to load
+                                return of(undefined);
                             })
                         )
                     );
-                    // Use forkJoin to fetch all posts concurrently
                     return forkJoin(postObservables).pipe(
-                        map(posts => posts.filter((post): post is Post => post !== undefined)), // Filter out undefined results
-                        map(posts => posts.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())) // Sort by date descending
+                        map(posts => posts.filter((post): post is Post => post !== undefined)),
+                        map(posts => posts.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()))
                     );
                 }),
                 catchError(err => {
                     console.error("Error fetching posts manifest:", err);
-                    this.allPostsCache$ = null; // Clear cache on error
-                    return of([]); // Return empty array on error
+                    this.allPostsCache$ = null;
+                    return of([]);
                 }),
-                // Simple caching mechanism
                 tap(posts => {
-                    if (!this.allPostsCache$) { // Ensure cache is set only once successfully
+                    if (!this.allPostsCache$) {
                         this.allPostsCache$ = of(posts);
                     }
                 })
@@ -91,13 +88,11 @@ export class PostsService {
     }
 
     getPostById(id: string): Observable<Partial<Post> | undefined> {
-        // Check cache first (though getAllPosts usually populates it)
-        // This direct fetch is useful if accessing a post directly without listing all first
         return this.http.get(`${this.postsUrl}${id}.md`, { responseType: 'text' }).pipe(
             map(markdownContent => parseMarkdown(markdownContent)),
             catchError(err => {
                 console.error(`Error fetching or parsing post ${id}:`, err);
-                return of(undefined); // Return undefined on error
+                return of(undefined);
             })
         );
     }

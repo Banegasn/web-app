@@ -20,12 +20,12 @@ export class BlogPostComponent implements OnDestroy {
 
     readonly markdownContent = viewChild<ElementRef<HTMLDivElement>>('markdownContent');
 
-    private renderer = inject(Renderer2);
-    private titleService = inject(Title);
-    private metaService = inject(Meta);
-    private router = inject(Router);
-    private document = inject(DOCUMENT);
-    private platformId = inject(PLATFORM_ID);
+    private readonly renderer = inject(Renderer2);
+    private readonly titleService = inject(Title);
+    private readonly metaService = inject(Meta);
+    private readonly router = inject(Router);
+    private readonly document = inject(DOCUMENT);
+    private readonly platformId = inject(PLATFORM_ID);
 
     constructor() {
         effect(() => {

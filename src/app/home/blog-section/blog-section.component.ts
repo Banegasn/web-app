@@ -11,6 +11,6 @@ import { ButtonComponent } from '../../components/button/button.component';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BlogSectionComponent {
-    postsService = inject(PostsService);
-    posts = toSignal(this.postsService.getLatestPosts(3));
+    readonly postsService = inject(PostsService);
+    readonly posts = toSignal(this.postsService.getLatestPosts(3));
 }
