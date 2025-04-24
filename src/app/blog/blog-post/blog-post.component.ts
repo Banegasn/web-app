@@ -16,9 +16,9 @@ import { marked } from 'marked';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BlogPostComponent implements OnDestroy {
-    post = input.required<Post>();
+    readonly post = input.required<Post>();
 
-    markdownContent = viewChild<ElementRef<HTMLDivElement>>('markdownContent');
+    readonly markdownContent = viewChild<ElementRef<HTMLDivElement>>('markdownContent');
 
     private renderer = inject(Renderer2);
     private titleService = inject(Title);

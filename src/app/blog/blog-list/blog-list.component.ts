@@ -11,5 +11,5 @@ import { Post } from '../../models/post.model';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BlogListComponent {
-    posts = input.required<Post[]>();
+    readonly posts = input.required<Post[]>();
 } 
