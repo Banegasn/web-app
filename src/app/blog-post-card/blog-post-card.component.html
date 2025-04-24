@@ -1,0 +1,23 @@
+<a [routerLink]="['/blog', post().id]"
+    class="bg-background-alt dark:bg-background-alt-dark rounded-lg shadow-md overflow-hidden
+    flex flex-col h-full transform transition duration-400 hover:scale-[1.01]">
+
+    @if(post().imageUrl) {
+        <img [src]="post().imageUrl" alt="{{ post().title }}" class="w-full h-32 object-cover">
+    } @else {
+        <div class="w-full h-32 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+            <span class="text-muted dark:text-muted-dark"></span>
+        </div>
+    }
+
+    <div class="p-6 flex-grow flex flex-col">
+        <h3 class="text-xl font-semibold mb-2 text-text dark:text-text-dark">{{ post().title }}</h3>
+
+        <p class="text-gray-800 mb-4 flex-grow">{{ post().summary }}</p>
+        <div class="mt-auto self-start"></div>
+        <p class="text-xs text-muted dark:text-muted-dark mb-2">
+            Published: {{ post().createdAt | date:'mediumDate' }}
+        </p>
+    </div>
+
+</a>

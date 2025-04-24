@@ -1,0 +1,86 @@
+.post-content p {
+    margin: .5rem 0;
+}
+
+.post-content a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.post-content h1 {
+    font-size: 2rem;
+    margin: 1rem 0;
+}
+
+.post-content h2 {
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
+}
+
+.post-content h3 {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+}
+
+.post-content ul,
+ol {
+    margin-left: 1.5rem;
+    list-style-type: disc;
+}
+
+.post-container {
+    padding: 0 2rem;
+    max-height: 100%;
+    overflow: auto;
+    max-height: 100%;
+    position: relative;
+}
+
+.post-main-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 90ch;
+    max-height: 90%;
+}
+
+.blog-entry {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .blog-entry {
+        padding: 1rem;
+        /* Reduce padding on smaller screens */
+    }
+
+    .post-container {
+        padding: 0 1rem;
+        /* Reduce horizontal padding */
+    }
+
+    .post-main-container {
+        max-width: 100%;
+        /* Allow content to use more width */
+        max-height: none;
+        /* Remove max-height constraint if needed */
+    }
+
+    .post-content h1 {
+        font-size: 1.8rem;
+        /* Slightly smaller headings */
+    }
+
+    .post-content h2 {
+        font-size: 1.3rem;
+    }
+
+    .post-content h3 {
+        font-size: 1.1rem;
+    }
+}

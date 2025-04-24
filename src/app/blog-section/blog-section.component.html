@@ -1,0 +1,15 @@
+<section class="w-full max-w-5xl mx-auto py-8 px-4 text-center">
+
+    @if(posts(); as posts) {
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            @for(post of posts; track post.id) {
+                <app-blog-post-card [post]="post" />
+            }
+        </div>
+    } @else {
+        <p class="text-muted dark:text-muted-dark">Loading posts...</p>
+    }
+
+    <app-button link="/blog" text="View All Posts" />
+
+</section>

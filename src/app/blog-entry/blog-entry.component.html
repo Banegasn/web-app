@@ -1,0 +1,21 @@
+<div class="post-main-container bg-background-alt dark:bg-background-alt-dark rounded-lg shadow-md overflow-hidden">
+    @if(post(); as post) {
+        @if(post.imageUrl) {
+            <img [src]="post.imageUrl" alt="{{ post.title }}" class="w-full h-32 object-cover">
+        } @else {
+            <div class="w-full h-32 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                <span class="text-muted dark:text-muted-dark"></span>
+            </div>
+        }
+        <div class="w-full post-container">
+            <div class="post-content" #markdownContent></div>
+            <p class="text-gray-600 my-8">
+                Published: {{ post.createdAt | date:'mediumDate' }}
+            </p>
+        </div>
+    } @else {
+        <p class="text-muted dark:text-muted-dark post-container">Loading post...</p>
+    }
+</div>
+
+<app-button class="mt-4" link="/blog" text="Go back to list" />
