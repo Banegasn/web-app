@@ -6,9 +6,8 @@ import { ButtonComponent } from '../shared/components/button/button.component';
 
 @Component({
     selector: 'app-blog-section',
-    standalone: true,
     imports: [BlogPostCardComponent, ButtonComponent],
-    templateUrl: './blog-section.component.html',
+    templateUrl: './blog-section.component.html'
 })
 export class BlogSectionComponent {
     postsService = inject(PostsService);

@@ -3,14 +3,13 @@ import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-button',
-    standalone: true,
     styles: `
         :host {
             display: inline-block;
         }
     `,
     imports: [RouterLink],
-    templateUrl: './button.component.html',
+    templateUrl: './button.component.html'
 })
 export class ButtonComponent {
     link = input.required<string | unknown[]>();

@@ -9,7 +9,6 @@ import { ButtonComponent } from "../shared/components/button/button.component";
 @Component({
     selector: 'app-blog-entry',
     host: { class: 'blog-entry' },
-    standalone: true,
     imports: [DatePipe, ButtonComponent],
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./blog-entry.component.css'],

@@ -6,10 +6,9 @@ import { ButtonComponent } from "../shared/components/button/button.component";
 
 @Component({
     selector: 'app-blog-list',
-    standalone: true,
     imports: [BlogPostCardComponent, ButtonComponent],
     styleUrls: ['./blog-list.component.css'],
-    templateUrl: './blog-list.component.html',
+    templateUrl: './blog-list.component.html'
 })
 export class BlogListComponent {
     postsService = inject(PostsService);
