@@ -12,10 +12,14 @@
             <p class="text-gray-600 my-8">
                 Published: {{ post.createdAt | date:'mediumDate' }}
             </p>
+
         </div>
     } @else {
         <p class="text-muted dark:text-muted-dark post-container">Loading post...</p>
     }
 </div>
 
-<app-button class="mt-4" link="/blog" text="Go back to list" />
+<div class="flex justify-between mt-4 gap-4">
+    <app-button link="/blog" text="Go back to list" />
+    <app-button (click)="sharePost()" text="Share this post" />
+</div>

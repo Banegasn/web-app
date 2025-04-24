@@ -1,10 +1,12 @@
 import { Component, input, ElementRef, Renderer2, effect, viewChild, ChangeDetectionStrategy, inject, ViewEncapsulation, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { isPlatformBrowser, DOCUMENT, DatePipe } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
+import { Dialog } from '@angular/cdk/dialog';
 import { ButtonComponent } from '../../components/button/button.component';
 import { Post } from '../../models/post.model';
 import { Router } from '@angular/router';
 import { marked } from 'marked';
+import { ShareDialogComponent } from '../../components/share/share.dialog.component';
 
 @Component({
     selector: 'app-blog-post',
@@ -26,6 +28,7 @@ export class BlogPostComponent implements OnDestroy {
     private readonly router = inject(Router);
     private readonly document = inject(DOCUMENT);
     private readonly platformId = inject(PLATFORM_ID);
+    private readonly dialog = inject(Dialog);
 
     constructor() {
         effect(() => {
@@ -78,6 +81,14 @@ export class BlogPostComponent implements OnDestroy {
                     }
                 }
             }
+        });
+    }
+
+    sharePost(): void {
+        const currentUrl = this.document.location.href;
+        this.dialog.open<string>(ShareDialogComponent, {
+            data: { shareUrl: currentUrl },
+            width: '450px',
         });
     }
 

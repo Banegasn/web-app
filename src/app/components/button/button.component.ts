@@ -13,6 +13,6 @@ import { RouterLink } from '@angular/router';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ButtonComponent {
-    readonly link = input.required<string | unknown[]>();
+    readonly link = input<string | unknown[]>();
     readonly text = input.required<string>();
 } 

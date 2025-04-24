@@ -41,7 +41,8 @@ module.exports = tseslint.config(
       ...angular.configs.templateAccessibility,
     ],
     rules: {
-      "@angular-eslint/template/prefer-control-flow": "error"
+      "@angular-eslint/template/prefer-control-flow": "error",
+      "@angular-eslint/template/prefer-self-closing-tags": "error"
     },
   }
 );
