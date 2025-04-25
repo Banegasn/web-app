@@ -39,7 +39,7 @@ interface ShareDialogData {
           type="text"
           readonly
           [value]="data.shareUrl"
-          class="flex-grow p-2 border border-gray-300 rounded bg-gray-100 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          class="min-w-20 flex-grow p-2 border border-gray-300 rounded bg-gray-100 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
           aria-label="Link to share"
         />
         <button
@@ -59,6 +59,7 @@ interface ShareDialogData {
     styles: [`
     :host {
       display: block;
+      margin: 1rem;
     }
     button:disabled {
         cursor: not-allowed;

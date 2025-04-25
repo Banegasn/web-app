@@ -2,7 +2,7 @@
 id: "ai-mcp"
 title: "MCP Servers: The Future of API Workflows"
 summary: "Exploring how Message Control Program (MCP) servers are revolutionizing API workflows and automation through my recent experiences implementing them at work."
-createdAt: "2025-04-24"
+createdAt: "2025-04-24 23:00:00"
 imageUrl: "images/mcp.png" 
 ---
 

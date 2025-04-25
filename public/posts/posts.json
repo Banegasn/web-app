@@ -1,7 +1,8 @@
 {
-    "posts": [
-        "introduction",
-        "ai-mcp",
-        "google-tag-manager"
-    ]
+  "posts": [
+    "introduction",
+    "ai-mcp",
+    "google-tag-manager",
+    "quantum-computing-explained"
+  ]
 }
