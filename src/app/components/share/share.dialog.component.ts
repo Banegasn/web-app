@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { DialogModule, DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
+import { DIALOG_DATA, DialogModule, DialogRef } from '@angular/cdk/dialog';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 
 // Define an interface for the expected data
 interface ShareDialogData {

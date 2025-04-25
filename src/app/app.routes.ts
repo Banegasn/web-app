@@ -1,6 +1,6 @@
+import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { inject } from '@angular/core';
 import { PostsService } from './services/posts.service';
 
 export const routes: Routes = [

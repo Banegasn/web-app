@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
-import { BlogPostCardComponent } from '../../components/post-card/blog-post-card.component';
 import { ButtonComponent } from "../../components/button/button.component";
+import { BlogPostCardComponent } from '../../components/post-card/blog-post-card.component';
 import { Post } from '../../models/post.model';
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
 

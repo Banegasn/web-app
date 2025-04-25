@@ -1,12 +1,12 @@
-import { Component, input, ElementRef, Renderer2, effect, viewChild, ChangeDetectionStrategy, inject, ViewEncapsulation, PLATFORM_ID, OnDestroy } from '@angular/core';
-import { isPlatformBrowser, DOCUMENT, DatePipe } from '@angular/common';
-import { Meta, Title } from '@angular/platform-browser';
 import { Dialog } from '@angular/cdk/dialog';
-import { ButtonComponent } from '../../components/button/button.component';
-import { Post } from '../../models/post.model';
+import { DOCUMENT, DatePipe, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, PLATFORM_ID, Renderer2, ViewEncapsulation, effect, inject, input, viewChild } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { marked } from 'marked';
+import { ButtonComponent } from '../../components/button/button.component';
 import { ShareDialogComponent } from '../../components/share/share.dialog.component';
+import { Post } from '../../models/post.model';
 
 @Component({
     selector: 'app-blog-post',
