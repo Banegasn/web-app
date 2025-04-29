@@ -11,6 +11,16 @@
             <div class="post-content" #markdownContent></div>
             <p class="text-gray-600 my-8">
                 Published: {{ post.createdAt | date:'mediumDate' }}
+                @if(post.author) {
+                    <span class="text-gray-600 block">
+                        Author: {{ post.author }}
+                    </span>
+                }
+                @if(post.tags?.length) {
+                    <span class="text-gray-600 block">
+                        Tags: {{ post.tags?.join(', ') }}
+                    </span>
+                }
             </p>
 
         </div>

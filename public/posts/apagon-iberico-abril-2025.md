@@ -3,7 +3,8 @@ id: "apagon-iberico-abril-2025"
 title: "El Gran Apagón Ibérico de Abril 2025: Causas, Impacto y Recuperación"
 summary: "Análisis detallado del apagón sin precedentes ocurrido el 28 de abril de 2025 en la Península Ibérica, el peor de su historia. Se examinan las causas bajo investigación, el impacto masivo en infraestructuras y la sociedad, y el complejo proceso de recuperación."
 createdAt: "2025-04-29 12:53:00"
-imageUrl: "images/iberic-power-outage.png" 
+imageUrl: "images/power-outage.png" 
+author: banegasn
 language: "es-ES"
 ---
 

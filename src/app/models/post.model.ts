@@ -6,4 +6,7 @@ export interface Post {
     content: string;
     createdAt: Date;
     updatedAt?: Date;
+    author?: string;
+    tags?: string[];
+    language?: string;
 } 

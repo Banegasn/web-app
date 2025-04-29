@@ -26,6 +26,9 @@ function parseMarkdown(markdown: string): Partial<Post> {
             title: metadata['title'],
             summary: metadata['summary'],
             createdAt: metadata['createdAt'] ? new Date(metadata['createdAt']) : new Date(),
+            author: metadata['author'],
+            tags: metadata['tags'] ? metadata['tags'].split(',') : [],
+            language: metadata['language'],
             imageUrl: metadata['imageUrl'],
             content: mainContent.trim()
         };
