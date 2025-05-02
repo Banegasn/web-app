@@ -1,8 +1,8 @@
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto py-8">
     <app-search-bar [(search)]="search" />
 
     @if(filteredPosts(); as posts) {
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @for(post of posts; track post.id) {
                 <app-blog-post-card [post]="post" />
             } @empty {

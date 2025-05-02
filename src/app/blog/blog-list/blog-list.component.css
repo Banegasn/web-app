@@ -1,5 +1,9 @@
 :host {
-    max-width: 1000px;
     display: block;
     margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.container {
+    max-width: var(--app-width);
 }

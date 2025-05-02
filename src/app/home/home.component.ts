@@ -9,7 +9,7 @@ import { BlogSectionComponent } from './blog-section/blog-section.component';
         IntroComponent
     ],
     template: `
-        <div class="overflow-hidden min-h-full flex flex-col justify-center items-center p-4">
+        <div class="overflow-hidden flex flex-col justify-center items-center p-4">
             <app-intro/>
             <app-blog-section/>
         </div>

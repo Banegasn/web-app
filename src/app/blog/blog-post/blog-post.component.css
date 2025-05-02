@@ -87,13 +87,13 @@ ol {
 .post-main-container {
     display: flex;
     flex-direction: column;
-    max-width: 90ch;
-    max-height: 90%;
+    max-width: var(--app-width);
+    max-height: 100%;
 }
 
 .blog-post {
     display: flex;
-    height: 100%;
+    height: calc(100dvh - var(--navbar-min-height));
     flex-direction: column;
     align-items: center;
     justify-content: center;

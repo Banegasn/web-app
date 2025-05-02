@@ -1,0 +1,14 @@
+<nav class="navbar">
+    <div class="navbar-brand">
+        <a routerLink="/" class="navbar-logo">banegasn.dev</a>
+    </div>
+    <div class="navbar-menu" [class.is-active]="isMenuOpen">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-item">Home</a>
+        <a routerLink="/blog" routerLinkActive="active" class="navbar-item">Blog</a>
+    </div>
+    <button class="navbar-burger" (click)="toggleMenu()" [attr.aria-expanded]="isMenuOpen" aria-label="menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</nav>
