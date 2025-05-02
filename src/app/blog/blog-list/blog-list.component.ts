@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { ButtonComponent } from "../../components/button/button.component";
 import { BlogPostCardComponent } from '../../components/post-card/blog-post-card.component';
+import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 import { Post } from '../../models/post.model';
-import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
 
 @Component({
     selector: 'app-blog-list',
