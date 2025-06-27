@@ -10,5 +10,5 @@ import { Post } from '../../models/post.model';
     templateUrl: './blog-post-card.component.html'
 })
 export class BlogPostCardComponent {
-    readonly post = input.required<Post>();
+    readonly post = input<Post>();
 } 
