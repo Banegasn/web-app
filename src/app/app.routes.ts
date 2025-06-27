@@ -1,6 +1,5 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 import { PostsService } from './services/posts.service';
 
 export const routes: Routes = [
@@ -24,6 +23,9 @@ export const routes: Routes = [
         },
         loadComponent: () => import('./blog/blog-post/blog-post.component').then(m => m.BlogPostComponent)
     },
-    { path: '', component: HomeComponent },
+    {
+        path: '',
+        loadComponent: () => import('./home/home.component').then(m => m.HomeComponent)
+    },
     { path: '**', redirectTo: '/' }
 ];
