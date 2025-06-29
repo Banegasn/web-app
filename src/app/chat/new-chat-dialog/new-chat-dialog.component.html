@@ -1,0 +1,10 @@
+<div class="dialog-container flex flex-col gap-4">
+    <h2 class="dialog-title">New Chat</h2>
+    <div class="dialog-content">
+        <input class="chat-name-input" [(ngModel)]="chatName" placeholder="Enter chat name" (keyup.enter)="create()">
+    </div>
+    <div class="flex flex-row gap-4 justify-end">
+        <button class="py-2 px-3 bg-gray-200 text-gray-800 rounded-md" (click)="close()">Cancel</button>
+        <button class="py-2 px-3 bg-blue-500 text-white rounded-md" (click)="create()">Create</button>
+    </div>
+</div>

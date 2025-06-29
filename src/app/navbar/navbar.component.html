@@ -5,6 +5,7 @@
     <div class="navbar-menu" [class.is-active]="isMenuOpen">
         <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-item">Home</a>
         <a routerLink="/blog" routerLinkActive="active" class="navbar-item">Blog</a>
+        <a routerLink="/chat" routerLinkActive="active" class="navbar-item">Chat</a>
     </div>
     <button class="navbar-burger" (click)="toggleMenu()" [attr.aria-expanded]="isMenuOpen" aria-label="menu">
         <span></span>
