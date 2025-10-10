@@ -4,7 +4,7 @@
         <ul class="flex flex-col gap-2">
             @for (room of rooms.value() || []; track room.id) {
                 <li role="button" tabindex="0" (click)="changeRoom(room)" (keydown.enter)="changeRoom(room)"
-                    [class.selected]="room.id === this.room()?.id" class="flex flex-row gap-2">
+                    [class.selected]="room.id === this.room()?.id" class="flex flex-row gap-2 room-item">
                     <span>{{ room.name }}</span>
                     <button class="delete-room-btn flex-grow-0" (click)="deleteRoom($event, room)">&times;</button>
                 </li>
