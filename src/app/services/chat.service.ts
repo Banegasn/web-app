@@ -1,5 +1,6 @@
 import { httpResource } from '@angular/common/http';
 import { Injectable, Signal, signal } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 interface Room {
     id: string;
@@ -19,7 +20,7 @@ interface Message {
 })
 export class ChatService {
 
-    readonly #baseUrl = 'http://localhost:4000/api';
+    readonly #baseUrl = `${environment.apiUrl}/api`;
     readonly #room = signal<Room | null>(null);
 
     readonly rooms = httpResource<Room[]>(() => ({
