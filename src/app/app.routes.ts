@@ -28,6 +28,10 @@ export const routes: Routes = [
         loadComponent: () => import('./chat/chat.component').then(m => m.ChatComponent)
     },
     {
+        path: 'chat/join/:token',
+        loadComponent: () => import('./chat/chat.component').then(m => m.ChatComponent)
+    },
+    {
         path: '',
         loadComponent: () => import('./home/home.component').then(m => m.HomeComponent)
     },

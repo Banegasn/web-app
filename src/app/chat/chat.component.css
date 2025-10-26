@@ -42,6 +42,105 @@
     padding: 1rem;
     display: flex;
     flex-direction: column;
+    background-color: #f9f9f9;
+}
+
+.users-section h3 {
+    margin: 0 0 1rem 0;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.user-group {
+    margin-bottom: 1.5rem;
+}
+
+.user-group h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #666;
+}
+
+.online-indicator {
+    color: #28a745;
+}
+
+.offline-indicator {
+    color: #6c757d;
+}
+
+.user-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-item {
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.user-item.online {
+    background-color: #e8f5e8;
+    border-left: 3px solid #28a745;
+}
+
+.user-item.offline {
+    background-color: #f8f9fa;
+    border-left: 3px solid #6c757d;
+}
+
+.user-name {
+    font-weight: 500;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.user-status {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.no-users {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    margin: 2rem 0;
+}
+
+.empty-sidebar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #999;
+    font-style: italic;
+}
+
+.room-actions {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+.share-room-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+}
+
+.share-room-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .chat-sidebar li:hover,
@@ -120,10 +219,18 @@ button.btn {
 .delete-room-btn {
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 16px;
     cursor: pointer;
-    padding: 0;
+    padding: 4px;
     line-height: 1;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
 }
 
 .room-item {

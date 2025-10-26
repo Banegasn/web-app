@@ -7,12 +7,23 @@ interface Room {
     name: string;
     token: string;
     createdAt: Date;
+    isPrivate: boolean;
+    createdBy: string;
 }
 
 interface Message {
     sender: string;
     text: string;
     timestamp: Date;
+}
+
+interface User {
+    id: string;
+    name: string;
+    email: string;
+    isOnline: boolean;
+    lastSeen: Date;
+    roomId: string;
 }
 
 @Injectable({
@@ -22,15 +33,17 @@ export class ChatService {
 
     readonly #baseUrl = `${environment.apiUrl}/api`;
     readonly #room = signal<Room | null>(null);
+    readonly #currentUser = signal<User | null>(null);
+    readonly #users = signal<User[]>([]);
 
     readonly rooms = httpResource<Room[]>(() => ({
         url: `${this.#baseUrl}/chat/rooms`,
         method: 'GET'
     }));
 
-    readonly createRoom = (name: string) => fetch(`${this.#baseUrl}/chat/rooms`, {
+    readonly createRoom = (name: string, isPrivate = true) => fetch(`${this.#baseUrl}/chat/rooms`, {
         method: 'POST',
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ name, isPrivate }),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -75,5 +88,51 @@ export class ChatService {
 
     get room(): Signal<Room | null> {
         return this.#room.asReadonly();
+    }
+
+    get currentUser(): Signal<User | null> {
+        return this.#currentUser.asReadonly();
+    }
+
+    get users(): Signal<User[]> {
+        return this.#users.asReadonly();
+    }
+
+    readonly joinRoom = (roomId: string, token: string, userName: string, userEmail: string) =>
+        fetch(`${this.#baseUrl}/chat/rooms/${roomId}/join`, {
+            method: 'POST',
+            body: JSON.stringify({ token, userName, userEmail }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json());
+
+    readonly getRoomUsers = (roomId: string) =>
+        fetch(`${this.#baseUrl}/chat/rooms/${roomId}/users`)
+            .then(response => response.json())
+            .then(users => {
+                this.#users.set(users);
+                return users;
+            });
+
+    readonly updateUserPresence = (roomId: string, userId: string, isOnline: boolean) =>
+        fetch(`${this.#baseUrl}/chat/rooms/${roomId}/users/${userId}/presence`, {
+            method: 'PUT',
+            body: JSON.stringify({ isOnline }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+    readonly getRoomByToken = (token: string) =>
+        fetch(`${this.#baseUrl}/chat/rooms/token/${token}`)
+            .then(response => response.json());
+
+    generateRoomLink(room: Room): string {
+        return `${window.location.origin}/chat/join/${room.token}`;
+    }
+
+    setCurrentUser(user: User) {
+        this.#currentUser.set(user);
     }
 }

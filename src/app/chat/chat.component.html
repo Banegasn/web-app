@@ -5,8 +5,11 @@
             @for (room of rooms.value() || []; track room.id) {
                 <li role="button" tabindex="0" (click)="changeRoom(room)" (keydown.enter)="changeRoom(room)"
                     [class.selected]="room.id === this.room()?.id" class="flex flex-row gap-2 room-item">
-                    <span>{{ room.name }}</span>
-                    <button class="delete-room-btn flex-grow-0" (click)="deleteRoom($event, room)">&times;</button>
+                    <span class="flex-grow">{{ room.name }}</span>
+                    <div class="room-actions">
+                        <button class="share-room-btn" (click)="shareRoom(room)" title="Share room">🔗</button>
+                        <button class="delete-room-btn" (click)="deleteRoom($event, room)" title="Delete room">❌</button>
+                    </div>
                 </li>
             }
         </ul>
@@ -61,5 +64,46 @@
         </div>
     </div>
     <div class="chat-right-sidebar">
+        @if (room()) {
+            <div class="users-section">
+                <h3>Room Members</h3>
+
+                @if (onlineUsers().length > 0) {
+                    <div class="user-group">
+                        <h4 class="online-indicator">🟢 Online ({{ onlineUsers().length }})</h4>
+                        <ul class="user-list">
+                            @for (user of onlineUsers(); track user.id) {
+                                <li class="user-item online">
+                                    <span class="user-name">{{ user.name }}</span>
+                                    <span class="user-status">Online</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    }
+
+                    @if (offlineUsers().length > 0) {
+                        <div class="user-group">
+                            <h4 class="offline-indicator">⚫ Offline ({{ offlineUsers().length }})</h4>
+                            <ul class="user-list">
+                                @for (user of offlineUsers(); track user.id) {
+                                    <li class="user-item offline">
+                                        <span class="user-name">{{ user.name }}</span>
+                                        <span class="user-status">Last seen {{ user.lastSeen | date:'short' }}</span>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        }
+
+                        @if (onlineUsers().length === 0 && offlineUsers().length === 0) {
+                            <p class="no-users">No members yet</p>
+                        }
+            </div>
+            } @else {
+                <div class="empty-sidebar">
+                    <p>Select a room to see members</p>
+                </div>
+            }
     </div>
 </div>
