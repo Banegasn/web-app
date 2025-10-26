@@ -24,6 +24,14 @@ export const routes: Routes = [
         loadComponent: () => import('./blog/blog-post/blog-post.component').then(m => m.BlogPostComponent)
     },
     {
+        path: 'chat',
+        loadComponent: () => import('./chat/chat.component').then(m => m.ChatComponent)
+    },
+    {
+        path: 'chat/join/:token',
+        loadComponent: () => import('./chat/chat.component').then(m => m.ChatComponent)
+    },
+    {
         path: '',
         loadComponent: () => import('./home/home.component').then(m => m.HomeComponent)
     },
