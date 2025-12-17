@@ -9,4 +9,5 @@ export interface Post {
     author?: string;
     tags?: string[];
     language?: string;
+    translationGroup?: string;
 } 

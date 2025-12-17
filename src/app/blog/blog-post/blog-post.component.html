@@ -1,9 +1,11 @@
 <div class="post-main-container bg-background-alt dark:bg-background-alt-dark rounded-lg shadow-md overflow-hidden">
     @if(post(); as post) {
         @if(post.imageUrl) {
-            <img [src]="post.imageUrl" alt="{{ post.title }}" class="w-full h-32 object-cover">
+            <img [src]="post.imageUrl"
+                [alt]="post.title"
+                class="w-full aspect-[25/3] object-cover max-h-[300px]">
         } @else {
-            <div class="w-full h-32 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+            <div class="w-full aspect-[25/3] bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
                 <span class="text-muted dark:text-muted-dark"></span>
             </div>
         }

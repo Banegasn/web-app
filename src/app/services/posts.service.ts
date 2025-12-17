@@ -1,5 +1,6 @@
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { Observable, catchError, forkJoin, map, mergeMap, of, tap } from 'rxjs';
 import { Post } from '../models/post.model';
 
@@ -29,6 +30,7 @@ function parseMarkdown(markdown: string): Partial<Post> {
             author: metadata['author'],
             tags: metadata['tags'] ? metadata['tags'].split(',') : [],
             language: metadata['language'],
+            translationGroup: metadata['translationGroup'],
             imageUrl: metadata['imageUrl'],
             content: mainContent.trim()
         };
@@ -44,13 +46,66 @@ function parseMarkdown(markdown: string): Partial<Post> {
 })
 export class PostsService {
     private http = inject(HttpClient);
+    private platformId = inject(PLATFORM_ID);
     private postsUrl = '/posts/'; // Assumes posts are in src/assets/posts/
     private postsManifestUrl = `${this.postsUrl}posts.json`; // Assumes manifest file lists post IDs
 
-    private allPostsCache$: Observable<Post[]> | null = null;
+    private allPostsCache$: Observable<Post[]> | null = null; // Cache unfiltered posts
+
+    /**
+     * Detects user's preferred language from browser or defaults to 'en'
+     */
+    private getUserLanguage(): string {
+        if (isPlatformBrowser(this.platformId)) {
+            const browserLang = navigator.language || 'en';
+            // Extract primary language code (e.g., 'es' from 'es-ES', 'en' from 'en-US')
+            const langCode = browserLang.split('-')[0].toLowerCase();
+            // Support common languages: en, es, or default to en
+            return ['en', 'es'].includes(langCode) ? langCode : 'en';
+        }
+        return 'en'; // Default for SSR
+    }
+
+    /**
+     * Filters posts by language and deduplicates by translationGroup
+     * If multiple posts share the same translationGroup, only the one matching user's language is shown
+     * Posts with language but without translationGroup are always shown (never filtered)
+     */
+    private filterPostsByLanguage(posts: Post[]): Post[] {
+        const userLang = this.getUserLanguage();
+        const translationGroups = new Map<string, Post[]>();
+
+        // Group posts by translationGroup
+        posts.forEach(post => {
+            if (post.translationGroup) {
+                if (!translationGroups.has(post.translationGroup)) {
+                    translationGroups.set(post.translationGroup, []);
+                }
+                translationGroups.get(post.translationGroup)!.push(post);
+            }
+        });
+
+        // Filter posts
+        return posts.filter(post => {
+            // If post has a translationGroup, apply language filtering within that group
+            if (post.translationGroup) {
+                const groupPosts = translationGroups.get(post.translationGroup)!;
+                // Find the best match for user's language
+                const preferredPost = groupPosts.find(p => p.language === userLang)
+                    || groupPosts.find(p => !p.language)
+                    || groupPosts[0];
+                // Only show this post if it's the preferred one
+                return post.id === preferredPost.id;
+            }
+            // Posts without translationGroup are always shown (regardless of language)
+            // This includes posts with language but without translationGroup
+            return true;
+        });
+    }
 
     getAllPosts(): Observable<Post[]> {
         if (!this.allPostsCache$) {
+            // Cache unfiltered posts
             this.allPostsCache$ = this.http.get<{ posts: string[] }>(this.postsManifestUrl).pipe(
                 mergeMap(manifest => {
                     if (!manifest || !manifest.posts || manifest.posts.length === 0) {
@@ -81,7 +136,10 @@ export class PostsService {
                 })
             );
         }
-        return this.allPostsCache$;
+        // Apply language filtering on each request
+        return this.allPostsCache$.pipe(
+            map(posts => this.filterPostsByLanguage(posts))
+        );
     }
 
     getLatestPosts(count: number): Observable<Post[]> {

@@ -5,7 +5,7 @@ summary: "Análisis detallado del apagón sin precedentes ocurrido el 28 de abri
 createdAt: "2025-04-29 12:53:00"
 imageUrl: "images/power-outage.png" 
 author: banegasn
-language: "es-ES"
+language: "es"
 ---
 
 <style>
