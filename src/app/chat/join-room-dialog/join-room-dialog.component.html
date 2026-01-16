@@ -1,0 +1,31 @@
+<div class="dialog-content">
+    <h2>Join Room</h2>
+    <p>Enter your details to join this private room:</p>
+
+    <div class="form-group">
+        <label for="userName">Name:</label>
+        <input
+            id="userName"
+            type="text"
+            [(ngModel)]="userName"
+            placeholder="Your name"
+            required>
+    </div>
+
+    <div class="form-group">
+        <label for="userEmail">Email:</label>
+        <input
+            id="userEmail"
+            type="email"
+            [(ngModel)]="userEmail"
+            placeholder="your.email@example.com"
+            required>
+    </div>
+
+    <div class="dialog-actions">
+        <button class="btn btn-secondary" (click)="close()">Cancel</button>
+        <button class="btn btn-primary" (click)="join()" [disabled]="!userName.trim() || !userEmail.trim()">
+            Join Room
+        </button>
+    </div>
+</div>

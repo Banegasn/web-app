@@ -1,0 +1,109 @@
+<div class="chat-container">
+    <div class="chat-sidebar flex flex-col gap-6">
+        <button class="btn" (click)="newRoom()">New Chat</button>
+        <ul class="flex flex-col gap-2">
+            @for (room of rooms.value() || []; track room.id) {
+                <li role="button" tabindex="0" (click)="changeRoom(room)" (keydown.enter)="changeRoom(room)"
+                    [class.selected]="room.id === this.room()?.id" class="flex flex-row gap-2 room-item">
+                    <span class="flex-grow">{{ room.name }}</span>
+                    <div class="room-actions">
+                        <button class="share-room-btn" (click)="shareRoom(room)" title="Share room">🔗</button>
+                        <button class="delete-room-btn" (click)="deleteRoom($event, room)" title="Delete room">❌</button>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="chat-main">
+        <div class="chat-messages-container">
+            @if (room()) {
+                <div class="chat-messages">
+                    @for (message of messages.value() || []; track $index) {
+                        <div class="message" [ngClass]="{'user-message': message.sender === 'You', 'ai-message': message.sender === 'AI'}">
+                            <p><strong>{{ message.sender }}:</strong> {{ message.text }}</p>
+                        </div>
+                    } @empty {
+                        @if (loading()) {
+                            <div class="flex flex-col align-center justify-center h-full gap-4">
+                                <p class="text-center text-5xl font-bold text-gray-400">💤</p>
+                                <p class="text-center text-gray-400">
+                                    <span class="font-bold text-3xl">Loading messages...</span><br>
+                                    <span class="text-sm">this may take a few seconds</span>
+                                </p>
+                            </div>
+                        } @else {
+                            <div class="flex flex-col align-center justify-center h-full gap-4">
+                                <p class="text-center text-5xl font-bold text-gray-400">💬</p>
+                                <p class="text-center text-gray-400">
+                                    <span class="font-bold text-3xl">No messages yet</span><br>
+                                    <span class="text-sm">just send a message to start the conversation</span>
+                                </p>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <div class="chat-input flex flex-col gap-3">
+                    <div class="flex flex-row gap-4">
+                        <input #messageInput type="text" placeholder="Type your message..." (keyup.enter)="sendMessage(messageInput)">
+                        <button class="btn" (click)="sendMessage(messageInput)">Send</button>
+                    </div>
+                    <div class="text-xs text-gray-500">Remember this is a demo, do not believe everything the AI says, and the AI may not
+                        always respond correctly. Use it for fun and entertainment.</div>
+                </div>
+            } @else {
+                <div class="flex flex-col align-center justify-center h-full gap-4">
+                    <p class="text-center text-5xl font-bold text-gray-400">💌</p>
+                    <p class="text-center text-gray-400">
+                        <span class="font-bold text-3xl">Pick a chat to start messaging</span><br>
+                        <span class="text-sm">or just create a new chat, clicking the button below</span>
+                    </p>
+                    <button class="btn w-40 self-center" (click)="newRoom()">New Chat</button>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="chat-right-sidebar">
+        @if (room()) {
+            <div class="users-section">
+                <h3>Room Members</h3>
+
+                @if (onlineUsers().length > 0) {
+                    <div class="user-group">
+                        <h4 class="online-indicator">🟢 Online ({{ onlineUsers().length }})</h4>
+                        <ul class="user-list">
+                            @for (user of onlineUsers(); track user.id) {
+                                <li class="user-item online">
+                                    <span class="user-name">{{ user.name }}</span>
+                                    <span class="user-status">Online</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    }
+
+                    @if (offlineUsers().length > 0) {
+                        <div class="user-group">
+                            <h4 class="offline-indicator">⚫ Offline ({{ offlineUsers().length }})</h4>
+                            <ul class="user-list">
+                                @for (user of offlineUsers(); track user.id) {
+                                    <li class="user-item offline">
+                                        <span class="user-name">{{ user.name }}</span>
+                                        <span class="user-status">Last seen {{ user.lastSeen | date:'short' }}</span>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        }
+
+                        @if (onlineUsers().length === 0 && offlineUsers().length === 0) {
+                            <p class="no-users">No members yet</p>
+                        }
+            </div>
+            } @else {
+                <div class="empty-sidebar">
+                    <p>Select a room to see members</p>
+                </div>
+            }
+    </div>
+</div>

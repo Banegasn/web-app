@@ -11,6 +11,11 @@ body {
 
 :root {
     --primary-color: #00a3ee;
+    --primary-color-hover: #1092d3;
+    --primary-color-text: #ffffff;
+    --secondary-color: #e0e0e0;
+    --secondary-color-hover: #d0d0d0;
+    --secondary-color-text: #272727;
     --app-width: 900px;
     --navbar-bg: #ffffff;
     --navbar-mobile-bg: #ffffff;

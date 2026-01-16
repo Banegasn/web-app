@@ -1,0 +1,18 @@
+<div class="dialog-content">
+    <h2>Share Room</h2>
+    <p>Share this link with friends to invite them to join "<strong>{{ room.name }}</strong>":</p>
+
+    <div class="share-link-container">
+        <input
+            type="text"
+            [value]="shareLink"
+            readonly
+            class="share-link-input"
+            #linkInput>
+        <button class="btn btn-primary" (click)="copyLink()">Copy Link</button>
+    </div>
+
+    <div class="dialog-actions">
+        <button class="btn btn-secondary" (click)="close()">Close</button>
+    </div>
+</div>

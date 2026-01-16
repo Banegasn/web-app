@@ -1,0 +1,15 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "outDir": "../dist/out-tsc/api",
+        "module": "commonjs",
+        "resolveJsonModule": true,
+        "types": [
+            "node"
+        ]
+    },
+    "include": [
+        "server.ts"
+    ]
+}
