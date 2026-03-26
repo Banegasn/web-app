@@ -10,7 +10,7 @@ imageUrl: "images/m3-expressive-library.jpg"
 
 ## Try the Live Demo First
 
-**[👉 See Material 3 Components in Action](https://banegasn.github.io/components/)** - Interactive demo with all components, code examples, and real-world usage patterns.
+**[👉 See Material 3 Components in Action](https://ui.banegasn.dev)** - Interactive demo with all components, code examples, and real-world usage patterns.
 
 ## The Material Design 3 Gap
 
@@ -65,11 +65,11 @@ Looking for **Material Design 3 components**? Unlike Material UI (still on Mater
 
 ## 🔗 Links
 
-- **[Live Demo](https://banegasn.github.io/components/)** - See Material 3 components in action
+- **[Live Demo](https://ui.banegasn.dev)** - See Material 3 components in action
 - **[GitHub Repository](https://github.com/banegasn/components)** - Star and contribute
 - **License:** MIT
 
 ### Ready to use Material 3 Expressive components?
-Check out the [demo](https://banegasn.github.io/components/) or [GitHub repository](https://github.com/banegasn/components) to get started.
+Check out the [demo](https://ui.banegasn.dev) or [GitHub repository](https://github.com/banegasn/components) to get started.
 
 **#MaterialDesign3 #WebComponents #MaterialYou #MaterialExpressive #WebDevelopment**
