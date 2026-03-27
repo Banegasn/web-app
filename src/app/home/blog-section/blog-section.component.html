@@ -1,19 +1,32 @@
-<section class="w-full max-w-5xl mx-auto py-8 px-4 text-center">
+<section class="w-full max-w-7xl mx-auto py-24 px-6">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div class="max-w-xl">
+            <h2 class="text-3xl md:text-4xl font-extrabold font-display tracking-tight text-slate-900 mb-4">
+                Latest from the <span class="text-gradient">blog</span>
+            </h2>
+            <p class="text-slate-500 text-lg">
+                Thoughts on software development, Angular, and the ever-changing landscape of web technologies.
+            </p>
+        </div>
+        <a routerLink="/blog" class="text-sm font-bold text-primary-600 hover:text-primary-700 flex items-center group">
+            VIEW ALL POSTS 
+            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+        </a>
+    </div>
 
     @if(posts(); as posts) {
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @for(post of posts; track post.id) {
-                <app-blog-post-card [post]="post" />
+                <app-blog-post-card [post]="post" class="animate-slide-up" [style.animation-delay]="0.1 * $index + 's'" />
             }
         </div>
     } @else {
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @for(i of [1, 2, 3]; track i) {
-                <app-blog-post-card />
+                <div class="aspect-[16/9] bg-slate-100 rounded-2xl animate-pulse"></div>
             }
         </div>
     }
-
-    <app-button link="/blog" text="View All Posts" />
-
 </section>

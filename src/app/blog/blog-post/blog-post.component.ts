@@ -1,17 +1,16 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { DatePipe, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, PLATFORM_ID, Renderer2, ViewEncapsulation, effect, inject, input, viewChild, DOCUMENT } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DOCUMENT, ElementRef, OnDestroy, PLATFORM_ID, Renderer2, ViewEncapsulation, effect, inject, input, viewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { marked } from 'marked';
-import { ButtonComponent } from '../../components/button/button.component';
 import { ShareDialogComponent } from '../../components/share/share.dialog.component';
 import { Post } from '../../models/post.model';
 
 @Component({
     selector: 'app-blog-post',
     host: { class: 'blog-post' },
-    imports: [DatePipe, ButtonComponent],
+    imports: [DatePipe, RouterLink],
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./blog-post.component.css'],
     templateUrl: './blog-post.component.html',

@@ -1,24 +1,38 @@
-<div class="container mx-auto py-8">
-    <app-search-bar [(search)]="search" />
+<div class="max-w-7xl mx-auto py-20 px-6">
+    <div class="mb-16">
+        <h1 class="text-4xl md:text-5xl font-extrabold font-display tracking-tight text-slate-900 mb-6">
+            Articles & <span class="text-gradient">Resources</span>
+        </h1>
+        <p class="text-slate-500 text-lg max-width-2xl mb-8">
+            Deep dives into modern web architecture, performance optimization, and Angular best practices.
+        </p>
+        <app-search-bar [(search)]="search" />
+    </div>
 
     @if(filteredPosts(); as posts) {
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             @for(post of posts; track post.id) {
-                <app-blog-post-card [post]="post" />
+                <app-blog-post-card [post]="post" class="animate-fade-in" />
             } @empty {
-                <div class="col-span-full text-center text-muted dark:text-muted-dark">
-                    No blog posts found matching your search.
+                <div class="col-span-full py-20 text-center">
+                    <p class="text-slate-400 italic">No articles found matching your criteria.</p>
                 </div>
             }
         </div>
     } @else if (!posts()) {
-        <p class="text-center text-muted dark:text-muted-dark">Loading posts...</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            @for(i of [1,2,3,4,5,6]; track i) {
+                <div class="aspect-[16/9] bg-slate-100 rounded-2xl animate-pulse"></div>
+            }
+        </div>
     }
 
-    <!-- Optional: Add pagination controls here -->
-
-    <div class="flex justify-center">
-        <app-button class="mt-8" link="/" text="Back to Home" />
+    <div class="mt-20 flex justify-center border-t border-slate-100 pt-10">
+        <a routerLink="/" class="text-sm font-bold text-slate-400 hover:text-primary-600 transition-colors flex items-center">
+            <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+            </svg>
+            BACK TO HOME
+        </a>
     </div>
-
 </div>

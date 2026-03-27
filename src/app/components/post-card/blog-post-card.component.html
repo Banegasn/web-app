@@ -1,29 +1,41 @@
 <a [routerLink]="['/blog', post()?.id]"
-    class="bg-background-alt dark:bg-background-alt-dark rounded-lg shadow-md overflow-hidden
-    flex flex-col h-full transform transition duration-400 hover:scale-[1.01]">
+    class="group flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-slate-100 hover:border-primary-200 transition-all duration-300 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
 
     @if(post()?.imageUrl; as imageUrl) {
-        <img [src]="imageUrl"
-            [alt]="post()?.title || ''"
-            width="400"
-            height="225"
-            class="w-full aspect-[16/9] object-cover">
+        <div class="relative aspect-[16/9] overflow-hidden">
+            <img [src]="imageUrl"
+                [alt]="post()?.title || ''"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </div>
     } @else {
-        <div class="w-full aspect-[16/9] bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-            <span class="text-muted dark:text-muted-dark"></span>
+        <div class="aspect-[16/9] bg-slate-50 flex items-center justify-center">
+            <svg class="w-8 h-8 text-slate-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
         </div>
     }
 
-    <div class="p-5 flex-grow flex flex-col">
-        <h3 class="text-xl font-semibold mb-2 text-text dark:text-text-dark">
+    <div class="p-6 flex-grow flex flex-col">
+        <div class="flex items-center gap-2 mb-3">
+            <span class="text-[10px] uppercase tracking-widest font-bold text-primary-500">Article</span>
+            <span class="text-slate-200">•</span>
+            <span class="text-xs text-slate-400 font-medium">{{ post()?.createdAt | date:'mediumDate' }}</span>
+        </div>
+        
+        <h3 class="text-xl font-bold leading-tight mb-3 text-slate-900 group-hover:text-primary-600 transition-colors">
             {{ post()?.title }}
         </h3>
 
-        <p class="text-gray-800 mb-4 flex-grow">{{ post()?.summary }}</p>
-        <div class="mt-auto self-start"></div>
-        <p class="text-xs text-muted dark:text-muted-dark mb-2">
-            Published: {{ post()?.createdAt | date:'mediumDate' }}
+        <p class="text-[0.95rem] text-slate-500 leading-relaxed mb-6 line-clamp-3">
+            {{ post()?.summary }}
         </p>
+        
+        <div class="mt-auto flex items-center text-xs font-bold text-slate-900 group-hover:translate-x-1 transition-transform">
+            READ MORE 
+            <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+        </div>
     </div>
-
 </a>

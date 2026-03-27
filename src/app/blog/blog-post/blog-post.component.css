@@ -1,134 +1,68 @@
-.post-content p {
-    margin: .5rem 0;
+.prose {
+    color: var(--text-main);
+    line-height: 1.8;
+    font-size: 1.125rem;
 }
 
-.post-content {
-    word-break: break-word;
-}
-
-.post-content a {
-    color: #007bff;
-    text-decoration: underline;
-}
-
-.post-content h1 {
-    font-size: 2rem;
-    margin: 1.5rem 0;
+.prose :where(h1, h2, h3, h4) {
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-main);
+    font-weight: 800;
+    margin-top: 2.5em;
+    margin-bottom: 1em;
     line-height: 1.2;
-    font-weight: 600;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.02em;
 }
 
-.post-content h2 {
-    font-size: 1.5rem;
-    margin: 1rem 0;
+.prose h2 { font-size: 2rem; }
+.prose h3 { font-size: 1.5rem; }
+
+.prose p {
+    margin-bottom: 1.5em;
 }
 
-.post-content h3 {
-    font-size: 1.2rem;
-    margin: 1rem 0;
+.prose :where(ul, ol) {
+    margin-bottom: 1.5em;
+    padding-left: 1.5em;
 }
 
-.post-content pre {
-    width: auto;
-    white-space: break-spaces;
-    background-color: #2c2c2c;
-    color: #ebebeb;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    margin: 1rem 0;
+.prose li {
+    margin-bottom: 0.5em;
 }
 
-.post-content ul,
-ol {
-    margin-left: 1.5rem;
+.prose :where(pre, code) {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.9em;
+    border-radius: 8px;
 }
 
-.post-content ul {
-    list-style-type: disc;
+.prose pre {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 2rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.post-content ol {
-    list-style-type: decimal;
+.prose blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 1.5rem;
+    font-style: italic;
+    color: var(--text-muted);
+    margin: 2rem 0;
 }
 
-.post-content table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1rem 0;
+.prose img {
+    border-radius: 1rem;
+    margin: 2.5rem 0;
 }
 
-.post-content table th,
-.post-content table td {
-    border: 1px solid #ccc;
-    padding: 0.5rem;
-}
-
-.post-content table th {
-    background-color: #f0f0f0;
-}
-
-.post-content table tr:nth-child(even) {
-    background-color: #f0f0f0;
-}
-
-.post-content table tr:nth-child(odd) {
-    background-color: #f9f9f9;
-}
-
-.post-container {
-    padding: 0 2rem;
-    max-height: 100%;
-    overflow: auto;
-    max-height: 100%;
-    position: relative;
-}
-
-.post-main-container {
-    display: flex;
-    flex-direction: column;
-    max-width: var(--app-width);
-    max-height: 100%;
-}
-
-.blog-post {
-    display: flex;
-    height: calc(100dvh - var(--navbar-min-height));
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-}
-
-/* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
-    .blog-post {
-        padding: .5rem;
-        /* Reduce padding on smaller screens */
+    .prose {
+        font-size: 1rem;
     }
-
-    .post-container {
-        padding: 0 1rem;
-        /* Reduce horizontal padding */
-    }
-
-    .post-main-container {
-        max-width: 100%;
-        /* Allow content to use more width */
-        max-height: none;
-        /* Remove max-height constraint if needed */
-    }
-
-    .post-content h1 {
-        font-size: 1.8rem;
-        /* Slightly smaller headings */
-    }
-
-    .post-content h2 {
-        font-size: 1.3rem;
-    }
-
-    .post-content h3 {
-        font-size: 1.1rem;
-    }
+    
+    .prose h2 { font-size: 1.75rem; }
+    .prose h3 { font-size: 1.25rem; }
 }

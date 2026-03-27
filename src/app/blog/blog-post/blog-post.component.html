@@ -1,37 +1,66 @@
-<div class="post-main-container bg-background-alt dark:bg-background-alt-dark rounded-lg shadow-md overflow-hidden">
+<article class="max-w-4xl mx-auto py-12 md:py-20 px-6 animate-fade-in">
     @if(post(); as post) {
+        <header class="mb-12">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="px-3 py-1 bg-primary-50 text-primary-600 text-[10px] font-bold uppercase tracking-widest rounded-full">Technical Article</span>
+                <span class="text-slate-200">•</span>
+                <time class="text-sm text-slate-400 font-medium">{{ post.createdAt | date:'longDate' }}</time>
+            </div>
+            
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold font-display tracking-tight text-slate-900 mb-8 leading-[1.1]">
+                {{ post.title }}
+            </h1>
+
+            @if(post.author) {
+                <div class="flex items-center gap-4 border-t border-slate-100 pt-8 mt-8">
+                    <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-400">
+                        {{ post.author[0] }}
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-slate-900">{{ post.author }}</p>
+                        <p class="text-xs text-slate-500">Software Developer</p>
+                    </div>
+                </div>
+            }
+        </header>
+
         @if(post.imageUrl) {
-            <img [src]="post.imageUrl"
-                [alt]="post.title"
-                class="w-full aspect-[25/3] object-cover max-h-[300px]">
-        } @else {
-            <div class="w-full aspect-[25/3] bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                <span class="text-muted dark:text-muted-dark"></span>
+            <div class="mb-16 rounded-3xl overflow-hidden shadow-2xl shadow-primary-900/10">
+                <img [src]="post.imageUrl"
+                    [alt]="post.title"
+                    class="w-full aspect-[21/9] object-cover">
             </div>
         }
-        <div class="w-full post-container">
-            <div class="post-content" #markdownContent></div>
-            <p class="text-gray-600 my-8">
-                Published: {{ post.createdAt | date:'mediumDate' }}
-                @if(post.author) {
-                    <span class="text-gray-600 block">
-                        Author: {{ post.author }}
-                    </span>
-                }
+
+        <div class="prose prose-slate prose-lg max-w-none prose-headings:font-display prose-headings:tracking-tight prose-a:text-primary-600" #markdownContent></div>
+
+        <footer class="mt-20 pt-10 border-t border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-8">
+            <div class="flex flex-wrap gap-2 text-sm text-slate-500">
                 @if(post.tags?.length) {
-                    <span class="text-gray-600 block">
-                        Tags: {{ post.tags?.join(', ') }}
-                    </span>
+                    <span class="font-bold mr-2 text-slate-900">Tags:</span>
+                    @for(tag of post.tags; track tag) {
+                        <span class="hover:text-primary-600 cursor-pointer">#{{ tag }}</span>
+                    }
                 }
-            </p>
-
-        </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <button (click)="sharePost()" class="px-6 py-3 bg-slate-50 hover:bg-slate-100 text-slate-600 text-sm font-bold rounded-xl transition-colors flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                    </svg>
+                    Share Article
+                </button>
+                <a routerLink="/blog" class="px-6 py-3 bg-slate-900 text-white hover:bg-slate-800 text-sm font-bold rounded-xl transition-colors">
+                    Back to Feed
+                </a>
+            </div>
+        </footer>
     } @else {
-        <p class="text-muted dark:text-muted-dark post-container">Loading post...</p>
+        <div class="py-20 text-center animate-pulse">
+            <div class="h-4 bg-slate-100 w-24 mx-auto mb-4 rounded"></div>
+            <div class="h-12 bg-slate-100 w-3/4 mx-auto mb-8 rounded-lg"></div>
+            <div class="h-96 bg-slate-100 w-full rounded-2xl"></div>
+        </div>
     }
-</div>
-
-<div class="flex justify-between mt-4 gap-4">
-    <app-button link="/blog" text="Go back to list" />
-    <app-button (click)="sharePost()" text="Share this post" />
-</div>
+</article>
