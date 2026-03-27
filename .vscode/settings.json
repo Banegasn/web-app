@@ -1,4 +1,5 @@
 {
+    "editor.formatOnSave": true,
     "editor.detectIndentation": false,
     "editor.tabSize": 4,
     "[json]": {
@@ -6,5 +7,13 @@
     },
     "[javascript]": {
         "editor.tabSize": 2,
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "always",
+        "source.fixAll.ts": "always",
+        "source.organizeImports": "always",
+        "source.addMissingImports.ts": "always",
+        "source.removeUnused.ts": "always",
+        "source.removeUnusedImports": "always",
     }
 }
