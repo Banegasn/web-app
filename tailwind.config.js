@@ -38,9 +38,9 @@ module.exports = {
         }
       },
       animation: {
-        'fade-in': 'fadeIn 0.5s ease-out forwards',
-        'slide-up': 'slideUp 0.6s ease-out forwards',
-        'blur-in': 'blurIn 0.4s ease-out forwards',
+        'fade-in': 'fadeIn 0.5s ease-out both',
+        'slide-up': 'slideUp 0.6s ease-out both',
+        'blur-in': 'blurIn 0.4s ease-out both',
       },
       keyframes: {
         fadeIn: {

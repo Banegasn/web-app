@@ -1,4 +1,4 @@
 app-intro {
-    height: 20vh;
-    padding: 0 1rem;
+    min-height: 80vh;
+    display: block;
 }
