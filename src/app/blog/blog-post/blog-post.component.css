@@ -8,22 +8,27 @@
     font-family: 'Outfit', sans-serif;
     color: var(--text-main);
     font-weight: 800;
-    margin-top: 2.5em;
+    margin-top: 1.5em;
     margin-bottom: 1em;
     line-height: 1.2;
     letter-spacing: -0.02em;
 }
 
-.prose h2 { font-size: 2rem; }
-.prose h3 { font-size: 1.5rem; }
+.prose h2 {
+    font-size: 2rem;
+}
+
+.prose h3 {
+    font-size: 1.5rem;
+}
 
 .prose p {
-    margin-bottom: 1.5em;
+    margin-bottom: 1em;
 }
 
 .prose :where(ul, ol) {
-    margin-bottom: 1.5em;
-    padding-left: 1.5em;
+    margin-bottom: 1em;
+    padding-left: 1em;
 }
 
 .prose li {
@@ -62,7 +67,12 @@
     .prose {
         font-size: 1rem;
     }
-    
-    .prose h2 { font-size: 1.75rem; }
-    .prose h3 { font-size: 1.25rem; }
+
+    .prose h2 {
+        font-size: 1.75rem;
+    }
+
+    .prose h3 {
+        font-size: 1.25rem;
+    }
 }
