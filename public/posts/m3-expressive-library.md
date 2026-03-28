@@ -40,7 +40,7 @@ For years, developers have been waiting for Google to release an official **Mate
 ## Get Started in 60 Seconds
 
 **Install:**
-```bash
+```shell
 npm install @banegasn/m3-button @banegasn/m3-navigation-rail
 ```
 

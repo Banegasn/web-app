@@ -343,7 +343,7 @@ Communication uses **JSON-RPC 2.0** with three message types:
 
 **`STDIO`** — For local integrations. Messages are newline-delimited JSON-RPC via stdin/stdout:
 
-```
+```json
 Client (stdin)  -> {"jsonrpc":"2.0","id":1,"method":"tools/list"}
 Server (stdout) -> {"jsonrpc":"2.0","id":1,"result":{"tools":[...]}}
 ```
@@ -462,7 +462,7 @@ Before concluding any task or reporting success, you MUST execute:
 
 For larger codebases, `.claude/rules/` enables scoped rules that activate only when Claude works on matching file patterns. Every `.md` file is auto-discovered:
 
-```
+```yaml
 .claude/rules/
 ├── typescript.md        # paths: ["**/*.ts", "**/*.tsx"]
 ├── python.md            # paths: ["**/*.py"]
@@ -473,7 +473,7 @@ For larger codebases, `.claude/rules/` enables scoped rules that activate only w
 
 Each uses YAML frontmatter to declare scope:
 
-```markdown
+```yaml
 ---
 paths:
   - "api/schemas/**"
@@ -532,7 +532,7 @@ Teams encode recurring workflows as **slash commands** — a developer types `/d
 
 **Plugins** bundle related commands, skills, hooks, and MCP configurations into shareable packages:
 
-```
+```yaml
 plugin-name/
 ├── .claude-plugin/
 │   └── plugin.json          # Metadata
@@ -548,7 +548,7 @@ plugin-name/
 
 ## The Emerging Architecture Pattern
 
-```
+```txt
 ┌─────────────────────────────────────────────────────────┐
 │                    Developer Intent                      │
 │          (natural language, slash commands, CI)           │

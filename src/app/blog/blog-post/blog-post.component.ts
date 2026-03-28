@@ -4,6 +4,8 @@ import { ChangeDetectionStrategy, Component, DOCUMENT, ElementRef, OnDestroy, PL
 import { Meta, Title } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
 import { marked } from 'marked';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/base16/default-dark.css';
 import { ShareDialogComponent } from '../../components/share/share.dialog.component';
 import { Post } from '../../models/post.model';
 
@@ -30,6 +32,19 @@ export class BlogPostComponent implements OnDestroy {
     private readonly dialog = inject(Dialog);
 
     constructor() {
+        // Configure marked to use highlight.js for syntax highlighting
+        marked.use({
+            renderer: {
+                code(this, args: { code?: string; lang?: string; text?: string; raw?: string }): string | false {
+                    const code = args.text || args.code || '';
+                    const lang = args.lang || 'plaintext';
+                    const validLanguage = lang && hljs.getLanguage(lang) ? lang : 'plaintext';
+                    const highlighted = hljs.highlight(code, { language: validLanguage, ignoreIllegals: true }).value;
+                    return `<pre><code class="hljs language-${validLanguage}">${highlighted}</code></pre>`;
+                }
+            }
+        });
+
         effect(() => {
             const post = this.post();
             const element = this.markdownContent()?.nativeElement;

@@ -50,6 +50,56 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.prose pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+}
+
+/* Syntax highlighting for code elements */
+.prose code:not(pre > code) {
+    background: rgba(15, 23, 42, 0.5);
+    color: #e2e8f0;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.875em;
+}
+
+.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 0;
+    background: transparent;
+    color: transparent;
+}
+
+.hljs-attr,
+.hljs-attribute {
+    color: #79dbb5;
+}
+
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-type {
+    color: #d4a373;
+}
+
+.hljs-regexp,
+.hljs-string {
+    color: #c4d4a8;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+    color: #db8a6b;
+}
+
+.hljs-bullet,
+.hljs-code {
+    color: #69c7d8;
+}
+
 .prose blockquote {
     border-left: 4px solid var(--primary);
     padding-left: 1.5rem;
