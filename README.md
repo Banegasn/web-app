@@ -1,6 +1,7 @@
-# Banegasn
+# Banegasn Portfolio & Blog
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.2.
+Personal website and blog showcasing software engineering projects and insights. Built using modern web standards.
+
 
 ## Development server
 

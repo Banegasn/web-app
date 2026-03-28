@@ -22,7 +22,7 @@ In today's hyperconnected world, we leave a massive trail of data: social media 
 
 ## 🧠 What is Project Aeterna?
 
-Aeterna is an autonomous AI system that uses a **recursive synthesis loop** to transform your digital history into a structured knowledge base. Built with cutting-edge technology like **Angular 21** and the **Model Context Protocol (MCP)**, it operates through three specialized pillars:
+Aeterna is an autonomous AI system that uses a **recursive synthesis loop** to transform your digital history into a structured knowledge base. Built with cutting-edge **modern web architecture** and the **Model Context Protocol (MCP)**, it operates through three specialized pillars:
 
 *   **The Harvester:** Using **Anthropic's "Computer Use" API**, it autonomously navigates the cloud, social platforms, and local files to find your fragmented data.
 *   **The Biographer:** An agent powered by **Claude 4.6** that resolves narrative contradictions and weaves your data into a consistent life story.

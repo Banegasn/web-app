@@ -1,30 +1,30 @@
 ---
 id: "introduction"
 title: "Welcome to My Blog"
-summary: "An introduction to my blog where I share insights about Angular and modern web development, featuring latest Angular 17 features and best practices."
+summary: "An introduction to my blog where I share insights about software engineering and modern web development, featuring architectural patterns and best practices."
 createdAt: "2025-04-24 10:00:00"
 imageUrl: "images/welcome.png"
 ---
 
 # Welcome to My Blog
 
-Hi there! I'm excited to welcome you to my blog where I'll be sharing my thoughts and experiences about software development, particularly focusing on Angular and modern web technologies.
+Hi there! I'm excited to welcome you to my blog where I'll be sharing my thoughts and experiences about software development, systems architecture, and modern web technologies.
 
 ## What to Expect
 
 In this space, you'll find:
-- Deep dives into Angular concepts and best practices
-- Tips and tricks for building better web applications
-- Explorations of new features and updates in the web development ecosystem
-- Real-world examples and practical solutions
+- Deep dives into software architecture and clean code
+- Performance optimization and scalability strategies
+- Explorations of the evolving web development ecosystem
+- Real-world case studies and practical solutions
 
 ## Recent Projects
 
-I've been working on building this blog using Angular 17, incorporating some of the latest features like:
-- Standalone components
-- The new control flow syntax
-- Signal-based reactivity
-- Server-side rendering
+I've been working on building this platform focusing on modern performance standards and developer experience, incorporating:
+- Optimized rendering strategies
+- Reactive state management
+- Type-safe architectures
+- Server-side performance optimization
 
 ## Stay Connected
 

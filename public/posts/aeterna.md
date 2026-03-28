@@ -22,7 +22,7 @@ El **Proyecto Aeterna** es el "Arquitecto de Legado" diseñado para cerrar esta 
 
 ## 🧠 ¿Qué es el Proyecto Aeterna?
 
-Aeterna es un sistema de IA autónomo que utiliza un **bucle de síntesis recursiva** para transformar tu historia digital en una base de conocimiento estructurada. Construido con tecnología de vanguardia como **Angular 21** y el **Model Context Protocol (MCP)**, opera a través de tres pilares especializados:
+Aeterna es un sistema de IA autónomo que utiliza un **bucle de síntesis recursiva** para transformar tu historia digital en una base de conocimiento estructurada. Construido con una **arquitectura web moderna** de vanguardia y el **Model Context Protocol (MCP)**, opera a través de tres pilares especializados:
 
 *   **The Harvester (El Recolector):** Utilizando la **API de "Computer Use" de Anthropic**, navega de forma autónoma por la nube, plataformas sociales y archivos locales para encontrar tus datos fragmentados.
 *   **The Biographer (El Biógrafo):** Un agente impulsado por **Claude 4.6** que resuelve contradicciones narrativas y teje tus datos en una historia de vida consistente.
