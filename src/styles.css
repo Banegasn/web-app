@@ -64,3 +64,8 @@ body {
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+li {
+    list-style: inside;
+    list-style-type: disc;
+}
