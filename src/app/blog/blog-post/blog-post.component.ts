@@ -1,5 +1,6 @@
 import { Dialog } from '@angular/cdk/dialog';
-import { ChangeDetectionStrategy, Component, DOCUMENT, ElementRef, OnDestroy, PLATFORM_ID, Renderer2, ViewEncapsulation, effect, inject, input, viewChild } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, DOCUMENT, ElementRef, OnDestroy, Renderer2, ViewEncapsulation, effect, inject, input, viewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
 import hljs from 'highlight.js';
@@ -27,7 +28,6 @@ export class BlogPostComponent implements OnDestroy {
     private readonly metaService = inject(Meta);
     private readonly router = inject(Router);
     private readonly document = inject(DOCUMENT);
-    private readonly platformId = inject(PLATFORM_ID);
     private readonly dialog = inject(Dialog);
 
     constructor() {
