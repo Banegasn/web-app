@@ -1,11 +1,10 @@
 import { Dialog } from '@angular/cdk/dialog';
-import { DatePipe, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DOCUMENT, ElementRef, OnDestroy, PLATFORM_ID, Renderer2, ViewEncapsulation, effect, inject, input, viewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
-import { marked } from 'marked';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/base16/default-dark.css';
+import { marked } from 'marked';
 import { ShareDialogComponent } from '../../components/share/share.dialog.component';
 import { Post } from '../../models/post.model';
 
@@ -72,17 +71,7 @@ export class BlogPostComponent implements OnDestroy {
                 this.metaService.updateTag({ name: 'twitter:description', content: description });
                 this.metaService.updateTag({ name: 'twitter:image', content: imageUrl });
 
-                if (isPlatformBrowser(this.platformId)) {
-                    let link: HTMLLinkElement | null = this.document.querySelector('link[rel="canonical"]');
-                    if (link) {
-                        this.renderer.setAttribute(link, 'href', canonicalUrl);
-                    } else {
-                        link = this.renderer.createElement('link');
-                        this.renderer.setAttribute(link, 'rel', 'canonical');
-                        this.renderer.setAttribute(link, 'href', canonicalUrl);
-                        this.renderer.appendChild(this.document.head, link);
-                    }
-                }
+                this.metaService.updateTag({ rel: 'canonical', href: canonicalUrl });
 
                 // --- Markdown Rendering ---
                 if (element) {
