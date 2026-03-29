@@ -1,6 +1,6 @@
 import { Dialog } from '@angular/cdk/dialog';
-import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DOCUMENT, ElementRef, OnDestroy, Renderer2, ViewEncapsulation, effect, inject, input, viewChild } from '@angular/core';
+import { DatePipe, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, Component, DOCUMENT, ElementRef, OnDestroy, PLATFORM_ID, Renderer2, ViewEncapsulation, effect, inject, input, viewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
 import hljs from 'highlight.js';
@@ -28,6 +28,7 @@ export class BlogPostComponent implements OnDestroy {
     private readonly metaService = inject(Meta);
     private readonly router = inject(Router);
     private readonly document = inject(DOCUMENT);
+    private readonly platformId = inject(PLATFORM_ID);
     private readonly dialog = inject(Dialog);
 
     constructor() {
@@ -71,7 +72,17 @@ export class BlogPostComponent implements OnDestroy {
                 this.metaService.updateTag({ name: 'twitter:description', content: description });
                 this.metaService.updateTag({ name: 'twitter:image', content: imageUrl });
 
-                this.metaService.updateTag({ rel: 'canonical', href: canonicalUrl });
+                if (isPlatformBrowser(this.platformId)) {
+                    let link: HTMLLinkElement | null = this.document.querySelector('link[rel="canonical"]');
+                    if (link) {
+                        this.renderer.setAttribute(link, 'href', canonicalUrl);
+                    } else {
+                        link = this.renderer.createElement('link');
+                        this.renderer.setAttribute(link, 'rel', 'canonical');
+                        this.renderer.setAttribute(link, 'href', canonicalUrl);
+                        this.renderer.appendChild(this.document.head, link);
+                    }
+                }
 
                 // --- Markdown Rendering ---
                 if (element) {
