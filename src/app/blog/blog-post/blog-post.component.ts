@@ -124,7 +124,7 @@ export class BlogPostComponent implements OnDestroy {
 
     private getOrigin(): string {
         const origin = this.document.location.origin;
-        return origin && origin !== 'null' ? origin : 'https://banegasn.dev';
+        return origin && origin !== 'null' && origin.startsWith('https') ? origin : 'https://banegasn.dev';
     }
 
     private stripDuplicateTitle(post: Post): string {

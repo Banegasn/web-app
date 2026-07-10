@@ -23,11 +23,24 @@ export function app(): express.Express {
     server.get('**', express.static(browserDistFolder, {
         maxAge: '1y',
         index: 'index.html',
+        setHeaders: (res, filePath) => {
+            if (filePath.endsWith('.html')) {
+                res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate, s-maxage=600, stale-while-revalidate=86400');
+            }
+            if (filePath.endsWith('robots.txt') || filePath.endsWith('sitemap.xml') || filePath.endsWith('.webmanifest')) {
+                res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600');
+            }
+            if (filePath.endsWith('.md') || filePath.endsWith('posts.json')) {
+                res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+            }
+        },
     }));
 
     // All regular routes use the Angular engine
     server.get('**', (req, res, next) => {
         const { protocol, originalUrl, baseUrl, headers } = req;
+
+        res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate, s-maxage=600, stale-while-revalidate=86400');
 
         commonEngine
             .render({
