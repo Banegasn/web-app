@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, Renderer2, V
 import { Meta, Title } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
 import hljs from 'highlight.js';
-import 'highlight.js/styles/base16/default-dark.css';
 import { marked } from 'marked';
 import { ShareDialogComponent } from '../../components/share/share.dialog.component';
 import { Post } from '../../models/post.model';

@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { map, mergeMap, of } from 'rxjs';
+import { Post } from './models/post.model';
 import { PostsService } from './services/posts.service';
 
 export const routes: Routes = [
@@ -24,7 +25,7 @@ export const routes: Routes = [
             translations: (route: ActivatedRouteSnapshot) => {
                 const postsService = inject(PostsService);
                 return postsService.getPostById(route.params['id']).pipe(
-                    mergeMap((post: any) => {
+                    mergeMap((post: Partial<Post> | undefined) => {
                         if (!post?.translationGroup) return of([]);
                         return postsService.getAllPostsUnfiltered().pipe(
                             map(allPosts =>
