@@ -1,68 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://banegasn.dev/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <priority>1.00</priority>
   </url>
   <url>
     <loc>https://banegasn.dev/blog</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://banegasn.dev/blog/introduction</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2025-04-24</lastmod>
     <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/welcome.png</image:loc>
+      <image:title>Welcome to My Blog</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://banegasn.dev/blog/ai-mcp</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2025-04-24</lastmod>
     <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/mcp.png</image:loc>
+      <image:title>MCP Servers: The Future of API Workflows</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://banegasn.dev/blog/google-tag-manager</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2025-04-24</lastmod>
     <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/tag-manager.png</image:loc>
+      <image:title>Setting Up Google Tag Manager Server-Side Manually</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://banegasn.dev/blog/quantum-computing-explained</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2025-04-25</lastmod>
     <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/quantum.png</image:loc>
+      <image:title>Quantum Computing: A Gentle Introduction</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://banegasn.dev/blog/apagon-iberico-abril-2025</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2025-04-29</lastmod>
     <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/power-outage.png</image:loc>
+      <image:title>El Gran Apagón Ibérico de Abril 2025: Causas, Impacto y Recuperación</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://banegasn.dev/blog/m3-expressive-library</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2025-10-26</lastmod>
     <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/m3-expressive-library.jpg</image:loc>
+      <image:title>Material 3 Expressive Web Components: The Community-Driven Library You&apos;ve Been Waiting For</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://banegasn.dev/blog/secret-santa-generator</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2025-12-17</lastmod>
     <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/secret-santa.png</image:loc>
+      <image:title>Generador de Amigo Invisible Gratis: Organiza tu Intercambio de Regalos sin Email</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://banegasn.dev/blog/secret-santa-generator-en</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2025-12-17</lastmod>
     <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/secret-santa.png</image:loc>
+      <image:title>Free Secret Santa Generator: Organize Your Gift Exchange Without Email</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://banegasn.dev/blog/aeterna</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-03-27</lastmod>
     <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/aeterna.png</image:loc>
+      <image:title>Aeterna: El Arquitecto Autónomo de Legado para tu Existencia Digital</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://banegasn.dev/blog/aeterna-en</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-03-27</lastmod>
     <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/aeterna.png</image:loc>
+      <image:title>Aeterna: The Autonomous Legacy Architect for Your Digital Existence</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://banegasn.dev/blog/agentic-software-development</loc>
     <lastmod>2026-03-28</lastmod>
     <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/agentic-software-development.png</image:loc>
+      <image:title>Building Core Software with Claude, Autonomous Agents, and the Model Context Protocol</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://banegasn.dev/blog/s3-studio</loc>
+    <lastmod>2026-07-10</lastmod>
+    <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/s3-studio.png</image:loc>
+      <image:title>S3 Studio: Gestor de Amazon S3 y CloudFront de Escritorio Sin Backend</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://banegasn.dev/blog/clip-history</loc>
+    <lastmod>2026-07-10</lastmod>
+    <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/clip-history.png</image:loc>
+      <image:title>ClipHistory: Gestor de Portapapeles Open Source para macOS con Historial Persistente</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://banegasn.dev/blog/achuray</loc>
+    <lastmod>2026-07-10</lastmod>
+    <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/achuray.png</image:loc>
+      <image:title>Achuray: Enviar Archivos Pesados sin Limite de Tamaño por WebRTC Directo del Navegador</image:title>
+    </image:image>
   </url>
 </urlset>
