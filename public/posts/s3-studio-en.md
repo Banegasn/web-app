@@ -12,11 +12,11 @@ translationGroup: "s3-studio"
 
 # S3 Studio: Desktop S3 & CloudFront Manager Without a Hosted Backend
 
-## One workspace for the entire S3 object lifecycle
-
 **S3 Studio** is a **source-available** desktop client for managing Amazon S3 buckets, editing objects, inspecting permissions, and invalidating CloudFront from one focused workspace. No hosted backend, using your existing AWS CLI profiles.
 
 **[👉 Visit S3 Studio](https://banegasn.github.io/s3-studio/)** — Explore the features, download the latest release, or review the source code on GitHub.
+
+---
 
 ## The AWS console problem
 
@@ -24,27 +24,19 @@ Working with **Amazon S3** from the AWS console means constantly switching tabs:
 
 **S3 Studio** solves this by providing a single desktop workspace where navigation, content, context, and edge operations stay together. It's a **desktop S3 client** built with Tauri, React, and TypeScript that talks directly to AWS APIs with no intermediary service.
 
+---
+
 ## What makes S3 Studio different
 
-### Navigate the way S3 actually works
+**Navigate the way S3 actually works** — Browse visually when exploring, click any breadcrumb segment to jump back, or paste an exact prefix when you already know the destination.
 
-Browse visually when exploring, click any **breadcrumb** segment to jump back, or paste an exact prefix when you already know the destination. S3 Studio's browser respects S3's real prefix structure while presenting it in a familiar way.
+**Transfer without losing context** — Upload files or folders, drag from Finder or Explorer, download selections, and delete prefixes with visible progress.
 
-### Transfer without losing context
+**Preview and edit in place** — Inspect images and PDFs, open text and JSON in the Monaco editor, and save directly back to the selected S3 object. No download-edit-reupload cycle.
 
-Upload files or folders, drag from Finder or Explorer, download selections, and delete prefixes with visible progress. Transfer operations don't pull you out of your working context.
+**Understand access without ACL noise** — Bucket ownership and policy controls take the lead. Legacy ACL grants remain available on demand when they genuinely matter.
 
-### Preview and edit in place
-
-Inspect images and PDFs, open text and JSON in the **Monaco editor**, and save directly back to the selected S3 object. No download-edit-reupload cycle.
-
-### Understand access without ACL noise
-
-**Bucket ownership** and **policy controls** take the lead. Legacy ACL grants remain available on demand when they genuinely matter.
-
-### Push changes to the edge
-
-Find linked **CloudFront** distributions and create object, folder wildcard, or multi-selection invalidations beside the content.
+**Push changes to the edge** — Find linked CloudFront distributions and create object, folder wildcard, or multi-selection invalidations beside the content.
 
 <div style="text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-radius: 12px;">
   <h2 style="margin-bottom: 1rem; color: #f8fafc; font-size: 1.4rem;">Try it on your desktop</h2>
@@ -61,6 +53,8 @@ Find linked **CloudFront** distributions and create object, folder wildcard, or 
   </div>
   <p style="margin-top: 1rem; color: #94a3b8; font-size: 0.9rem;">macOS Apple Silicon · macOS Intel · Windows x64 · Linux x64 · Linux ARM64</p>
 </div>
+
+---
 
 ## No hosted backend: your credentials stay with you
 
@@ -79,11 +73,9 @@ S3 Studio desktop app
         └── CloudFront
 ```
 
-This means:
+> Operations run from the desktop app directly against AWS APIs. The selected profile can only perform the actions its AWS permissions allow. Review the Rust, React, and TypeScript source or build the application yourself.
 
-- **No hosted backend**: Operations run from the desktop app directly against AWS APIs.
-- **Your IAM boundaries still apply**: The selected profile can only perform the actions its AWS permissions allow.
-- **Open implementation**: Review the Rust, React, and TypeScript source or build the application yourself.
+---
 
 ## Available platforms
 
@@ -97,35 +89,36 @@ S3 Studio ships native builds for:
 
 All releases are available on the [S3 Studio GitHub page](https://github.com/Banegasn/s3-studio/releases/latest).
 
+---
+
 ## Ideal use cases
 
-- **DevOps teams** managing S3 buckets daily who need to invalidate CloudFront without opening the console
-- **Developers** editing JSON/TXT configuration files directly in S3
-- **Security teams** reviewing bucket permissions and policies
-- **Static content management** hosted on S3 with CloudFront distribution
-- **Migration and transfer** of files between buckets and local folders
+- **DevOps** — Daily S3 bucket management and CloudFront invalidation without the console
+- **Developers** — Edit JSON/TXT configuration files directly in S3
+- **Security** — Review bucket permissions and policies
+- **Static content** — Manage S3 + CloudFront in a single workflow
+- **Migration** — Transfer files between buckets and local folders
+
+---
 
 ## Frequently asked questions
 
-### How does S3 Studio authenticate?
-
+**How does S3 Studio authenticate?**
 It discovers AWS CLI profiles from the standard config and credentials files, plus common AWS environment variables. It never asks you to upload credentials to any service.
 
-### Does S3 really have folders?
-
+**Does S3 really have folders?**
 No. Folder rows are S3 prefixes. S3 Studio represents them as folders for navigation while keeping prefix behavior explicit in the inspector and bulk operations.
 
-### What platforms are available?
-
+**What platforms are available?**
 Tagged releases are built for macOS Apple Silicon and Intel, Windows x64, and Linux x64 and ARM64. Check the latest release for exact assets.
 
-### How are CloudFront links found?
-
+**How are CloudFront links found?**
 The app matches CloudFront origins to the selected S3 bucket, accounts for origin paths, and suggests viewer-path invalidations for the selected content.
 
-### Is it free?
-
+**Is it free?**
 Yes, S3 Studio is **source-available** and free. You can download the binaries or build from source on GitHub.
+
+---
 
 ## Links
 

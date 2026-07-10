@@ -12,47 +12,33 @@ translationGroup: "clip-history"
 
 # ClipHistory: Gestor de Portapapeles Open Source para macOS con Historial Persistente
 
-## Tu portapapeles, siempre a un atajo de distancia
-
 **ClipHistory** es un **gestor de historial de portapapeles open source para macOS**. Pulsa Shift+Cmd+V desde cualquier app y accede a un historial buscable de texto, imágenes y archivos. Persistente con SQLite, sin conexiones de red, bajo licencia MIT.
 
 **[👉 Ver ClipHistory](https://banegasn.github.io/clip-history/)** — Descubre todas las características, descarga el .dmg o revisa el código fuente en GitHub.
+
+---
 
 ## El problema del portapapeles en macOS
 
 macOS solo recuerda **una sola cosa** a la vez en el portapapeles. Copias algo nuevo y lo anterior desaparece para siempre. Si trabajas copiando y pegando fragmentos de texto, enlaces, imágenes o código, esto significa perder tiempo yendo y viniendo entre aplicaciones.
 
-**ClipHistory** es un **gestor de historial de portapapeles para macOS** que soluciona esto de forma elegante: pulsa **Shift+Cmd+V** desde cualquier aplicación y aparece un panel buscable con todo lo que has copiado recientemente. Selecciona, pulsa Enter y se pega directamente donde estabas.
+**ClipHistory** soluciona esto de forma elegante: pulsa **Shift+Cmd+V** desde cualquier aplicación y aparece un panel buscable con todo lo que has copiado recientemente. Selecciona, pulsa Enter y se pega directamente donde estabas.
+
+---
 
 ## Características principales
 
-### Atajo global
+**Atajo global** — **Shift+Cmd+V** abre un panel centrado y buscable desde cualquier aplicación. No necesitas cambiar de ventana ni buscar un icono en la barra de menú.
 
-**Shift+Cmd+V** abre un panel centrado y buscable desde cualquier aplicación. No necesitas cambiar de ventana ni buscar un icono en la barra de menú.
+**Texto, imágenes y archivos** — Captura texto plano y rich text, capturas de pantalla e imágenes, y archivos copiados desde Finder.
 
-### Texto, imágenes y archivos
+**Persistente con SQLite** — El historial se guarda en una base de datos SQLite en Application Support. Sobrevive a reinicios. Limitado a los **200 elementos más recientes** para mantenerse ligero.
 
-ClipHistory captura:
+**Pega en el sitio** — Selecciona un clip con **Enter** y ClipHistory reactiva la aplicación anterior y pega con un **Cmd+V** sintético. No necesitas pegar manualmente.
 
-- **Texto plano y texto enriquecido** (rich text)
-- **Capturas de pantalla e imágenes** copiadas
-- **Archivos copiados desde Finder**
+**Fija tus favoritos** — Marca clips con **Cmd+P** y se quedan fijos arriba. Los clips fijados **nunca se eliminan** por el límite de 200 elementos. **Cmd+Backspace** elimina, **flecha derecha** expande el contenido completo.
 
-### Persistente con SQLite
-
-El historial se guarda en una base de datos **SQLite** en Application Support. Sobrevive a reinicios, cierras y vuelves a abrir, y ahí sigue todo. El historial está limitado a los **200 elementos más recientes** para mantenerse ligero.
-
-### Pega en el sitio
-
-Selecciona un clip con **Enter** y ClipHistory reactiva la aplicación anterior y pega con un **Cmd+V** sintético. No necesitas pegar manualmente.
-
-### Fija tus favoritos
-
-Marca clips con **Cmd+P** y se quedan fijos arriba. Los clips fijados **nunca se eliminan** por el límite de 200 elementos. **Cmd+Backspace** elimina, **flecha derecha** expande el contenido completo.
-
-### Privado por diseño
-
-ClipHistory **no realiza ninguna conexión de red**. Todo se queda en local. Además, **detecta y omite automáticamente** los clips de gestores de contraseñas para que tus credenciales nunca se guarden en el historial.
+**Privado por diseño** — ClipHistory **no realiza ninguna conexión de red**. Todo se queda en local. Además, **detecta y omite automáticamente** los clips de gestores de contraseñas para que tus credenciales nunca se guarden en el historial.
 
 <div style="text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px;">
   <h2 style="margin-bottom: 1rem; color: #f8fafc; font-size: 1.4rem;">Pulsa Shift+Cmd+V y pega lo que quieras</h2>
@@ -70,6 +56,8 @@ ClipHistory **no realiza ninguna conexión de red**. Todo se queda en local. Ade
   <p style="margin-top: 1rem; color: #94a3b8; font-size: 0.9rem;">Free & MIT-licensed · macOS 14+ · ~380 KB</p>
 </div>
 
+---
+
 ## Construido para tus manos
 
 | Atajo | Acción |
@@ -84,26 +72,26 @@ ClipHistory **no realiza ninguna conexión de red**. Todo se queda en local. Ade
 | **Cmd+Backspace** | Eliminar la entrada del historial |
 | **Escribir** | Filtrar el historial |
 
+---
+
 ## Instalación en un minuto
 
-### 1. Descarga y arrastra a Aplicaciones
+**1. Descarga y arrastra a Aplicaciones** — Descarga el [último .dmg](https://github.com/banegasn/clip-history/releases/latest), ábrelo y arrastra **ClipHistory** a Aplicaciones.
 
-Descarga el [último .dmg](https://github.com/banegasn/clip-history/releases/latest), ábrelo y arrastra **ClipHistory** a Aplicaciones.
+**2. Ábrelo la primera vez** — No está notarizado por Apple, así que abre **Ajustes del Sistema ▸ Privacidad y Seguridad** y haz clic en **Abrir de todos modos** (o ejecuta `xattr -dr com.apple.quarantine /Applications/ClipHistory.app` en el terminal).
 
-### 2. Ábrelo la primera vez
+**3. Concede Accesibilidad** — **Ajustes del Sistema ▸ Privacidad y Seguridad ▸ Accesibilidad** → activa ClipHistory. Es necesario para que pueda pegar con Cmd+V.
 
-No está notarizado por Apple, así que abre **Ajustes del Sistema ▸ Privacidad y Seguridad** y haz clic en **Abrir de todos modos** (o ejecuta `xattr -dr com.apple.quarantine /Applications/ClipHistory.app` en el terminal).
-
-### 3. Concede Accesibilidad
-
-Cuando te lo pida: **Ajustes del Sistema ▸ Privacidad y Seguridad ▸ Accesibilidad** → activa ClipHistory. Es necesario para que pueda pegar con Cmd+V.
+---
 
 ## Cómo funciona por dentro
 
-- **Detección de copias**: Sondea `NSPasteboard.changeCount` — macOS no tiene un evento de cambio de portapapeles.
-- **Atajo global**: Carbon `RegisterEventHotKey` — a nivel de sistema, sin permisos especiales.
-- **Pegado**: Reactiva la app anterior y envía un Cmd+V sintético vía `CGEvent`.
-- **Almacenamiento**: SQLite en Application Support; imágenes como blobs PNG, miniaturas en memoria.
+- **Detección de copias** — Sondea `NSPasteboard.changeCount` (macOS no tiene un evento de cambio de portapapeles)
+- **Atajo global** — Carbon `RegisterEventHotKey` (a nivel de sistema, sin permisos especiales)
+- **Pegado** — Reactiva la app anterior y envía un Cmd+V sintético vía `CGEvent`
+- **Almacenamiento** — SQLite en Application Support; imágenes como blobs PNG, miniaturas en memoria
+
+---
 
 ## Por qué elegir ClipHistory
 
@@ -113,31 +101,29 @@ Cuando te lo pida: **Ajustes del Sistema ▸ Privacidad y Seguridad ▸ Accesibi
 - **SQLite persistente** — el historial sobrevive a reinicios
 - **Construido con Swift y SwiftUI** — nativo de macOS
 
+---
+
 ## Preguntas frecuentes
 
-### ¿Es ClipHistory gratis?
-
+**¿Es ClipHistory gratis?**
 Sí, es completamente gratuito y de código abierto bajo licencia MIT. Puedes usarlo, modificarlo y distribuirlo libremente.
 
-### ¿ClipHistory envía datos a internet?
-
+**¿ClipHistory envía datos a internet?**
 No. ClipHistory **no realiza ninguna conexión de red**. Todo el historial se almacena localmente en tu Mac.
 
-### ¿Funciona con gestores de contraseñas?
-
+**¿Funciona con gestores de contraseñas?**
 Sí, ClipHistory detecta y omite automáticamente los clips provenientes de gestores de contraseñas como 1Password, Bitwarden o el llavero de macOS.
 
-### ¿Qué versión de macOS necesito?
-
+**¿Qué versión de macOS necesito?**
 ClipHistory requiere **macOS 14 (Sonoma)** o superior.
 
-### ¿Está notarizado por Apple?
-
+**¿Está notarizado por Apple?**
 No, por lo que deberás hacer clic en "Abrir de todos modos" en Privacidad y Seguridad la primera vez, o ejecutar el comando `xattr` indicado arriba.
 
-### ¿Puedo compilarlo desde el código fuente?
-
+**¿Puedo compilarlo desde el código fuente?**
 Sí, ejecuta `./setup-signing.sh && ./build-app.sh`. Consulta el [README en GitHub](https://github.com/banegasn/clip-history#readme) para más detalles.
+
+---
 
 ## Enlaces
 

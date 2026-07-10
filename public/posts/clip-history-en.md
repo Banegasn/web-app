@@ -12,47 +12,33 @@ translationGroup: "clip-history"
 
 # ClipHistory: Open Source Clipboard Manager for macOS with Persistent History
 
-## Your clipboard, always one shortcut away
-
 **ClipHistory** is an **open source clipboard history manager for macOS**. Press Shift+Cmd+V from any app to access a searchable history of text, images, and files. SQLite persistent, no network connections, MIT licensed.
 
 **[👉 Visit ClipHistory](https://banegasn.github.io/clip-history/)** — Explore all features, download the .dmg, or review the source code on GitHub.
+
+---
 
 ## The macOS clipboard problem
 
 macOS only remembers **one thing** at a time in the clipboard. Copy something new and the previous item is gone forever. If you work copying and pasting text fragments, links, images, or code, this means wasting time switching back and forth between apps.
 
-**ClipHistory** is a **clipboard history manager for macOS** that solves this elegantly: press **Shift+Cmd+V** from any app and a searchable panel appears with everything you've recently copied. Select, hit Enter, and it pastes right where you were.
+**ClipHistory** solves this elegantly: press **Shift+Cmd+V** from any app and a searchable panel appears with everything you've recently copied. Select, hit Enter, and it pastes right where you were.
+
+---
 
 ## Key features
 
-### Global hotkey
+**Global hotkey** — **Shift+Cmd+V** opens a centered, searchable panel from any app. No need to switch windows or hunt for a menu bar icon.
 
-**Shift+Cmd+V** opens a centered, searchable panel from any app. No need to switch windows or hunt for a menu bar icon.
+**Text, images & files** — Captures plain text and rich text, screenshots and images you've copied, and files copied from Finder.
 
-### Text, images & files
+**Persistent with SQLite** — History is stored in a SQLite database in Application Support. It survives reboots. Capped at the **200 most recent items** to stay lightweight.
 
-ClipHistory captures:
+**Paste in place** — Select a clip with **Enter** and ClipHistory re-activates the previous app and pastes with a synthetic **Cmd+V**. No manual pasting needed.
 
-- **Plain text and rich text**
-- **Screenshots and images** you've copied
-- **Files copied from Finder**
+**Pin your favorites** — Pin clips with **Cmd+P** and they stick to the top. Pinned clips **are never evicted** by the 200-item cap. **Cmd+Backspace** deletes, **right arrow** expands full content.
 
-### Persistent with SQLite
-
-History is stored in a **SQLite** database in Application Support. It survives reboots — close and reopen, and it's all still there. History is capped at the **200 most recent items** to stay lightweight.
-
-### Paste in place
-
-Select a clip with **Enter** and ClipHistory re-activates the previous app and pastes with a synthetic **Cmd+V**. No manual pasting needed.
-
-### Pin your favorites
-
-Pin clips with **Cmd+P** and they stick to the top. Pinned clips **are never evicted** by the 200-item cap. **Cmd+Backspace** deletes, **right arrow** expands full content.
-
-### Private by design
-
-ClipHistory **makes no network connections**. Everything stays local. It also **automatically detects and skips** clips from password managers so your credentials never end up in history.
+**Private by design** — ClipHistory **makes no network connections**. Everything stays local. It also **automatically detects and skips** clips from password managers so your credentials never end up in history.
 
 <div style="text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px;">
   <h2 style="margin-bottom: 1rem; color: #f8fafc; font-size: 1.4rem;">Press Shift+Cmd+V and paste anything</h2>
@@ -70,6 +56,8 @@ ClipHistory **makes no network connections**. Everything stays local. It also **
   <p style="margin-top: 1rem; color: #94a3b8; font-size: 0.9rem;">Free & MIT-licensed · macOS 14+ · ~380 KB</p>
 </div>
 
+---
+
 ## Built for your hands
 
 | Shortcut | Action |
@@ -84,26 +72,26 @@ ClipHistory **makes no network connections**. Everything stays local. It also **
 | **Cmd+Backspace** | Delete the selected entry from history |
 | **Type** | Filter the history |
 
+---
+
 ## Installation in a minute
 
-### 1. Download & drag to Applications
+**1. Download & drag to Applications** — Grab the [latest .dmg](https://github.com/banegasn/clip-history/releases/latest), open it, and drag **ClipHistory** into Applications.
 
-Grab the [latest .dmg](https://github.com/banegasn/clip-history/releases/latest), open it, and drag **ClipHistory** into Applications.
+**2. Open it the first time** — It isn't notarized by Apple, so open **System Settings ▸ Privacy & Security** and click **Open Anyway** (or run `xattr -dr com.apple.quarantine /Applications/ClipHistory.app` in Terminal).
 
-### 2. Open it the first time
+**3. Grant Accessibility** — **System Settings ▸ Privacy & Security ▸ Accessibility** → enable ClipHistory. Needed so it can paste with Cmd+V.
 
-It isn't notarized by Apple, so open **System Settings ▸ Privacy & Security** and click **Open Anyway** (or run `xattr -dr com.apple.quarantine /Applications/ClipHistory.app` in Terminal).
-
-### 3. Grant Accessibility
-
-When asked: **System Settings ▸ Privacy & Security ▸ Accessibility** → enable ClipHistory. Needed so it can paste with Cmd+V.
+---
 
 ## How it works under the hood
 
-- **Copy detection**: Polls `NSPasteboard.changeCount` — macOS has no clipboard-change event.
-- **Global shortcut**: Carbon `RegisterEventHotKey` — system-wide, no special permissions.
-- **Paste back**: Re-activates the prior app, then posts a synthetic Cmd+V via `CGEvent`.
-- **Storage**: SQLite in Application Support; images as PNG blobs, thumbnails in memory.
+- **Copy detection** — Polls `NSPasteboard.changeCount` (macOS has no clipboard-change event)
+- **Global shortcut** — Carbon `RegisterEventHotKey` (system-wide, no special permissions)
+- **Paste back** — Re-activates the prior app, then posts a synthetic Cmd+V via `CGEvent`
+- **Storage** — SQLite in Application Support; images as PNG blobs, thumbnails in memory
+
+---
 
 ## Why choose ClipHistory
 
@@ -113,31 +101,29 @@ When asked: **System Settings ▸ Privacy & Security ▸ Accessibility** → ena
 - **SQLite persistent** — history survives reboots
 - **Built with Swift and SwiftUI** — native macOS
 
+---
+
 ## Frequently asked questions
 
-### Is ClipHistory free?
-
+**Is ClipHistory free?**
 Yes, it's completely free and open source under the MIT license. You can use, modify, and distribute it freely.
 
-### Does ClipHistory send data to the internet?
-
+**Does ClipHistory send data to the internet?**
 No. ClipHistory **makes no network connections**. All history is stored locally on your Mac.
 
-### Does it work with password managers?
-
+**Does it work with password managers?**
 Yes, ClipHistory automatically detects and skips clips from password managers like 1Password, Bitwarden, or the macOS Keychain.
 
-### What macOS version do I need?
-
+**What macOS version do I need?**
 ClipHistory requires **macOS 14 (Sonoma)** or later.
 
-### Is it notarized by Apple?
-
+**Is it notarized by Apple?**
 No, so you'll need to click "Open Anyway" in Privacy & Security the first time, or run the `xattr` command above.
 
-### Can I build it from source?
-
+**Can I build it from source?**
 Yes, run `./setup-signing.sh && ./build-app.sh`. See the [README on GitHub](https://github.com/banegasn/clip-history#readme) for details.
+
+---
 
 ## Links
 
