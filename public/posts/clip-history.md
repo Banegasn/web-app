@@ -14,21 +14,9 @@ translationGroup: "clip-history"
 
 ## Tu portapapeles, siempre a un atajo de distancia
 
-<div style="text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px;">
-  <h2 style="margin-bottom: 1rem; color: #f8fafc; font-size: 1.4rem;">Pulsa Shift+Cmd+V y pega lo que quieras</h2>
-  <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-    <a href="https://banegasn.github.io/clip-history/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #0ea5e9; color: white; padding: 1.2rem 2.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s;">
-      🚀 Ver ClipHistory
-    </a>
-    <a href="https://github.com/banegasn/clip-history/releases/latest" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #1f2937; color: #f8fafc; padding: 1.2rem 2.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s; border: 1px solid #374151;">
-      ⬇️ Descargar .dmg
-    </a>
-    <a href="https://github.com/banegasn/clip-history" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: transparent; color: #7dd3fc; padding: 1.2rem 2rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; border: 1px solid #374151;">
-      ★ Ver código en GitHub
-    </a>
-  </div>
-  <p style="margin-top: 1rem; color: #94a3b8; font-size: 0.9rem;">Free & MIT-licensed · macOS 14+ · ~380 KB</p>
-</div>
+**ClipHistory** es un **gestor de historial de portapapeles open source para macOS**. Pulsa Shift+Cmd+V desde cualquier app y accede a un historial buscable de texto, imágenes y archivos. Persistente con SQLite, sin conexiones de red, bajo licencia MIT.
+
+**[👉 Ver ClipHistory](https://banegasn.github.io/clip-history/)** — Descubre todas las características, descarga el .dmg o revisa el código fuente en GitHub.
 
 ## El problema del portapapeles en macOS
 
@@ -65,6 +53,22 @@ Marca clips con **Cmd+P** y se quedan fijos arriba. Los clips fijados **nunca se
 ### Privado por diseño
 
 ClipHistory **no realiza ninguna conexión de red**. Todo se queda en local. Además, **detecta y omite automáticamente** los clips de gestores de contraseñas para que tus credenciales nunca se guarden en el historial.
+
+<div style="text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px;">
+  <h2 style="margin-bottom: 1rem; color: #f8fafc; font-size: 1.4rem;">Pulsa Shift+Cmd+V y pega lo que quieras</h2>
+  <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+    <a href="https://banegasn.github.io/clip-history/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #0ea5e9; color: white; padding: 1.2rem 2.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s;">
+      🚀 Ver ClipHistory
+    </a>
+    <a href="https://github.com/banegasn/clip-history/releases/latest" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #1f2937; color: #f8fafc; padding: 1.2rem 2.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s; border: 1px solid #374151;">
+      ⬇️ Descargar .dmg
+    </a>
+    <a href="https://github.com/banegasn/clip-history" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: transparent; color: #7dd3fc; padding: 1.2rem 2rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; border: 1px solid #374151;">
+      ★ Ver código en GitHub
+    </a>
+  </div>
+  <p style="margin-top: 1rem; color: #94a3b8; font-size: 0.9rem;">Free & MIT-licensed · macOS 14+ · ~380 KB</p>
+</div>
 
 ## Construido para tus manos
 
@@ -141,5 +145,3 @@ Sí, ejecuta `./setup-signing.sh && ./build-app.sh`. Consulta el [README en GitH
 - **[Descargar .dmg](https://github.com/banegasn/clip-history/releases/latest)** — Última release
 - **[Código fuente en GitHub](https://github.com/banegasn/clip-history)** — Star, contribuye e inspecciona
 - **[Reportar issues](https://github.com/banegasn/clip-history/issues)** — Ayuda a mejorar la app
-
-**#macOS #ClipboardManager #OpenSource #Swift #Productividad #Portapapeles #MenuBar #MIT**

@@ -107,6 +107,12 @@ export class PostsService {
     }
 
     getAllPosts(): Observable<Post[]> {
+        return this.getAllPostsUnfiltered().pipe(
+            map(posts => this.filterPostsByLanguage(posts))
+        );
+    }
+
+    getAllPostsUnfiltered(): Observable<Post[]> {
         if (!this.allPostsCache$) {
             // Cache unfiltered posts
             this.allPostsCache$ = this.http.get<{ posts: string[] }>(this.postsManifestUrl).pipe(
@@ -139,10 +145,7 @@ export class PostsService {
                 })
             );
         }
-        // Apply language filtering on each request
-        return this.allPostsCache$.pipe(
-            map(posts => this.filterPostsByLanguage(posts))
-        );
+        return this.allPostsCache$;
     }
 
     getLatestPosts(count: number): Observable<Post[]> {

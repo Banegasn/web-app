@@ -14,24 +14,17 @@ translationGroup: "achuray"
 
 ## El envio directo, sin desvio por la nube
 
-<div style="text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: linear-gradient(135deg, #0c4a6e 0%, #0e7490 100%); border-radius: 12px;">
-  <h2 style="margin-bottom: 1rem; color: #f0f9ff; font-size: 1.4rem;">Envia lo pesado. Sin subida, sin cuenta, sin limite.</h2>
-  <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-    <a href="http://achuray.banegasn.dev/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #06b6d4; color: white; padding: 1.2rem 2.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s;">
-      🚀 Enviar un archivo ahora
-    </a>
-    <a href="http://achuray.banegasn.dev/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #155e75; color: #cffafe; padding: 1.2rem 2rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; border: 1px solid #0e7490;">
-      Unirse a una sala
-    </a>
-  </div>
-  <p style="margin-top: 1rem; color: #a5f3fc; font-size: 0.9rem;">Sin cuenta · Sin subida a la nube · Cifrado WebRTC · Gratis para siempre</p>
-</div>
+**Achuray** envia archivos pesados directamente entre navegadores usando **WebRTC**. Sin subida a la nube, sin limite de tamanio, sin cuenta. La transferencia es cifrada peer-to-peer y gratis para siempre.
+
+**[👉 Enviar un archivo en Achuray](http://achuray.banegasn.dev/)** — Pruebalo ahora, sin registro ni cuenta.
 
 ## El problema de enviar archivos grandes
 
 Enviar un archivo grande por internet suele significar una de estas cosas: subirlo a un servicio en la nube que impone un **limite de tamaño**, crear una cuenta, esperar a que termine la subida completa antes de que la otra persona pueda empezar a descargar, y confiar en que el servicio no lea tu archivo.
 
 **Achuray** cambia por completo esta ecuacion. Es un servicio de **transferencia de archivos peer-to-peer via WebRTC** que conecta tu navegador directamente con el del receptor. El archivo nunca pasa por un servidor de Achuray. Viaja por su propia conexion cifrada de navegador a navegador.
+
+> **Achuray** proviene del quechua, una lengua originaria de los Andes. Significa "distribuir" o "repartir" — exactamente lo que hace la herramienta: entregar un archivo directamente de una persona a otra.
 
 ## Como funciona Achuray en tres pasos
 
@@ -64,6 +57,19 @@ Achuray **no impone un limite de tamaño**. Los limites practicos dependen del s
 ### Presencia clara
 
 Ambas personas ven siempre quien esta online, que esta pasando y por que la pestana del emisor debe permanecer abierta. No hay sorpresas ni transferencias interrumpidas silenciosamente.
+
+<div style="text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: linear-gradient(135deg, #0c4a6e 0%, #0e7490 100%); border-radius: 12px;">
+  <h2 style="margin-bottom: 1rem; color: #f0f9ff; font-size: 1.4rem;">Envia lo pesado. Sin subida, sin cuenta, sin limite.</h2>
+  <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+    <a href="http://achuray.banegasn.dev/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #06b6d4; color: white; padding: 1.2rem 2.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s;">
+      🚀 Enviar un archivo ahora
+    </a>
+    <a href="http://achuray.banegasn.dev/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #155e75; color: #cffafe; padding: 1.2rem 2rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; border: 1px solid #0e7490;">
+      Unirse a una sala
+    </a>
+  </div>
+  <p style="margin-top: 1rem; color: #a5f3fc; font-size: 0.9rem;">Sin cuenta · Sin subida a la nube · Cifrado WebRTC · Gratis para siempre</p>
+</div>
 
 ## Casos de uso ideales
 
@@ -115,5 +121,3 @@ No. Para enviar y recibir archivos directamente no necesitas ninguna cuenta ni r
 - **[Como funciona](http://achuray.banegasn.dev/#how-it-work)** — Detalles tecnicos del proceso
 - **[Seguridad](http://achuray.banegasn.dev/#security)** — Como se cifra y protege tu archivo
 - **[Achuray Pro](http://achuray.banegasn.dev/#pro)** — Unete al early access
-
-**#WebRTC #TransferenciaArchivos #P2P #EnvioArchivosPesados #SinLimite #Privacidad #Cifrado #Gratis**

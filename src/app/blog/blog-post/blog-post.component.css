@@ -8,18 +8,22 @@
     font-family: 'Outfit', sans-serif;
     color: var(--text-main);
     font-weight: 800;
-    margin-top: 1.5em;
+    margin-top: 1.25em;
     margin-bottom: 1em;
     line-height: 1.2;
     letter-spacing: -0.02em;
 }
 
-.prose h2 {
+.prose h1 {
     font-size: 2rem;
 }
 
+.prose h2 {
+    font-size: 1.75rem;
+}
+
 .prose h3 {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
 }
 
 .prose p {
@@ -123,8 +127,12 @@ a {
         font-size: 1rem;
     }
 
-    .prose h2 {
+    .prose h1 {
         font-size: 1.75rem;
+    }
+
+    .prose h2 {
+        font-size: 1.5rem;
     }
 
     .prose h3 {

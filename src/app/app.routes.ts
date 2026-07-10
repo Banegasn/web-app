@@ -1,5 +1,6 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Routes } from '@angular/router';
+import { map, mergeMap, of } from 'rxjs';
 import { PostsService } from './services/posts.service';
 
 export const routes: Routes = [
@@ -19,6 +20,21 @@ export const routes: Routes = [
             post: (route: ActivatedRouteSnapshot) => {
                 const postsService = inject(PostsService);
                 return postsService.getPostById(route.params['id']);
+            },
+            translations: (route: ActivatedRouteSnapshot) => {
+                const postsService = inject(PostsService);
+                return postsService.getPostById(route.params['id']).pipe(
+                    mergeMap((post: any) => {
+                        if (!post?.translationGroup) return of([]);
+                        return postsService.getAllPostsUnfiltered().pipe(
+                            map(allPosts =>
+                                allPosts.filter(p =>
+                                    p.translationGroup === post.translationGroup && p.id !== post.id
+                                )
+                            )
+                        );
+                    })
+                );
             }
         },
         loadComponent: () => import('./blog/blog-post/blog-post.component').then(m => m.BlogPostComponent)

@@ -20,6 +20,7 @@ import { Post } from '../../models/post.model';
 })
 export class BlogPostComponent implements OnDestroy {
     readonly post = input.required<Post>();
+    readonly translations = input<Post[]>([]);
 
     readonly markdownContent = viewChild<ElementRef<HTMLDivElement>>('markdownContent');
 
@@ -30,6 +31,7 @@ export class BlogPostComponent implements OnDestroy {
     private readonly document = inject(DOCUMENT);
     private readonly dialog = inject(Dialog);
     private jsonLdScript?: HTMLScriptElement;
+    private hreflangLinks: HTMLLinkElement[] = [];
 
     constructor() {
         // Configure marked to use highlight.js for syntax highlighting
@@ -95,10 +97,13 @@ export class BlogPostComponent implements OnDestroy {
                 this.setCanonicalUrl(canonicalUrl);
                 this.setJsonLd(post, canonicalUrl, imageUrl, publishedTime, modifiedTime, keywords);
 
+                // --- hreflang tags for translations ---
+                this.setHreflangTags(post, this.translations(), origin);
+
                 // --- Markdown Rendering ---
                 if (element) {
                     if (typeof marked === 'function') {
-                        const htmlContent = marked(post.content);
+                        const htmlContent = marked(this.stripDuplicateTitle(post));
                         this.renderer.setProperty(element, 'innerHTML', htmlContent);
                     } else {
                         this.renderer.setProperty(element, 'textContent', post.content);
@@ -122,6 +127,10 @@ export class BlogPostComponent implements OnDestroy {
         return origin && origin !== 'null' ? origin : 'https://banegasn.dev';
     }
 
+    private stripDuplicateTitle(post: Post): string {
+        return post.content.replace(/^#\s+.+\s*/, '');
+    }
+
     private toIsoDate(date: Date | string): string {
         return new Date(date).toISOString();
     }
@@ -134,6 +143,35 @@ export class BlogPostComponent implements OnDestroy {
             this.renderer.appendChild(this.document.head, link);
         }
         this.renderer.setAttribute(link, 'href', canonicalUrl);
+    }
+
+    private setHreflangTags(post: Post, translations: Post[], origin: string): void {
+        this.hreflangLinks.forEach(link => this.renderer.removeChild(this.document.head, link));
+        this.hreflangLinks = [];
+
+        const currentLang = post.language || 'es';
+        const allVersions: { lang: string; url: string }[] = [
+            { lang: currentLang, url: origin + `/blog/${post.id}` },
+            ...translations.map(t => ({ lang: t.language || 'es', url: origin + `/blog/${t.id}` }))
+        ];
+
+        for (const version of allVersions) {
+            const link = this.renderer.createElement('link');
+            this.renderer.setAttribute(link, 'rel', 'alternate');
+            this.renderer.setAttribute(link, 'hreflang', version.lang);
+            this.renderer.setAttribute(link, 'href', version.url);
+            this.renderer.appendChild(this.document.head, link);
+            this.hreflangLinks.push(link);
+        }
+
+        if (allVersions.length > 1) {
+            const xDefault = this.renderer.createElement('link');
+            this.renderer.setAttribute(xDefault, 'rel', 'alternate');
+            this.renderer.setAttribute(xDefault, 'hreflang', 'x-default');
+            this.renderer.setAttribute(xDefault, 'href', allVersions[0].url);
+            this.renderer.appendChild(this.document.head, xDefault);
+            this.hreflangLinks.push(xDefault);
+        }
     }
 
     private setJsonLd(post: Post, canonicalUrl: string, imageUrl: string, publishedTime: string, modifiedTime: string, keywords?: string): void {
@@ -202,6 +240,8 @@ export class BlogPostComponent implements OnDestroy {
             this.renderer.removeChild(this.document.head, this.jsonLdScript);
             this.jsonLdScript = undefined;
         }
+        this.hreflangLinks.forEach(link => this.renderer.removeChild(this.document.head, link));
+        this.hreflangLinks = [];
         this.titleService.setTitle('banegasn.dev');
     }
 } 

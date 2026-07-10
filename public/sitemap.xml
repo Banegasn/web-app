@@ -119,6 +119,15 @@
     </image:image>
   </url>
   <url>
+    <loc>https://banegasn.dev/blog/s3-studio-en</loc>
+    <lastmod>2026-07-10</lastmod>
+    <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/s3-studio.png</image:loc>
+      <image:title>S3 Studio: Desktop S3 &amp; CloudFront Manager Without a Hosted Backend</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://banegasn.dev/blog/clip-history</loc>
     <lastmod>2026-07-10</lastmod>
     <priority>0.64</priority>
@@ -128,12 +137,30 @@
     </image:image>
   </url>
   <url>
+    <loc>https://banegasn.dev/blog/clip-history-en</loc>
+    <lastmod>2026-07-10</lastmod>
+    <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/clip-history.png</image:loc>
+      <image:title>ClipHistory: Open Source Clipboard Manager for macOS with Persistent History</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://banegasn.dev/blog/achuray</loc>
     <lastmod>2026-07-10</lastmod>
     <priority>0.64</priority>
     <image:image>
       <image:loc>https://banegasn.dev/images/achuray.png</image:loc>
       <image:title>Achuray: Enviar Archivos Pesados sin Limite de Tamaño por WebRTC Directo del Navegador</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://banegasn.dev/blog/achuray-en</loc>
+    <lastmod>2026-07-10</lastmod>
+    <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/achuray.png</image:loc>
+      <image:title>Achuray: Send Large Files with No Size Limit via Direct Browser WebRTC</image:title>
     </image:image>
   </url>
 </urlset>

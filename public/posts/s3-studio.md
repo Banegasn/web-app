@@ -14,21 +14,9 @@ translationGroup: "s3-studio"
 
 ## Un workspace para todo el ciclo de vida de objetos S3
 
-<div style="text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-radius: 12px;">
-  <h2 style="margin-bottom: 1rem; color: #f8fafc; font-size: 1.4rem;">AWS S3 sin la consola dispersa</h2>
-  <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-    <a href="https://banegasn.github.io/s3-studio/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #3b82f6; color: white; padding: 1.2rem 2.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s;">
-      🚀 Ver S3 Studio
-    </a>
-    <a href="https://github.com/Banegasn/s3-studio/releases/latest" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #1f2937; color: #f8fafc; padding: 1.2rem 2.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s; border: 1px solid #374151;">
-      ⬇️ Descargar última release
-    </a>
-    <a href="https://github.com/Banegasn/s3-studio" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: transparent; color: #93c5fd; padding: 1.2rem 2rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; border: 1px solid #374151;">
-      ★ Ver código en GitHub
-    </a>
-  </div>
-  <p style="margin-top: 1rem; color: #94a3b8; font-size: 0.9rem;">macOS Apple Silicon · macOS Intel · Windows x64 · Linux x64 · Linux ARM64</p>
-</div>
+**S3 Studio** es un cliente de escritorio **source-available** para gestionar buckets de Amazon S3, editar objetos, revisar permisos e invalidar CloudFront desde un solo workspace. Sin backend hospedado, usando tus perfiles de AWS CLI existentes.
+
+**[👉 Ver S3 Studio](https://banegasn.github.io/s3-studio/)** — Explora las características, descarga la última release o revisa el código fuente en GitHub.
 
 ## El problema de la consola de AWS
 
@@ -58,7 +46,23 @@ Los controles de **ownership** y **bucket policy** toman el protagonismo. Las co
 
 Encuentra las distribuciones de **CloudFront** vinculadas y crea invalidaciones de objeto, carpeta con wildcard o selección múltiple al lado del contenido.
 
-## Sin backend hospedado: tus credenciales se quedan contigo
+<div style="text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-radius: 12px;">
+  <h2 style="margin-bottom: 1rem; color: #f8fafc; font-size: 1.4rem;">Pruébalo en tu escritorio</h2>
+  <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+    <a href="https://banegasn.github.io/s3-studio/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #3b82f6; color: white; padding: 1.2rem 2.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s;">
+      🚀 Ver S3 Studio
+    </a>
+    <a href="https://github.com/Banegasn/s3-studio/releases/latest" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #1f2937; color: #f8fafc; padding: 1.2rem 2.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s; border: 1px solid #374151;">
+      ⬇️ Descargar última release
+    </a>
+    <a href="https://github.com/Banegasn/s3-studio" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: transparent; color: #93c5fd; padding: 1.2rem 2rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; border: 1px solid #374151;">
+      ★ Ver código en GitHub
+    </a>
+  </div>
+  <p style="margin-top: 1rem; color: #94a3b8; font-size: 0.9rem;">macOS Apple Silicon · macOS Intel · Windows x64 · Linux x64 · Linux ARM64</p>
+</div>
+
+## Sin backend hospedado: tus credredenciales se quedan contigo
 
 S3 Studio lee la misma configuración de perfil que usa el **AWS CLI** y se comunica directamente con AWS. No hay migración de cuentas ni capa de sincronización hospedada.
 
@@ -129,5 +133,3 @@ Sí, S3 Studio es **source-available** y gratuito. Puedes descargar los binarios
 - **[Descargar última release](https://github.com/Banegasn/s3-studio/releases/latest)** — Builds para macOS, Windows y Linux
 - **[Código fuente en GitHub](https://github.com/Banegasn/s3-studio)** — Star, contribuye e inspecciona
 - **[Reportar issues](https://github.com/Banegasn/s3-studio/issues)** — Ayuda a mejorar la herramienta
-
-**#AmazonS3 #AWS #CloudFront #DevTools #Tauri #S3Browser #ObjectStorage #OpenSource**
