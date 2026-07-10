@@ -14,7 +14,7 @@ translationGroup: "achuray"
 
 **Achuray** sends large files directly between browsers using **WebRTC**. No cloud upload, no size limit, no account required. The transfer is encrypted peer-to-peer and free forever.
 
-**[👉 Send a file on Achuray](http://achuray.banegasn.dev/)** — Try it now, no registration or account needed.
+**[👉 Send a file on Achuray](https://achuray.banegasn.dev/)** — Try it now, no registration or account needed.
 
 ---
 
@@ -51,10 +51,10 @@ Sending a large file over the internet usually means one of these: uploading it 
 <div style="text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: linear-gradient(135deg, #0c4a6e 0%, #0e7490 100%); border-radius: 12px;">
   <h2 style="margin-bottom: 1rem; color: #f0f9ff; font-size: 1.4rem;">Send the heavy stuff. No upload, no account, no limit.</h2>
   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-    <a href="http://achuray.banegasn.dev/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #06b6d4; color: white; padding: 1.2rem 2.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s;">
+    <a href="https://achuray.banegasn.dev/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #06b6d4; color: white; padding: 1.2rem 2.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s;">
       🚀 Send a file now
     </a>
-    <a href="http://achuray.banegasn.dev/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #155e75; color: #cffafe; padding: 1.2rem 2rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; border: 1px solid #0e7490;">
+    <a href="https://achuray.banegasn.dev/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #155e75; color: #cffafe; padding: 1.2rem 2rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; border: 1px solid #0e7490;">
       Join a room
     </a>
   </div>
@@ -109,7 +109,7 @@ No. To send and receive files directly you don't need any account or registratio
 
 ## Links
 
-- **[Send a file on Achuray](http://achuray.banegasn.dev/)** — Try it now, no registration
-- **[How it works](http://achuray.banegasn.dev/#how-it-works)** — Technical details of the process
-- **[Security](http://achuray.banegasn.dev/#security)** — How your file is encrypted and protected
-- **[Achuray Pro](http://achuray.banegasn.dev/#pro)** — Join early access
+- **[Send a file on Achuray](https://achuray.banegasn.dev/)** — Try it now, no registration
+- **[How it works](https://achuray.banegasn.dev/#how-it-works)** — Technical details of the process
+- **[Security](https://achuray.banegasn.dev/#security)** — How your file is encrypted and protected
+- **[Achuray Pro](https://achuray.banegasn.dev/#pro)** — Join early access

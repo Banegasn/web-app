@@ -14,7 +14,7 @@ translationGroup: "achuray"
 
 **Achuray** envia archivos pesados directamente entre navegadores usando **WebRTC**. Sin subida a la nube, sin limite de tamanio, sin cuenta. La transferencia es cifrada peer-to-peer y gratis para siempre.
 
-**[👉 Enviar un archivo en Achuray](http://achuray.banegasn.dev/)** — Pruebalo ahora, sin registro ni cuenta.
+**[👉 Enviar un archivo en Achuray](https://achuray.banegasn.dev/)** — Pruebalo ahora, sin registro ni cuenta.
 
 ---
 
@@ -51,10 +51,10 @@ Enviar un archivo grande por internet suele significar una de estas cosas: subir
 <div style="text-align: center; margin: 1.5rem 0; padding: 1.5rem; background: linear-gradient(135deg, #0c4a6e 0%, #0e7490 100%); border-radius: 12px;">
   <h2 style="margin-bottom: 1rem; color: #f0f9ff; font-size: 1.4rem;">Envia lo pesado. Sin subida, sin cuenta, sin limite.</h2>
   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-    <a href="http://achuray.banegasn.dev/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #06b6d4; color: white; padding: 1.2rem 2.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s;">
+    <a href="https://achuray.banegasn.dev/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #06b6d4; color: white; padding: 1.2rem 2.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s;">
       🚀 Enviar un archivo ahora
     </a>
-    <a href="http://achuray.banegasn.dev/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #155e75; color: #cffafe; padding: 1.2rem 2rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; border: 1px solid #0e7490;">
+    <a href="https://achuray.banegasn.dev/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #155e75; color: #cffafe; padding: 1.2rem 2rem; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem; border: 1px solid #0e7490;">
       Unirse a una sala
     </a>
   </div>
@@ -109,7 +109,7 @@ No. Para enviar y recibir archivos directamente no necesitas ninguna cuenta ni r
 
 ## Enlaces
 
-- **[Enviar un archivo en Achuray](http://achuray.banegasn.dev/)** — Pruebalo ahora, sin registro
-- **[Como funciona](http://achuray.banegasn.dev/#how-it-work)** — Detalles tecnicos del proceso
-- **[Seguridad](http://achuray.banegasn.dev/#security)** — Como se cifra y protege tu archivo
-- **[Achuray Pro](http://achuray.banegasn.dev/#pro)** — Unete al early access
+- **[Enviar un archivo en Achuray](https://achuray.banegasn.dev/)** — Pruebalo ahora, sin registro
+- **[Como funciona](https://achuray.banegasn.dev/#how-it-work)** — Detalles tecnicos del proceso
+- **[Seguridad](https://achuray.banegasn.dev/#security)** — Como se cifra y protege tu archivo
+- **[Achuray Pro](https://achuray.banegasn.dev/#pro)** — Unete al early access
