@@ -13,7 +13,7 @@ export function app(): express.Express {
     const indexHtml = join(serverDistFolder, 'index.server.html');
 
     const commonEngine = new CommonEngine({
-        allowedHosts: ['banegasn.dev', 'localhost']
+        allowedHosts: ['banegasn.dev', 'www.banegasn.dev', 'localhost']
     });
 
     server.set('view engine', 'html');
