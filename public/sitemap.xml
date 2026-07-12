@@ -2,12 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://banegasn.dev/</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-07-12</lastmod>
     <priority>1.00</priority>
   </url>
   <url>
     <loc>https://banegasn.dev/blog</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-07-12</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
@@ -161,6 +161,24 @@
     <image:image>
       <image:loc>https://banegasn.dev/images/achuray.png</image:loc>
       <image:title>Achuray: Send Large Files with No Size Limit via Direct Browser WebRTC</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://banegasn.dev/blog/pling</loc>
+    <lastmod>2026-07-12</lastmod>
+    <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/pling.png</image:loc>
+      <image:title>Por qué estoy construyendo Pling</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://banegasn.dev/blog/pling-en</loc>
+    <lastmod>2026-07-12</lastmod>
+    <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/pling.png</image:loc>
+      <image:title>Why I&apos;m Building Pling</image:title>
     </image:image>
   </url>
 </urlset>
