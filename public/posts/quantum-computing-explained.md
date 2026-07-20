@@ -3,7 +3,7 @@ id: "quantum-computing-explained"
 title: "Quantum Computing: A Gentle Introduction"
 summary: "Exploring the fascinating world of quantum computers, qubits, and their connection to quantum physics. We'll also discuss Google's Willow chip and the current state of quantum computation."
 createdAt: "2025-04-25"
-imageUrl: "images/quantum.png"
+imageUrl: "images/quantum.jpg"
 ---
 
 # Quantum Computing: A Gentle Introduction

@@ -62,9 +62,9 @@
 
 /* Syntax highlighting for code elements */
 .prose code:not(pre > code) {
-    background: rgba(15, 23, 42, 0.5);
-    color: #e2e8f0;
-    padding: 0.2em 0.4em;
+    background: rgb(16, 18, 20);
+    color: #feffff;
+    padding: 0.2em 0.5em;
     border-radius: 4px;
     font-size: 0.875em;
 }

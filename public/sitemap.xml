@@ -2,12 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://banegasn.dev/</loc>
-    <lastmod>2026-07-12</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <priority>1.00</priority>
   </url>
   <url>
     <loc>https://banegasn.dev/blog</loc>
-    <lastmod>2026-07-12</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
@@ -15,7 +15,7 @@
     <lastmod>2025-04-24</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/welcome.png</image:loc>
+      <image:loc>https://banegasn.dev/images/welcome.jpg</image:loc>
       <image:title>Welcome to My Blog</image:title>
     </image:image>
   </url>
@@ -24,7 +24,7 @@
     <lastmod>2025-04-24</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/mcp.png</image:loc>
+      <image:loc>https://banegasn.dev/images/mcp.jpg</image:loc>
       <image:title>MCP Servers: The Future of API Workflows</image:title>
     </image:image>
   </url>
@@ -33,7 +33,7 @@
     <lastmod>2025-04-24</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/tag-manager.png</image:loc>
+      <image:loc>https://banegasn.dev/images/tag-manager.jpg</image:loc>
       <image:title>Setting Up Google Tag Manager Server-Side Manually</image:title>
     </image:image>
   </url>
@@ -42,7 +42,7 @@
     <lastmod>2025-04-25</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/quantum.png</image:loc>
+      <image:loc>https://banegasn.dev/images/quantum.jpg</image:loc>
       <image:title>Quantum Computing: A Gentle Introduction</image:title>
     </image:image>
   </url>
@@ -51,7 +51,7 @@
     <lastmod>2025-04-29</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/power-outage.png</image:loc>
+      <image:loc>https://banegasn.dev/images/power-outage.jpg</image:loc>
       <image:title>El Gran Apagón Ibérico de Abril 2025: Causas, Impacto y Recuperación</image:title>
     </image:image>
   </url>
@@ -69,7 +69,7 @@
     <lastmod>2025-12-17</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/secret-santa.png</image:loc>
+      <image:loc>https://banegasn.dev/images/secret-santa.jpg</image:loc>
       <image:title>Generador de Amigo Invisible Gratis: Organiza tu Intercambio de Regalos sin Email</image:title>
     </image:image>
   </url>
@@ -78,7 +78,7 @@
     <lastmod>2025-12-17</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/secret-santa.png</image:loc>
+      <image:loc>https://banegasn.dev/images/secret-santa.jpg</image:loc>
       <image:title>Free Secret Santa Generator: Organize Your Gift Exchange Without Email</image:title>
     </image:image>
   </url>
@@ -87,7 +87,7 @@
     <lastmod>2026-03-27</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/aeterna.png</image:loc>
+      <image:loc>https://banegasn.dev/images/aeterna.jpg</image:loc>
       <image:title>Aeterna: El Arquitecto Autónomo de Legado para tu Existencia Digital</image:title>
     </image:image>
   </url>
@@ -96,7 +96,7 @@
     <lastmod>2026-03-27</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/aeterna.png</image:loc>
+      <image:loc>https://banegasn.dev/images/aeterna.jpg</image:loc>
       <image:title>Aeterna: The Autonomous Legacy Architect for Your Digital Existence</image:title>
     </image:image>
   </url>
@@ -105,7 +105,7 @@
     <lastmod>2026-03-28</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/agentic-software-development.png</image:loc>
+      <image:loc>https://banegasn.dev/images/agentic-software-development.jpg</image:loc>
       <image:title>Building Core Software with Claude, Autonomous Agents, and the Model Context Protocol</image:title>
     </image:image>
   </url>
@@ -114,7 +114,7 @@
     <lastmod>2026-07-10</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/s3-studio.png</image:loc>
+      <image:loc>https://banegasn.dev/images/s3-studio.jpg</image:loc>
       <image:title>S3 Studio: Gestor de Amazon S3 y CloudFront de Escritorio Sin Backend</image:title>
     </image:image>
   </url>
@@ -123,7 +123,7 @@
     <lastmod>2026-07-10</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/s3-studio.png</image:loc>
+      <image:loc>https://banegasn.dev/images/s3-studio.jpg</image:loc>
       <image:title>S3 Studio: Desktop S3 &amp; CloudFront Manager Without a Hosted Backend</image:title>
     </image:image>
   </url>
@@ -132,7 +132,7 @@
     <lastmod>2026-07-10</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/clip-history.png</image:loc>
+      <image:loc>https://banegasn.dev/images/clip-history.jpg</image:loc>
       <image:title>ClipHistory: Gestor de Portapapeles Open Source para macOS con Historial Persistente</image:title>
     </image:image>
   </url>
@@ -141,7 +141,7 @@
     <lastmod>2026-07-10</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/clip-history.png</image:loc>
+      <image:loc>https://banegasn.dev/images/clip-history.jpg</image:loc>
       <image:title>ClipHistory: Open Source Clipboard Manager for macOS with Persistent History</image:title>
     </image:image>
   </url>
@@ -150,7 +150,7 @@
     <lastmod>2026-07-10</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/achuray.png</image:loc>
+      <image:loc>https://banegasn.dev/images/achuray.jpg</image:loc>
       <image:title>Achuray: Enviar Archivos Pesados sin Limite de Tamaño por WebRTC Directo del Navegador</image:title>
     </image:image>
   </url>
@@ -159,7 +159,7 @@
     <lastmod>2026-07-10</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/achuray.png</image:loc>
+      <image:loc>https://banegasn.dev/images/achuray.jpg</image:loc>
       <image:title>Achuray: Send Large Files with No Size Limit via Direct Browser WebRTC</image:title>
     </image:image>
   </url>
@@ -168,7 +168,7 @@
     <lastmod>2026-07-12</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/pling.png</image:loc>
+      <image:loc>https://banegasn.dev/images/pling.jpg</image:loc>
       <image:title>Por qué estoy construyendo Pling</image:title>
     </image:image>
   </url>
@@ -177,8 +177,26 @@
     <lastmod>2026-07-12</lastmod>
     <priority>0.64</priority>
     <image:image>
-      <image:loc>https://banegasn.dev/images/pling.png</image:loc>
+      <image:loc>https://banegasn.dev/images/pling.jpg</image:loc>
       <image:title>Why I&apos;m Building Pling</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://banegasn.dev/blog/building-pling-webrtc-lessons</loc>
+    <lastmod>2026-07-20</lastmod>
+    <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/pling-webrtc-es.jpg</image:loc>
+      <image:title>Lo que estoy aprendiendo construyendo Pling con WebRTC</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://banegasn.dev/blog/building-pling-webrtc-lessons-en</loc>
+    <lastmod>2026-07-20</lastmod>
+    <priority>0.64</priority>
+    <image:image>
+      <image:loc>https://banegasn.dev/images/pling-webrtc-en.jpg</image:loc>
+      <image:title>What I&apos;m learning while building Pling with WebRTC</image:title>
     </image:image>
   </url>
 </urlset>

@@ -6,6 +6,10 @@ import { PostsService } from './services/posts.service';
 
 export const routes: Routes = [
     {
+        path: 'admin/comments',
+        loadComponent: () => import('./admin/comments-admin/comments-admin.component').then(m => m.CommentsAdminComponent)
+    },
+    {
         path: 'blog',
         resolve: {
             posts: () => {

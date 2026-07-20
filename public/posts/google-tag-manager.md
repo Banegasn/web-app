@@ -3,7 +3,7 @@ id: "google-tag-manager"
 title: "Setting Up Google Tag Manager Server-Side Manually"
 summary: "A guide to manually configuring Google Tag Manager Server-Side using Docker on Railway. Learn how to set up the required tagging and preview servers for enhanced control and performance."
 createdAt: "2025-04-24 12:00:00"
-imageUrl: "images/tag-manager.png" 
+imageUrl: "images/tag-manager.jpg"
 ---
 # Setting Up Google Tag Manager Server-Side Manually with Docker on Railway
 

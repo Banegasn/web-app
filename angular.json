@@ -28,6 +28,7 @@
             ],
             "scripts": [],
             "server": "src/main.server.ts",
+            "externalDependencies": ["node:sqlite"],
             "prerender": true,
             "ssr": {
               "entry": "server.ts"
@@ -62,6 +63,9 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          },
           "configurations": {
             "production": {
               "buildTarget": "banegasn:build:production"

@@ -7,11 +7,12 @@ import hljs from 'highlight.js';
 import { marked } from 'marked';
 import { ShareDialogComponent } from '../../components/share/share.dialog.component';
 import { Post } from '../../models/post.model';
+import { BlogCommentsComponent } from '../blog-comments/blog-comments.component';
 
 @Component({
     selector: 'app-blog-post',
     host: { class: 'blog-post' },
-    imports: [DatePipe, RouterLink],
+    imports: [DatePipe, RouterLink, BlogCommentsComponent],
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./blog-post.component.css'],
     templateUrl: './blog-post.component.html',
@@ -67,7 +68,7 @@ export class BlogPostComponent implements OnDestroy {
                 const description = post.summary;
                 const origin = this.getOrigin();
                 const canonicalUrl = origin + this.router.url.split('?')[0].split('#')[0];
-                const imageUrl = post.imageUrl ? `${origin}/${post.imageUrl}` : `${origin}/images/default.png`;
+                const imageUrl = post.imageUrl ? `${origin}/${post.imageUrl}` : `${origin}/images/default.jpg`;
                 const publishedTime = this.toIsoDate(post.createdAt);
                 const modifiedTime = this.toIsoDate(post.updatedAt || post.createdAt);
                 const keywords = post.keywords || post.tags?.join(', ');

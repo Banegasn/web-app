@@ -3,7 +3,7 @@ id: "introduction"
 title: "Welcome to My Blog"
 summary: "An introduction to my blog where I share insights about software engineering and modern web development, featuring architectural patterns and best practices."
 createdAt: "2025-04-24 10:00:00"
-imageUrl: "images/welcome.png"
+imageUrl: "images/welcome.jpg"
 ---
 
 # Welcome to My Blog

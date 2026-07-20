@@ -39,7 +39,7 @@ export class BlogListComponent implements OnDestroy {
         const origin = this.getOrigin();
         const canonicalUrl = `${origin}/blog`;
         const description = 'Technical articles and project writeups from Banegasn about TypeScript, Angular, Node.js, AI workflows, cloud tooling, and software architecture.';
-        const imageUrl = `${origin}/images/welcome.png`;
+        const imageUrl = `${origin}/images/welcome.jpg`;
 
         this.titleService.setTitle('Technical Articles and Project Writeups | banegasn.dev');
         this.metaService.updateTag({ name: 'description', content: description });

@@ -3,7 +3,7 @@ id: "secret-santa-generator"
 title: "Generador de Amigo Invisible Gratis: Organiza tu Intercambio de Regalos sin Email"
 summary: "Generador de Amigo Invisible gratuito. Organiza intercambios de regalos sin email, comparte enlaces por WhatsApp."
 createdAt: "2025-12-17 10:00:00"
-imageUrl: "images/secret-santa.png"
+imageUrl: "images/secret-santa.jpg"
 tags: "Secret Santa, Amigo Invisible, Generador de Regalos, Navidad, Intercambio de Regalos, Herramientas Online"
 language: "es"
 translationGroup: "secret-santa-generator"
@@ -123,4 +123,3 @@ El Generador de Amigo Invisible es la solución perfecta para organizar intercam
 ---
 
 *¿Tienes preguntas o sugerencias sobre el generador? ¡Déjame saber en los comentarios!*
-

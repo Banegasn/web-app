@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Pling">
+  <defs>
+    <linearGradient id="background" x1="0" y1="1" x2="1" y2="0">
+      <stop stop-color="#020617" />
+      <stop offset="0.52" stop-color="#0b1736" />
+      <stop offset="1" stop-color="#172554" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(872 348) rotate(156) scale(620 430)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#60a5fa" stop-opacity="0.35" />
+      <stop offset="0.5" stop-color="#818cf8" stop-opacity="0.13" />
+      <stop offset="1" stop-color="#020617" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#d1fae5" />
+      <stop offset="1" stop-color="#60a5fa" />
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="34" flood-color="#020617" flood-opacity="0.6" />
+      <feDropShadow dx="0" dy="0" stdDeviation="30" flood-color="#818cf8" flood-opacity="0.18" />
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#background)" />
+  <rect width="1200" height="630" fill="url(#glow)" />
+  <g filter="url(#shadow)" transform="translate(846 315)">
+    <circle r="132" fill="url(#brand)" />
+    <circle r="41.25" fill="#020617" />
+    <circle cx="63.36" r="20.63" fill="#07101c" />
+  </g>
+</svg>

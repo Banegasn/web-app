@@ -3,7 +3,7 @@ id: "aeterna"
 title: "Aeterna: El Arquitecto Autónomo de Legado para tu Existencia Digital"
 summary: "Descubre Aeterna, el sistema autónomo diseñado para sintetizar tus huellas digitales fragmentadas en memorias persistentes e interactivas utilizando Anthropic Claude 4.6."
 createdAt: "2026-03-27 12:00:00"
-imageUrl: "images/aeterna.png"
+imageUrl: "images/aeterna.jpg"
 language: "es"
 translationGroup: "aeterna"
 ---

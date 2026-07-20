@@ -3,7 +3,7 @@ id: "secret-santa-generator-en"
 title: "Free Secret Santa Generator: Organize Your Gift Exchange Without Email"
 summary: "Discover our free online Secret Santa generator. Organize secret gift exchanges for family, friends, or coworkers without needing email. Share unique links via WhatsApp and create magical moments this Christmas."
 createdAt: "2025-12-17 10:00:00"
-imageUrl: "images/secret-santa.png"
+imageUrl: "images/secret-santa.jpg"
 tags: "Secret Santa, Gift Exchange, Christmas, Gift Generator, Online Tools, Free Tools"
 language: "en"
 translationGroup: "secret-santa-generator"
@@ -123,4 +123,3 @@ The Secret Santa Generator is the perfect solution for organizing gift exchanges
 ---
 
 *Have questions or suggestions about the generator? Let me know in the comments!*
-
