@@ -44,6 +44,11 @@ export function app(): express.Express {
         },
     }));
 
+    // Do not pass missing post assets into Angular SSR, which would return app HTML.
+    server.get('/posts/*', (_req, res) => {
+        res.status(404).type('text/plain').send('Post not found');
+    });
+
     // All regular routes use the Angular engine
     server.get('**', (req, res, next) => {
         const { protocol, originalUrl, baseUrl, headers } = req;

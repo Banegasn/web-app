@@ -70,7 +70,7 @@ export class BlogPostComponent implements OnDestroy {
                 const canonicalUrl = origin + this.router.url.split('?')[0].split('#')[0];
                 const imageUrl = post.imageUrl ? `${origin}/${post.imageUrl}` : `${origin}/images/default.jpg`;
                 const publishedTime = this.toIsoDate(post.createdAt);
-                const modifiedTime = this.toIsoDate(post.updatedAt || post.createdAt);
+                const modifiedTime = this.toIsoDate(post.updatedAt || post.createdAt) || publishedTime;
                 const keywords = post.keywords || post.tags?.join(', ');
 
                 this.metaService.updateTag({ name: 'description', content: description });
@@ -84,8 +84,12 @@ export class BlogPostComponent implements OnDestroy {
                 this.metaService.updateTag({ property: 'og:image', content: imageUrl });
                 this.metaService.updateTag({ property: 'og:site_name', content: 'banegasn.dev' });
                 this.metaService.updateTag({ property: 'og:locale', content: post.language === 'en' ? 'en_US' : 'es_ES' });
-                this.metaService.updateTag({ property: 'article:published_time', content: publishedTime });
-                this.metaService.updateTag({ property: 'article:modified_time', content: modifiedTime });
+                if (publishedTime) {
+                    this.metaService.updateTag({ property: 'article:published_time', content: publishedTime });
+                }
+                if (modifiedTime) {
+                    this.metaService.updateTag({ property: 'article:modified_time', content: modifiedTime });
+                }
                 this.metaService.updateTag({ property: 'article:author', content: post.author || 'banegasn' });
                 this.metaService.updateTag({ property: 'article:section', content: 'Software Development' });
 
@@ -131,8 +135,11 @@ export class BlogPostComponent implements OnDestroy {
         return post.content.replace(/^#\s+.+\s*/, '');
     }
 
-    private toIsoDate(date: Date | string): string {
-        return new Date(date).toISOString();
+    private toIsoDate(value: Date | string | undefined): string | undefined {
+        if (!value) return undefined;
+
+        const date = new Date(value);
+        return Number.isNaN(date.getTime()) ? undefined : date.toISOString();
     }
 
     private setCanonicalUrl(canonicalUrl: string): void {
@@ -174,7 +181,7 @@ export class BlogPostComponent implements OnDestroy {
         }
     }
 
-    private setJsonLd(post: Post, canonicalUrl: string, imageUrl: string, publishedTime: string, modifiedTime: string, keywords?: string): void {
+    private setJsonLd(post: Post, canonicalUrl: string, imageUrl: string, publishedTime?: string, modifiedTime?: string, keywords?: string): void {
         if (!this.jsonLdScript) {
             this.jsonLdScript = this.renderer.createElement('script');
             this.renderer.setAttribute(this.jsonLdScript, 'type', 'application/ld+json');

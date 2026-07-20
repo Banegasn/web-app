@@ -1,47 +1,71 @@
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
-import { Observable, catchError, forkJoin, map, mergeMap, of, tap } from 'rxjs';
+import { Observable, catchError, forkJoin, map, mergeMap, of, shareReplay, tap } from 'rxjs';
 import { Post } from '../models/post.model';
 
-// Simple Front Matter Parser (adjust regex if needed for complex cases)
-function parseMarkdown(markdown: string): Partial<Post> {
-    const frontMatterRegex = /^---\s*([\s\S]*?)\s*---\s*([\s\S]*)$/;
+const REQUIRED_FRONT_MATTER_FIELDS = ['id', 'title', 'summary', 'createdAt'] as const;
+
+function parseFrontMatterDate(value: string, field: string, postId: string): Date {
+    // Convert the existing "YYYY-MM-DD HH:mm:ss" values to ISO 8601 before parsing.
+    const normalizedValue = value.replace(
+        /^(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2}:\d{2}(?:\.\d+)?)$/,
+        '$1T$2'
+    );
+    const date = new Date(normalizedValue);
+
+    if (Number.isNaN(date.getTime())) {
+        throw new Error(`Post "${postId}" has an invalid ${field} value: "${value}".`);
+    }
+
+    return date;
+}
+
+function parseMarkdown(markdown: string, requestedId: string): Post {
+    const frontMatterRegex = /^---[ \t]*\r?\n([\s\S]*?)\r?\n---[ \t]*(?:\r?\n|$)([\s\S]*)$/;
     const match = markdown.match(frontMatterRegex);
 
-    if (match && match[1]) {
-        const yamlContent = match[1];
-        const mainContent = match[2] || '';
-        const metadata: Record<string, string> = {};
-        yamlContent.split('\n').forEach(line => {
-            const parts = line.match(/^\s*"?([^"]*?)"?\s*:\s*(.*)\s*$/);
-            if (parts && parts.length >= 3) {
-                const key = parts[1].trim();
-                // Trim potential quotes and whitespace from value
-                const value = parts[2].trim().replace(/^['"]|['"]$/g, '');
-                metadata[key] = value;
-            }
-        });
-        return {
-            id: metadata['id'],
-            title: metadata['title'],
-            seoTitle: metadata['seoTitle'],
-            summary: metadata['summary'],
-            createdAt: metadata['createdAt'] ? new Date(metadata['createdAt']) : new Date(),
-            updatedAt: metadata['updatedAt'] ? new Date(metadata['updatedAt']) : undefined,
-            author: metadata['author'],
-            tags: metadata['tags'] ? metadata['tags'].split(',').map(tag => tag.trim()).filter(Boolean) : [],
-            keywords: metadata['keywords'],
-            language: metadata['language'],
-            translationGroup: metadata['translationGroup'],
-            imageUrl: metadata['imageUrl'],
-            content: mainContent.trim()
-        };
-    } else {
-        // No front matter found or parsing failed
-        console.warn("Could not parse front matter for a post.");
-        return { content: markdown };
+    if (!match?.[1]) {
+        throw new Error(`Post "${requestedId}" does not contain valid front matter.`);
     }
+
+    const yamlContent = match[1];
+    const mainContent = match[2] || '';
+    const metadata: Record<string, string> = {};
+    yamlContent.split(/\r?\n/).forEach(line => {
+        const parts = line.match(/^\s*"?([^"]*?)"?\s*:\s*(.*)\s*$/);
+        if (parts && parts.length >= 3) {
+            const key = parts[1].trim();
+            const value = parts[2].trim().replace(/^['"]|['"]$/g, '');
+            metadata[key] = value;
+        }
+    });
+
+    const missingFields = REQUIRED_FRONT_MATTER_FIELDS.filter(field => !metadata[field]);
+    if (missingFields.length > 0) {
+        throw new Error(`Post "${requestedId}" is missing required front matter: ${missingFields.join(', ')}.`);
+    }
+    if (metadata['id'] !== requestedId) {
+        throw new Error(`Post "${requestedId}" declares a different id: "${metadata['id']}".`);
+    }
+
+    return {
+        id: metadata['id'],
+        title: metadata['title'],
+        seoTitle: metadata['seoTitle'],
+        summary: metadata['summary'],
+        createdAt: parseFrontMatterDate(metadata['createdAt'], 'createdAt', requestedId),
+        updatedAt: metadata['updatedAt']
+            ? parseFrontMatterDate(metadata['updatedAt'], 'updatedAt', requestedId)
+            : undefined,
+        author: metadata['author'],
+        tags: metadata['tags'] ? metadata['tags'].split(',').map(tag => tag.trim()).filter(Boolean) : [],
+        keywords: metadata['keywords'],
+        language: metadata['language'],
+        translationGroup: metadata['translationGroup'],
+        imageUrl: metadata['imageUrl'],
+        content: mainContent.trim()
+    };
 }
 
 @Injectable({
@@ -54,6 +78,7 @@ export class PostsService {
     private postsManifestUrl = `${this.postsUrl}posts.json`; // Assumes manifest file lists post IDs
 
     private allPostsCache$: Observable<Post[]> | null = null; // Cache unfiltered posts
+    private postCache = new Map<string, Observable<Post | undefined>>();
 
     /**
      * Detects user's preferred language from browser or defaults to 'en'
@@ -154,13 +179,23 @@ export class PostsService {
         );
     }
 
-    getPostById(id: string): Observable<Partial<Post> | undefined> {
-        return this.http.get(`${this.postsUrl}${id}.md`, { responseType: 'text' }).pipe(
-            map(markdownContent => parseMarkdown(markdownContent)),
+    getPostById(id: string): Observable<Post | undefined> {
+        const cachedPost = this.postCache.get(id);
+        if (cachedPost) return cachedPost;
+
+        const post$ = this.http.get(`${this.postsUrl}${id}.md`, { responseType: 'text' }).pipe(
+            map(markdownContent => parseMarkdown(markdownContent, id)),
             catchError(err => {
-                console.error(`Error fetching or parsing post ${id}:`, err);
+                const message = err instanceof Error || typeof err?.message === 'string'
+                    ? err.message
+                    : String(err);
+                console.warn(`Could not load post "${id}": ${message}`);
                 return of(undefined);
-            })
+            }),
+            shareReplay({ bufferSize: 1, refCount: false })
         );
+
+        this.postCache.set(id, post$);
+        return post$;
     }
-} 
+}
