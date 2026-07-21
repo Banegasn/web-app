@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title description">
+  <title id="title">Pling video enhancement studio</title>
+  <desc id="description">A camera preview beside Pling controls for background, video look, brightness, contrast, sharpness, and saturation.</desc>
+  <defs>
+    <linearGradient id="page" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#020617" />
+      <stop offset="0.52" stop-color="#11132d" />
+      <stop offset="1" stop-color="#071a30" />
+    </linearGradient>
+    <radialGradient id="pink-glow" cx="0" cy="0" r="1" gradientTransform="translate(238 130) rotate(35) scale(420 320)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f472b6" stop-opacity="0.24" />
+      <stop offset="1" stop-color="#f472b6" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="blue-glow" cx="0" cy="0" r="1" gradientTransform="translate(1010 600) rotate(-145) scale(460 330)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#60a5fa" stop-opacity="0.28" />
+      <stop offset="1" stop-color="#60a5fa" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="preview" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#44345f" />
+      <stop offset="0.52" stop-color="#26395d" />
+      <stop offset="1" stop-color="#174653" />
+    </linearGradient>
+    <linearGradient id="person" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#fbcfe8" />
+      <stop offset="0.48" stop-color="#c4b5fd" />
+      <stop offset="1" stop-color="#7dd3fc" />
+    </linearGradient>
+    <linearGradient id="studio" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#f9a8d4" />
+      <stop offset="0.52" stop-color="#c4b5fd" />
+      <stop offset="1" stop-color="#7dd3fc" />
+    </linearGradient>
+    <filter id="panel-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#000814" flood-opacity="0.55" />
+    </filter>
+    <filter id="soft-focus" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="18" />
+    </filter>
+    <clipPath id="preview-clip">
+      <rect x="70" y="142" width="585" height="446" rx="26" />
+    </clipPath>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#page)" />
+  <rect width="1200" height="675" fill="url(#pink-glow)" />
+  <rect width="1200" height="675" fill="url(#blue-glow)" />
+
+  <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
+    <text x="70" y="62" fill="#fce7f3" font-size="15" font-weight="700" letter-spacing="4">PLING VIDEO STUDIO</text>
+    <text x="70" y="108" fill="#ffffff" font-size="38" font-weight="700" letter-spacing="-1.5">Prepare the source, not only the file.</text>
+
+    <g filter="url(#panel-shadow)">
+      <rect x="48" y="126" width="630" height="486" rx="34" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12" />
+      <g clip-path="url(#preview-clip)">
+        <rect x="70" y="142" width="585" height="446" fill="url(#preview)" />
+        <circle cx="180" cy="246" r="92" fill="#f472b6" fill-opacity="0.18" filter="url(#soft-focus)" />
+        <circle cx="540" cy="230" r="118" fill="#38bdf8" fill-opacity="0.18" filter="url(#soft-focus)" />
+        <rect x="108" y="188" width="160" height="196" rx="18" fill="#f8fafc" fill-opacity="0.08" />
+        <rect x="456" y="172" width="154" height="230" rx="18" fill="#f8fafc" fill-opacity="0.07" />
+        <path d="M70 500C185 423 267 454 344 497C417 538 506 512 655 430V588H70Z" fill="#020617" fill-opacity="0.34" />
+        <ellipse cx="363" cy="529" rx="172" ry="117" fill="url(#person)" opacity="0.96" />
+        <circle cx="363" cy="332" r="98" fill="url(#person)" />
+        <path d="M279 318C286 244 329 217 374 220C432 224 464 270 455 329C425 293 384 275 337 281C313 284 294 296 279 318Z" fill="#1e1b4b" fill-opacity="0.86" />
+        <path d="M282 358C315 389 408 391 448 349C441 416 403 443 363 443C321 443 288 415 282 358Z" fill="#f8fafc" fill-opacity="0.12" />
+      </g>
+      <rect x="88" y="162" width="150" height="34" rx="17" fill="#020617" fill-opacity="0.62" stroke="#ffffff" stroke-opacity="0.08" />
+      <circle cx="108" cy="179" r="5" fill="#86efac" />
+      <text x="123" y="184" fill="#ffffff" fill-opacity="0.76" font-size="12" font-weight="700">LIVE PREVIEW</text>
+      <rect x="88" y="537" width="170" height="34" rx="17" fill="#020617" fill-opacity="0.62" stroke="#ffffff" stroke-opacity="0.08" />
+      <text x="108" y="559" fill="#ffffff" fill-opacity="0.74" font-size="12" font-weight="700">LAURA · STUDIO</text>
+    </g>
+
+    <g filter="url(#panel-shadow)">
+      <rect x="706" y="126" width="446" height="486" rx="34" fill="#ffffff" fill-opacity="0.07" stroke="#ffffff" stroke-opacity="0.13" />
+      <text x="742" y="174" fill="#ffffff" font-size="21" font-weight="700">Video enhancements</text>
+      <text x="742" y="199" fill="#ffffff" fill-opacity="0.42" font-size="12">Changes appear in the room and recording.</text>
+
+      <text x="742" y="239" fill="#ffffff" fill-opacity="0.5" font-size="11" font-weight="700" letter-spacing="1.5">BACKGROUND</text>
+      <rect x="742" y="254" width="112" height="48" rx="15" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.09" />
+      <text x="773" y="284" fill="#ffffff" fill-opacity="0.5" font-size="13" font-weight="650">Natural</text>
+      <rect x="864" y="254" width="112" height="48" rx="15" fill="#c4b5fd" fill-opacity="0.18" stroke="#c4b5fd" stroke-opacity="0.76" />
+      <circle cx="889" cy="278" r="9" fill="#c4b5fd" fill-opacity="0.82" />
+      <text x="908" y="284" fill="#ede9fe" font-size="13" font-weight="700">Blur</text>
+      <rect x="986" y="254" width="130" height="48" rx="15" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.09" />
+      <text x="1015" y="284" fill="#ffffff" fill-opacity="0.5" font-size="13" font-weight="650">Image</text>
+
+      <text x="742" y="342" fill="#ffffff" fill-opacity="0.5" font-size="11" font-weight="700" letter-spacing="1.5">VIDEO LOOK</text>
+      <rect x="742" y="357" width="374" height="50" rx="15" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.1" />
+      <circle cx="769" cy="382" r="8" fill="url(#studio)" />
+      <text x="790" y="387" fill="#ffffff" font-size="14" font-weight="700">Studio</text>
+      <text x="852" y="387" fill="#ffffff" fill-opacity="0.34" font-size="12">balanced light, contrast, and color</text>
+      <path d="M1090 378L1097 385L1104 378" fill="none" stroke="#ffffff" stroke-opacity="0.4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+      <g font-size="12" font-weight="650">
+        <text x="742" y="447" fill="#ffffff" fill-opacity="0.72">Brightness</text>
+        <text x="1090" y="447" fill="#fbcfe8" text-anchor="end">104</text>
+        <rect x="742" y="460" width="374" height="5" rx="2.5" fill="#ffffff" fill-opacity="0.1" />
+        <rect x="742" y="460" width="240" height="5" rx="2.5" fill="url(#studio)" />
+        <circle cx="982" cy="462.5" r="8" fill="#f9a8d4" stroke="#ffffff" stroke-opacity="0.7" stroke-width="2" />
+
+        <text x="742" y="493" fill="#ffffff" fill-opacity="0.72">Contrast</text>
+        <text x="1090" y="493" fill="#ddd6fe" text-anchor="end">106</text>
+        <rect x="742" y="506" width="374" height="5" rx="2.5" fill="#ffffff" fill-opacity="0.1" />
+        <rect x="742" y="506" width="260" height="5" rx="2.5" fill="url(#studio)" />
+        <circle cx="1002" cy="508.5" r="8" fill="#c4b5fd" stroke="#ffffff" stroke-opacity="0.7" stroke-width="2" />
+
+        <text x="742" y="539" fill="#ffffff" fill-opacity="0.72">Sharpness</text>
+        <text x="1090" y="539" fill="#bae6fd" text-anchor="end">112</text>
+        <rect x="742" y="552" width="374" height="5" rx="2.5" fill="#ffffff" fill-opacity="0.1" />
+        <rect x="742" y="552" width="286" height="5" rx="2.5" fill="url(#studio)" />
+        <circle cx="1028" cy="554.5" r="8" fill="#7dd3fc" stroke="#ffffff" stroke-opacity="0.7" stroke-width="2" />
+
+        <text x="742" y="585" fill="#ffffff" fill-opacity="0.72">Saturation</text>
+        <text x="1090" y="585" fill="#a7f3d0" text-anchor="end">108</text>
+      </g>
+    </g>
+
+    <rect x="370" y="630" width="460" height="30" rx="15" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.09" />
+    <circle cx="396" cy="645" r="5" fill="#86efac" />
+    <text x="411" y="650" fill="#ffffff" fill-opacity="0.6" font-size="11" font-weight="700" letter-spacing="0.7">PROCESSED LOCALLY · THE PREPARED IMAGE IS THE RECORDED IMAGE</text>
+  </g>
+</svg>
