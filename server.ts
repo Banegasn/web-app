@@ -1,9 +1,6 @@
-import { APP_BASE_HREF } from '@angular/common';
-import { CommonEngine } from '@angular/ssr/node';
 import express from 'express';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import bootstrap from './src/main.server';
 import { createCommentsRouter } from './server/comments';
 
 // The Express app is exported so that it can be used by serverless Functions.
@@ -12,10 +9,6 @@ export function app(): express.Express {
     const serverDistFolder = dirname(fileURLToPath(import.meta.url));
     const browserDistFolder = resolve(serverDistFolder, '../browser');
     const indexHtml = join(serverDistFolder, 'index.server.html');
-
-    const commonEngine = new CommonEngine({
-        allowedHosts: ['banegasn.dev', 'www.banegasn.dev', 'localhost']
-    });
 
     server.set('view engine', 'html');
     server.set('views', browserDistFolder);
@@ -33,7 +26,10 @@ export function app(): express.Express {
         index: 'index.html',
         setHeaders: (res, filePath) => {
             if (filePath.endsWith('.html')) {
-                res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate, s-maxage=600, stale-while-revalidate=86400');
+                // These files are immutable for a deployment. Give the CDN a
+                // short, explicit TTL so Cloudflare can cache the prerendered
+                // HTML instead of forwarding every crawler request to Railway.
+                res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=600, stale-while-revalidate=86400');
             }
             if (filePath.endsWith('robots.txt') || filePath.endsWith('sitemap.xml') || filePath.endsWith('.webmanifest')) {
                 res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600');
@@ -49,22 +45,14 @@ export function app(): express.Express {
         res.status(404).type('text/plain').send('Post not found');
     });
 
-    // All regular routes use the Angular engine
-    server.get('**', (req, res, next) => {
-        const { protocol, originalUrl, baseUrl, headers } = req;
-
-        res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate, s-maxage=600, stale-while-revalidate=86400');
-
-        commonEngine
-            .render({
-                bootstrap,
-                documentFilePath: indexHtml,
-                url: `${protocol}://${headers.host}${originalUrl}`,
-                publicPath: browserDistFolder,
-                providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
-            })
-            .then((html) => res.send(html))
-            .catch((err) => next(err));
+    // All public, indexable routes are prerendered during the build. Serving
+    // this shell for anything else (for example, a stale link or admin route)
+    // keeps the process from allocating a complete Angular SSR application per
+    // request. The Angular router then handles the route in the browser.
+    server.get('**', (_req, res) => {
+        // Do not let a CDN cache a client-side fallback under an arbitrary URL.
+        res.setHeader('Cache-Control', 'no-store');
+        res.sendFile(indexHtml);
     });
 
     return server;

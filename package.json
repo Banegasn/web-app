@@ -5,7 +5,7 @@
     "ng": "ng",
     "dev": "concurrently -k -n web,comments -c cyan,magenta \"ng serve\" \"pnpm dev:comments\"",
     "dev:comments": "tsx watch server/comments-dev.ts",
-    "prebuild": "node generate-sitemap.js",
+    "prebuild": "node generate-sitemap.js && node generate-prerender-routes.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "start": "node dist/banegasn/server/server.mjs",
