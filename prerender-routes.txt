@@ -1,5 +1,7 @@
 /
 /blog
+/tools/seo
+/tools/seo/en
 /blog/introduction
 /blog/ai-mcp
 /blog/google-tag-manager
@@ -23,3 +25,5 @@
 /blog/building-pling-webrtc-lessons-en
 /blog/pling-browser-recording-studio
 /blog/pling-browser-recording-studio-en
+/blog/seo-2027-ia-intencion-de-busqueda
+/blog/seo-2027-ia-intencion-de-busqueda-en

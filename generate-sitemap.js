@@ -61,6 +61,16 @@ try {
     <priority>0.80</priority>
   </url>`;
 
+  sitemapXml += `
+  <url>
+    <loc>${escapeXml(`${baseUrl}/tools/seo`)}</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>${escapeXml(`${baseUrl}/tools/seo/en`)}</loc>
+    <priority>0.80</priority>
+  </url>`;
+
   posts.forEach(post => {
     if (post) {
       const metadata = parsePostFrontMatter(post);

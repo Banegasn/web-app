@@ -1,0 +1,33 @@
+:host { display: block; }
+section { margin-top: 28px; }
+h3, h4 { font-weight: 600; color: #0f172a; }
+h3 { font-size: 1rem; }
+h3 span { color: #64748b; font-weight: 400; }
+p { color: #64748b; line-height: 1.6; font-size: .875rem; margin: 8px 0 16px; }
+.findings { display: grid; gap: 10px; }
+.finding, .passed-group { border: 1px solid #e2e8f0; border-radius: 12px; }
+.finding-head { display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; align-items: center; gap: 8px 14px; padding: 16px; cursor: pointer; list-style: none; }
+.finding-head::-webkit-details-marker { display: none; }
+.finding-head::before { content: '›'; color: #64748b; font-size: 1.3rem; text-align: center; }
+[open] > .finding-head::before { transform: rotate(90deg); }
+.finding-head:focus-visible, button:focus-visible, a:focus-visible { outline: 2px solid #3b66ff; outline-offset: 3px; border-radius: 8px; }
+.finding-name { font-size: .9375rem; line-height: 1.5; overflow-wrap: anywhere; }
+.badge { font-size: .72rem; color: #64748b; background: #f1f5f9; padding: 4px 8px; border-radius: 6px; }
+[data-status=urgent] .badge { color: #991b1b; background: #fef2f2; }
+[data-status=review] .badge { color: #92400e; background: #fffbeb; }
+.finding-body, .passed-list { padding: 4px 20px 20px; }
+dt { font-size: .8rem; font-weight: 600; color: #334155; margin: 16px 0 5px; }
+dd, li { font-size: .875rem; line-height: 1.7; color: #475569; overflow-wrap: anywhere; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; padding: 12px; background: #f8fafc; border-radius: 8px; font-size: .75rem; }
+.hint { font-size: .75rem; margin: 16px 0 8px; }
+button { padding: 10px 14px; margin-top: 16px; border-radius: 8px; background: #3459e6; color: white; font-size: .875rem; }
+h4 { font-size: .875rem; margin-top: 16px; }
+ul { padding-left: 18px; margin-top: 8px; }
+li code { display: block; font-size: .75rem; }
+a { color: #294ed1; font-size: .8rem; text-decoration: underline; }
+.passed-row + .passed-row { border-top: 1px solid #f1f5f9; padding-top: 4px; }
+.passed-row p { margin-bottom: 12px; }
+@media (max-width: 540px) {
+    .finding-head { grid-template-columns: 16px minmax(0, 1fr); }
+    .badge { grid-column: 2; justify-self: start; }
+}

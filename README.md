@@ -30,6 +30,41 @@ curl -X DELETE \
 ```
 
 
+## SEO HTML analyzer
+
+The article companion at `/tools/seo` (Spanish) and `/tools/seo/en` (English) analyzes pasted HTML
+or a local file entirely in the browser. It is linked from the SEO 2027 posts rather than the main menu.
+It uses a text parser rather than mounting a document: scripts, remote resources, and user-provided
+URLs are never executed or fetched. No analysis API, external AI calls, storage, or crawl jobs are used.
+Reports are downloaded as plain text. The URL input only resolves canonical and internal links.
+
+Limits are enforced by the analyzer as well as the file input: 500 KiB of UTF-8 HTML, 20,000 parser
+nodes, 128 levels, 30 JSON-LD blocks of at most 50,000 characters, 2,000 visited values per JSON-LD
+block, a 2,048-character URL, and a 200-character target query. Oversized documents are rejected
+without a partial report. No server quota is needed because analyses do not consume server resources.
+JSON-LD validation only covers syntax and declared types, not Schema.org or rich-result eligibility.
+The query comparison is literal, accent-insensitive term coverage, not ranking or semantic analysis.
+Findings include evidence, an explanation and a concrete next step. Missing reference URLs produce
+a pending check and a null internal-link count, rather than a website warning or a false zero.
+Link examples include navigation and footer links and are displayed as text, never fetched.
+
+The visual meter uses a versioned, editorial HTML-check model, not Google's ranking formula.
+Five areas contain criteria with visible weights (up to 20 per area): access/initial text,
+presentation/structure, navigation/links, basic accessibility and literal query focus. Overall score
+is 100 × earned points / measured weight. Coverage is measured weight / applicable weight.
+Missing URL/query inputs reduce coverage; inapplicable image/link-text checks are excluded from both.
+A noindex flag is displayed as a blocker even if other checks score well. Word counts and JSON-LD
+presence do not earn extra points. Repetition cannot improve set-based query coverage. Authority,
+backlinks, semantic quality, truthfulness, field performance and actual rankings are not measured.
+Both routes have localized findings, errors, examples, exports, metadata and reciprocal hreflang.
+An agent handoff builds a copyable/downloadable prompt from review findings and failed score criteria,
+deduplicates related tasks, separates missing inputs and preserves context-sensitive decisions.
+The prompt contains quoted audit evidence and verification steps, not executable HTML or external
+requests. Clipboard failure opens/selects a plain-text fallback. Passing checks share one quiet
+expandable section rather than repeating success badges and nested disclosures.
+
+Run `pnpm test:seo` for parsing, hostile input, URL resolution, limits, score math and localization.
+
 ## Development server
 
 Use Node.js 24 LTS (24.22.1 or newer within the 24.x release line). Run `nvm install`

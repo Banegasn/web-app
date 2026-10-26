@@ -29,6 +29,7 @@ export class BlogPostComponent implements OnDestroy {
     private readonly metaService = inject(Meta);
     private readonly router = inject(Router);
     private readonly document = inject(DOCUMENT);
+    private readonly previousLang = this.document.documentElement.lang;
     private readonly dialog = inject(Dialog);
     private jsonLdScript?: HTMLScriptElement;
     private hreflangLinks: HTMLLinkElement[] = [];
@@ -61,6 +62,7 @@ export class BlogPostComponent implements OnDestroy {
             const element = this.markdownContent()?.nativeElement;
 
             if (post) {
+                this.document.documentElement.lang = post.language || 'es';
                 // --- SEO Meta Tag Updates ---
                 const postTitle = post.seoTitle || post.title;
                 this.titleService.setTitle(`${postTitle} | banegasn.dev`);
@@ -191,6 +193,7 @@ export class BlogPostComponent implements OnDestroy {
         const jsonLd = {
             '@context': 'https://schema.org',
             '@type': 'BlogPosting',
+            inLanguage: post.language,
             headline: post.title,
             description: post.summary,
             image: [imageUrl],
@@ -225,6 +228,7 @@ export class BlogPostComponent implements OnDestroy {
     }
 
     ngOnDestroy() {
+        this.document.documentElement.lang = this.previousLang;
         // Remove all meta tags when component is destroyed
         this.metaService.removeTag('name="description"');
         this.metaService.removeTag('name="keywords"');

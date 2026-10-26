@@ -6,6 +6,16 @@ import { PostsService } from './services/posts.service';
 
 export const routes: Routes = [
     {
+        path: 'tools/seo',
+        data: { language: 'es' },
+        loadComponent: () => import('./tools/seo/seo-tool.component').then(m => m.SeoToolComponent)
+    },
+    {
+        path: 'tools/seo/en',
+        data: { language: 'en' },
+        loadComponent: () => import('./tools/seo/seo-tool.component').then(m => m.SeoToolComponent)
+    },
+    {
         path: 'admin/comments',
         loadComponent: () => import('./admin/comments-admin/comments-admin.component').then(m => m.CommentsAdminComponent)
     },

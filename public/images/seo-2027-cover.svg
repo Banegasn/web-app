@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">SEO 2027</title>
+  <desc id="desc">Una lupa y un destello representan la búsqueda y la inteligencia artificial sobre un fondo azul.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1">
+      <stop stop-color="#101b39"/>
+      <stop offset="1" stop-color="#234da3"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop stop-color="#6687ff" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#6687ff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lens" x2="1" y2="1">
+      <stop stop-color="#e9efff"/>
+      <stop offset="1" stop-color="#8cafff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="880" cy="290" r="315" fill="url(#glow)"/>
+  <circle cx="850" cy="285" r="196" fill="none" stroke="#91acff" stroke-opacity=".12"/>
+  <circle cx="850" cy="285" r="145" fill="none" stroke="#91acff" stroke-opacity=".16"/>
+  <g font-family="system-ui, sans-serif" font-weight="800" letter-spacing="-6">
+    <text x="110" y="290" font-size="142" fill="#fff">SEO</text>
+    <text x="110" y="423" font-size="136" fill="#a9c3ff">2027</text>
+  </g>
+  <g fill="none" stroke="url(#lens)" stroke-width="18" stroke-linecap="round">
+    <circle cx="835" cy="275" r="83"/>
+    <path d="m895 335 93 93"/>
+  </g>
+  <path d="m943 131 12 34 34 12-34 12-12 34-12-34-34-12 34-12Z" fill="#9bf0df"/>
+  <path d="M638 468c54 0 70 55 129 55s82-38 139-38" fill="none" stroke="#91acff" stroke-opacity=".3" stroke-width="2" stroke-dasharray="5 9"/>
+  <circle cx="638" cy="468" r="6" fill="#9bf0df"/>
+  <circle cx="906" cy="485" r="6" fill="#9bf0df"/>
+</svg>

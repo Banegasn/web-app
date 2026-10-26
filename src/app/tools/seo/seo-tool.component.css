@@ -1,0 +1,125 @@
+:host {
+    display: block;
+}
+.seo-page {
+    max-width: 1040px;
+    margin: auto;
+    padding: 52px 24px 80px;
+}
+header {
+    margin-bottom: 36px;
+}
+h1 {
+    font-size: clamp(2.4rem,6vw,4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -.04em;
+    margin: 16px 0 24px;
+}
+.eyebrow {
+    color: #3454ce;
+    font-size: .75rem;
+    font-weight: 750;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+}
+p {
+    color: #475569;
+    line-height: 1.7;
+    margin: 12px 0;
+}
+a {
+    color: #294ed1;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.panel {
+    padding: 28px;
+    margin: 24px 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    background: white;
+}
+h2 {
+    font-size: 1.5rem;
+    font-weight: 750;
+    margin-bottom: 12px;
+}
+h3 {
+    font-weight: 700;
+}
+label {
+    display: block;
+    font-size: .9rem;
+    font-weight: 650;
+    margin-bottom: 8px;
+}
+label span, small, .note {
+    font-size: .8rem;
+    color: #64748b;
+}
+small {
+    display: block;
+    margin-top: 8px;
+    line-height: 1.5;
+}
+input:not([type=file]), textarea {
+    display: block;
+    width: 100%;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    padding: 12px;
+    background: #f8fafc;
+}
+textarea {
+    font-family: monospace;
+    font-size: .85rem;
+    resize: vertical;
+    max-height: 650px;
+}
+button {
+    padding: 12px 20px;
+    border-radius: 9px;
+    background: #3459e6;
+    color: white;
+    font-weight: 650;
+    font-size: .9rem;
+}
+button.secondary {
+    color: #334155;
+    background: #f1f5f9;
+}
+button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+:is(button, input, textarea, a):focus-visible {
+    outline: 3px solid #6b93ff;
+    outline-offset: 3px;
+}
+@media (max-width: 640px) {
+    .seo-page {
+        padding: 28px 16px 48px;
+    }
+    .panel {
+        padding: 20px;
+    }
+}
+.score-progress {
+    display: block;
+    width: 100%;
+    height: 8px;
+    border: 0;
+    border-radius: 8px;
+    background: #e2e8f0;
+    overflow: hidden;
+}
+.score-progress::-webkit-progress-bar {
+    background: #e2e8f0;
+}
+.score-progress::-webkit-progress-value {
+    background: var(--meter-color, #3b66ff);
+}
+.score-progress::-moz-progress-bar {
+    background: var(--meter-color, #3b66ff);
+}

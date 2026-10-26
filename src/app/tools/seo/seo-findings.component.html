@@ -1,0 +1,35 @@
+@for (group of groups(); track group.kind) {
+    <section [attr.aria-label]="group.title">
+        @if (group.kind === 'ok') {
+            <details class="passed-group">
+                <summary class="finding-head"><strong class="finding-name">{{ group.title }}</strong><span class="badge">{{ group.findings.length }}</span></summary>
+                <div class="passed-list">
+                    @for (finding of group.findings; track finding.id) {
+                        <div class="passed-row"><h4>{{ finding.title }}</h4><p>{{ finding.detail }}</p></div>
+                    }
+                </div>
+            </details>
+        } @else {
+            <div class="group-heading"><h3>{{ group.title }} <span>({{ group.findings.length }})</span></h3><p>{{ group.description }}</p></div>
+            <div class="findings">
+                @for (finding of group.findings; track finding.id) {
+                    <details class="finding" [attr.data-status]="finding.status" [open]="finding.status === 'urgent' || finding.status === 'review' || finding.status === 'pending'">
+                        <summary class="finding-head"><strong class="finding-name">{{ finding.title }}</strong><span class="badge">{{ copy()[finding.status] }}</span></summary>
+                        <div class="finding-body">
+                            <dl><dt>{{ copy().found }}</dt><dd>{{ finding.detail }}</dd><dt>{{ copy().meaning }}</dt><dd>{{ finding.why }}</dd><dt>{{ copy().next }}</dt><dd>{{ finding.action }}</dd></dl>
+                            @if (finding.example) { <p class="hint">{{ copy().example }}</p><pre><code>{{ finding.example }}</code></pre> }
+                            @if (finding.needsUrl) { <button type="button" (click)="requestUrl.emit()">{{ copy().addUrl }}</button> }
+                            @if (finding.id === 'links') {
+                                @if (report().linkExamples.length) {
+                                    <h4>{{ report().internalLinks === null ? copy().candidateLinks : copy().ownLinks }}</h4>
+                                    <ul>@for (link of report().linkExamples; track $index) { <li>{{ link.text || copy().emptyLink }}<code>{{ link.href }}</code></li> }</ul><p class="hint">{{ copy().linksHelp }}</p>
+                                }
+                                <a href="https://developers.google.com/search/docs/crawling-indexing/links-crawlable" target="_blank" rel="noopener noreferrer">{{ copy().googleLinks }}</a>
+                            }
+                        </div>
+                    </details>
+                }
+            </div>
+        }
+    </section>
+}

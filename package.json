@@ -9,7 +9,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "start": "node dist/banegasn/server/server.mjs",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "test:seo": "tsx --test tests/seo-analyzer.test.ts tests/seo-score.test.ts tests/seo-agent-prompt.test.ts"
   },
   "private": true,
   "engines": {
@@ -29,6 +30,7 @@
     "@angular/ssr": "^22.0.6",
     "express": "^4.18.2",
     "highlight.js": "^11.11.1",
+    "htmlparser2": "^12.0.0",
     "marked": "^15.0.10",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"

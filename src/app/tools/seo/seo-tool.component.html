@@ -1,0 +1,119 @@
+<main class="seo-page">
+    <header>
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+            <a [routerLink]="articlePath">{{ copy.back }}</a>
+            <nav aria-label="Language / Idioma" class="flex gap-2 text-sm">
+                <a routerLink="/tools/seo" lang="es" hreflang="es" [attr.aria-current]="language === 'es' ? 'page' : null" class="rounded-lg px-3 py-2" [class.bg-blue-50]="language === 'es'">Español</a>
+                <a routerLink="/tools/seo/en" lang="en" hreflang="en" [attr.aria-current]="language === 'en' ? 'page' : null" class="rounded-lg px-3 py-2" [class.bg-blue-50]="language === 'en'">English</a>
+            </nav>
+        </div>
+        <p class="eyebrow">{{ copy.eyebrow }}</p>
+        <h1>{{ copy.heading }}</h1>
+        <p class="max-w-2xl text-lg">{{ copy.intro }}</p>
+    </header>
+
+    <section class="panel" aria-labelledby="input-title">
+        <h2 id="input-title">{{ copy.inputTitle }}</h2>
+        <p>{{ copy.inputHelp }}</p>
+        <form (ngSubmit)="analyze()">
+            <div class="grid sm:grid-cols-2 gap-5 my-6">
+                <div><label for="page-url">{{ copy.urlLabel }} <span>{{ copy.optional }}</span></label>
+                    <input #urlInput id="page-url" name="pageUrl" type="url" maxlength="2048" placeholder="https://example.com/page" [ngModel]="pageUrl()" (ngModelChange)="pageUrl.set($event); report.set(null)" />
+                    <small>{{ copy.urlHelp }}</small></div>
+                <div><label for="query">{{ copy.queryLabel }} <span>{{ copy.optional }}</span></label>
+                    <input id="query" name="query" maxlength="200" [placeholder]="copy.queryPlaceholder" [ngModel]="query()" (ngModelChange)="query.set($event); report.set(null)" />
+                    <small>{{ copy.queryHelp }}</small></div>
+            </div>
+            <label for="source">{{ copy.htmlLabel }}</label>
+            <textarea id="source" name="html" rows="8" maxlength="512000" spellcheck="false" placeholder="<!doctype html>…" [ngModel]="html()" (ngModelChange)="html.set($event); report.set(null)" aria-describedby="limits" required></textarea>
+            <div class="flex flex-wrap gap-3 mt-5 mb-6">
+                <button type="submit" [disabled]="busy() || !html().trim()">{{ copy.analyze }}</button>
+                <button type="button" class="secondary" (click)="sample()" [disabled]="busy()">{{ copy.sample }}</button>
+                <button type="button" class="secondary" (click)="clear()" [disabled]="busy()">{{ copy.clear }}</button>
+            </div>
+            <label for="html-file">{{ copy.file }}</label>
+            <input id="html-file" type="file" accept=".html,.htm,text/html" (change)="loadFile($event)" [disabled]="busy()" />
+            <p class="note">{{ copy.privacy }}</p>
+            <details class="note"><summary class="cursor-pointer">{{ copy.limitsTitle }}</summary><p id="limits">{{ copy.limits }}</p></details>
+        </form>
+        @if (busy()) { <p role="status">{{ copy.reading }}</p> }
+        @if (error()) { <p class="text-red-700 bg-red-50 p-3 rounded-lg" role="alert">{{ error() }}</p> }
+    </section>
+
+    @if (report(); as result) {
+        @if (score(); as diagnosis) {
+            <section class="panel" aria-labelledby="report-title">
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                    <h2 #resultTitle id="report-title" tabindex="-1" class="scroll-mt-24">{{ copy.reportTitle }}</h2>
+                    <button type="button" class="secondary" (click)="download()">{{ copy.download }}</button>
+                </div>
+                <div class="rounded-2xl bg-slate-950 p-6 md:p-8 grid sm:grid-cols-[auto_1fr] gap-8 items-center">
+                    <div class="relative w-48 h-48 mx-auto" role="meter" [attr.aria-label]="copy.globalScore" aria-valuemin="0" aria-valuemax="100" [attr.aria-valuenow]="diagnosis.overall" [attr.aria-valuetext]="(diagnosis.overall ?? copy.noData) + '/100; ' + copy.coverage + ' ' + diagnosis.coverage + '%'">
+                        <svg viewBox="0 0 160 160" class="w-full h-full -rotate-90" aria-hidden="true">
+                            <circle cx="80" cy="80" r="66" fill="none" stroke="#263348" stroke-width="12" />
+                            <circle cx="80" cy="80" r="66" fill="none" [attr.stroke]="diagnosis.blocked ? '#f87171' : scoreColor(diagnosis.overall)" stroke-width="12" stroke-linecap="round" pathLength="100" [attr.stroke-dasharray]="(diagnosis.overall ?? 0) + ' 100'" />
+                        </svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-white" aria-hidden="true"><strong class="text-5xl tracking-tight">{{ diagnosis.overall ?? '—' }}</strong><span class="text-sm text-slate-400">/ 100</span></div>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-blue-300">{{ copy.globalScore }}</span>
+                        <h3 class="text-2xl text-white mt-3">{{ diagnosis.coverage === 100 ? copy.fullScore : copy.partialScore }}</h3>
+                        <p class="!text-slate-300 text-sm">{{ copy.scoreHelp }}</p>
+                        <div class="flex items-center justify-between text-sm text-white mt-5 mb-2"><span>{{ copy.coverage }}</span><strong>{{ diagnosis.coverage }}%</strong></div>
+                        <progress class="score-progress" max="100" [value]="diagnosis.coverage" [attr.aria-label]="copy.coverage" style="--meter-color:#60a5fa"></progress>
+                        <p class="!text-slate-400 text-xs">{{ copy.coverageHelp }}</p>
+                    </div>
+                </div>
+                @if (diagnosis.blocked) {
+                    <div class="mt-5 rounded-xl border border-red-200 bg-red-50 p-5" role="alert"><strong class="text-red-800">{{ copy.blocked }}</strong><p>{{ copy.blockedHelp }}</p></div>
+                }
+                <div class="grid sm:grid-cols-2 gap-4 mt-6">
+                    @for (area of diagnosis.areas; track area.id) {
+                        <div class="rounded-xl border border-slate-200 p-5 min-w-0">
+                            <div class="flex items-start justify-between gap-3"><h3>{{ area.label }}</h3><strong class="text-2xl" [style.color]="scoreColor(area.score)">{{ area.score ?? '—' }}<span class="text-xs text-slate-400">/100</span></strong></div>
+                            @if (area.score !== null) { <progress class="score-progress my-3" max="100" [value]="area.score" [attr.aria-label]="area.label" [style.--meter-color]="scoreColor(area.score)"></progress> }
+                            <small>{{ copy.coverage }}: {{ area.coverage }}%</small>
+                            <details class="mt-4">
+                                <summary class="cursor-pointer text-sm font-semibold text-blue-700">{{ copy.areaDetails }}</summary>
+                                @for (criterion of area.criteria; track criterion.id) {
+                                    <div class="mt-4 border-t border-slate-100 pt-4">
+                                        <strong class="text-sm">{{ criterion.label }}</strong>
+                                        <small>{{ copy.weight }}: {{ criterion.weight }} · {{ criterion.ratio === null ? copy.notMeasured : (criterion.ratio === 1 ? copy.passed : copy.improve) + ' (' + (criterion.ratio * 100).toFixed(0) + '%)' }}</small>
+                                        <p class="text-sm">{{ criterion.evidence }}</p>
+                                        @if (criterion.ratio !== 1) { <p class="text-sm"><strong>{{ copy.action }}:</strong> {{ criterion.action }}</p> }
+                                    </div>
+                                }
+                            </details>
+                        </div>
+                    }
+                </div>
+                <details class="mt-6 rounded-xl bg-slate-50 p-5"><summary class="cursor-pointer font-semibold">{{ copy.methodology }}</summary><p>{{ copy.methodologyText }}</p><p>{{ copy.methodologyLimits }}</p></details>
+                <aside class="mt-5 border-t border-slate-100 pt-5"><h3>{{ copy.unavailable }}</h3><p class="text-sm">{{ copy.unavailableText }}</p></aside>
+            </section>
+        }
+        @if (agentPlan(); as plan) {
+            <section class="panel" aria-labelledby="agent-title">
+                <h2 id="agent-title">{{ copy.agentTitle }}</h2>
+                <p>{{ copy.agentHelp }}</p>
+                <div class="flex flex-wrap gap-5 text-sm text-slate-600 my-5"><span>{{ copy.actionCount }}: <strong>{{ plan.actions.length }}</strong></span><span>{{ copy.missingCount }}: <strong>{{ plan.missingInputs.length }}</strong></span></div>
+                @if (!plan.actions.length) { <p class="note">{{ copy.noAgentActions }}</p> }
+                <div class="flex flex-wrap gap-3 my-5"><button type="button" (click)="copyAgentPrompt()" [disabled]="copyBusy()">{{ copy.copyPrompt }}</button><button type="button" class="secondary" (click)="downloadAgentPrompt()">{{ copy.downloadPrompt }}</button></div>
+                <p class="text-sm" role="status">{{ copyMessage() }}</p>
+                <details class="mt-5" [open]="promptExpanded()"><summary class="cursor-pointer text-sm font-semibold text-slate-600">{{ copy.previewPrompt }}</summary><label for="agent-prompt" class="mt-4">{{ copy.promptLabel }}</label><textarea #promptInput id="agent-prompt" rows="10" readonly spellcheck="false" [value]="plan.prompt"></textarea></details>
+            </section>
+        }
+        <section class="panel" [attr.aria-label]="copy.facts">
+            <h2>{{ copy.facts }}</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-6 [&>div]:bg-slate-50 [&>div]:rounded-xl [&>div]:p-4 [&_strong]:block [&_strong]:text-2xl [&_span]:text-xs [&_span]:text-slate-500">
+                <div><strong>{{ result.words }}</strong><span>{{ copy.words }}</span></div>
+                <div><strong>{{ result.headings.length }}</strong><span>{{ copy.h1s }}</span></div>
+                <div><strong>{{ result.internalLinks ?? '—' }}</strong><span>{{ copy.links }}</span></div>
+                <div><strong>{{ result.schemaTypes.length }}</strong><span>{{ copy.schemaTypes }}</span></div>
+            </div>
+            <div class="p-5 bg-slate-50 rounded-xl my-6 break-words [&>strong]:text-xl [&>strong]:text-blue-700"><p class="eyebrow">{{ copy.preview }}</p><strong>{{ result.title || copy.missingTitle }}</strong><p>{{ result.description || copy.missingDescription }}</p><small>{{ copy.previewHelp }}</small></div>
+            <app-seo-findings [groups]="findingGroups()" [report]="result" [language]="language" (requestUrl)="focusUrl()" />
+        </section>
+        <section class="panel manual"><h2>{{ copy.manualTitle }}</h2><p>{{ copy.manualIntro }}</p><ul class="pl-5 [&>li]:my-3 [&>li]:text-slate-600 [&>li]:leading-relaxed"><li>{{ copy.need }}</li><li>{{ copy.original }}</li><li>{{ copy.trust }}</li><li>{{ copy.conversion }}</li></ul><p class="note">{{ copy.demo }}</p></section>
+    }
+    <aside class="panel"><h2>{{ copy.external }}</h2><p>{{ copy.externalHelp }}</p><div class="flex flex-wrap gap-5 text-sm"><a href="https://search.google.com/search-console/about" target="_blank" rel="noopener noreferrer">Search Console ↗</a><a href="https://search.google.com/test/rich-results" target="_blank" rel="noopener noreferrer">Rich Results Test ↗</a><a href="https://pagespeed.web.dev/" target="_blank" rel="noopener noreferrer">PageSpeed Insights ↗</a></div></aside>
+</main>

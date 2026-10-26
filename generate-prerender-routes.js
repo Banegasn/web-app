@@ -12,7 +12,7 @@ try {
     throw new Error('public/posts/posts.json must contain a posts array of non-empty strings.');
   }
 
-  const routes = ['/', '/blog', ...manifest.posts.map(post => `/blog/${post}`)];
+  const routes = ['/', '/blog', '/tools/seo', '/tools/seo/en', ...manifest.posts.map(post => `/blog/${post}`)];
   fs.writeFileSync(outputPath, `${routes.join('\n')}\n`);
   console.log(`Generated ${routes.length} prerender routes at ${outputPath}`);
 } catch (error) {
