@@ -32,6 +32,10 @@ curl -X DELETE \
 
 ## Development server
 
+Use Node.js 24 LTS (24.22.1 or newer within the 24.x release line). Run `nvm install`
+and `nvm use` to select the version in `.nvmrc`, then install dependencies with `pnpm install`.
+Railway reads the supported Node.js range from `engines.node` in `package.json`.
+
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Code scaffolding
