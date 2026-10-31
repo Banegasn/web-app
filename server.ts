@@ -14,6 +14,23 @@ export function app(): express.Express {
     server.set('views', browserDistFolder);
     server.set('trust proxy', 1);
 
+    // Content Security Policy — allow Umami analytics on trk.tivq.link
+    server.use((_req, res, next) => {
+        res.setHeader('Content-Security-Policy', [
+            "default-src 'self'",
+            "script-src 'self' https://trk.tivq.link",
+            "style-src 'self' https://fonts.googleapis.com",
+            "img-src 'self' data:",
+            "font-src 'self' https://fonts.gstatic.com",
+            "connect-src 'self' https://trk.tivq.link",
+            "worker-src 'self' blob:",
+            "frame-ancestors 'none'",
+            "base-uri 'self'",
+            "form-action 'self'",
+        ].join('; '));
+        next();
+    });
+
     server.use(
         '/api/comments',
         express.json({ limit: '8kb', type: 'application/json' }),
