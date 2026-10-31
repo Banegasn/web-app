@@ -14,15 +14,15 @@ export function app(): express.Express {
     server.set('views', browserDistFolder);
     server.set('trust proxy', 1);
 
-    // Content Security Policy — allow Umami analytics on trk.tivq.link
+    // Allow Angular's fixed hydration scripts and the configured analytics endpoints.
     server.use((_req, res, next) => {
         res.setHeader('Content-Security-Policy', [
             "default-src 'self'",
-            "script-src 'self' https://trk.tivq.link",
+            "script-src 'self' https: 'unsafe-inline'",
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-            "img-src 'self' data:",
+            "img-src 'self' data: https:",
             "font-src 'self' https://fonts.gstatic.com",
-            "connect-src 'self' https://trk.tivq.link",
+            "connect-src 'self' https:",
             "worker-src 'self' blob:",
             "frame-ancestors 'none'",
             "base-uri 'self'",
