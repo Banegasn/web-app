@@ -24,7 +24,7 @@ export function app(): express.Express {
             "font-src 'self' https://fonts.gstatic.com",
             "connect-src 'self' https:",
             "worker-src 'self' blob:",
-            "frame-ancestors 'none'",
+            "frame-ancestors 'self' https://trk.tivq.link",
             "base-uri 'self'",
             "form-action 'self'",
         ].join('; '));
