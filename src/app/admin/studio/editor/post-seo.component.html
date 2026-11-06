@@ -1,0 +1,28 @@
+@let p = post();
+<section class="settings-card">
+    <h2>Organización y SEO</h2>
+    <label for="tags">Etiquetas</label
+    ><input
+        id="tags"
+        [ngModel]="tags()"
+        (ngModelChange)="tagsChanged.emit($event)"
+        placeholder="Angular, desarrollo, ideas"
+    /><label for="seo-title">Título SEO</label
+    ><input
+        id="seo-title"
+        [ngModel]="p.seoTitle"
+        (ngModelChange)="changed.emit({ seoTitle: $event })"
+        placeholder="Opcional"
+    /><label for="keywords">Palabras clave</label
+    ><input
+        id="keywords"
+        [ngModel]="p.keywords"
+        (ngModelChange)="changed.emit({ keywords: $event })"
+    /><label for="translation">Grupo de traducción</label
+    ><input
+        id="translation"
+        [ngModel]="p.translationGroup"
+        (ngModelChange)="changed.emit({ translationGroup: $event })"
+        placeholder="Mismo valor en ambos idiomas"
+    />
+</section>

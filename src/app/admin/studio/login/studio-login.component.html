@@ -1,0 +1,49 @@
+<main class="login-page">
+    <a routerLink="/" class="login-brand">b<span>.</span></a>
+    <div class="login-layout">
+        <section class="login-intro">
+            <span class="eyebrow">BANEGASN / STUDIO</span>
+            <h1>Las buenas ideas<br />merecen su espacio<span>.</span></h1>
+            <p>
+                Escribe, publica y conversa.<br />Tu próximo post empieza aquí.
+            </p>
+            <div class="editorial-note">
+                <span>01 —</span> Un lugar para crear, sin distracciones.
+            </div>
+        </section>
+        <form class="login-card" (ngSubmit)="submit()">
+            <span class="mini-icon">↗</span>
+            <h2>Bienvenido de nuevo</h2>
+            <p>Entra a tu espacio de publicación.</p>
+            <label for="username">Usuario</label
+            ><input
+                id="username"
+                name="username"
+                autocomplete="username"
+                [(ngModel)]="username"
+                required
+                placeholder="tu@email.com"
+            /><label for="password">Contraseña</label
+            ><input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                [(ngModel)]="password"
+                required
+            /><button class="primary login-submit" [disabled]="session.busy()">
+                {{ session.busy() ? 'Entrando…' : 'Entrar a Studio' }}
+                <span>→</span>
+            </button>
+            @if (session.error()) {
+                <p class="error" role="alert">{{ session.error() }}</p>
+            }
+            <div class="private-note">
+                ◈ &nbsp; Espacio privado de administración
+            </div>
+        </form>
+    </div>
+    <footer class="login-footer">
+        © banegasn.dev <a routerLink="/blog">Volver al blog ↗</a>
+    </footer>
+</main>

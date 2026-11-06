@@ -1,0 +1,40 @@
+diff --git a/dist/esm/index.js b/dist/esm/index.js
+--- a/dist/esm/index.js
++++ b/dist/esm/index.js
+@@ -5,6 +5,7 @@
+  * @license MIT
+  */
+ 
++import DOMPurify from 'dompurify';
+ import { Fragment, Schema, Slice, NodeRange, Mark as Mark$1, DOMParser, Node as Node$3 } from 'prosemirror-model';
+ import { DecorationSet, Decoration, EditorView } from 'prosemirror-view';
+ import { ReplaceAroundStep, liftTarget, canSplit, StepMap } from 'prosemirror-transform';
+@@ -15105,7 +15106,7 @@
+   return DOMPurify;
+ }
+ 
+-var purify = createDOMPurify();
++var purify = DOMPurify;
+ 
+ var CAN_BE_WHITE_TAG_LIST = ['iframe', 'embed'];
+ var whiteTagList = [];
+diff --git a/dist/esm/indexViewer.js b/dist/esm/indexViewer.js
+--- a/dist/esm/indexViewer.js
++++ b/dist/esm/indexViewer.js
+@@ -5,6 +5,7 @@
+  * @license MIT
+  */
+ 
++import DOMPurify from 'dompurify';
+ import { Plugin, PluginKey, Selection, TextSelection } from 'prosemirror-state';
+ import { InputRule, inputRules, undoInputRule } from 'prosemirror-inputrules';
+ import { Decoration, DecorationSet } from 'prosemirror-view';
+@@ -11529,7 +11530,7 @@
+   return DOMPurify;
+ }
+ 
+-var purify = createDOMPurify();
++var purify = DOMPurify;
+ 
+ var CAN_BE_WHITE_TAG_LIST = ['iframe', 'embed'];
+ var whiteTagList = [];

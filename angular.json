@@ -21,7 +21,7 @@
             "assets": [{
               "glob": "**/*",
               "input": "public"
-            }],
+            }, {"glob": "toastui-editor.css", "input": "node_modules/@toast-ui/editor/dist", "output": "editor"}],
             "styles": [
               "node_modules/highlight.js/styles/base16/default-dark.css",
               "src/styles.css"

@@ -1,0 +1,27 @@
+@let post = entry();
+<button class="post-row" (click)="edit.emit(post.id)">
+    <span class="post-main">
+        @if (post.imageUrl && failedImage() !== post.imageUrl) {
+            <img
+                [src]="post.imageUrl"
+                (error)="failedImage.set(post.imageUrl || '')"
+                alt=""
+                loading="lazy"
+            />
+        } @else {
+            <span class="post-placeholder">✳</span>
+        }
+        <span
+            ><strong>{{ post.title }}</strong
+            ><small
+                >{{ (post.language || '').toUpperCase() || '—' }}
+                <span>·</span> /{{ post.id }}</small
+            ></span
+        ></span
+    ><span
+        ><span class="badge" [class.live]="post.published">{{
+            post.published ? 'Publicado' : 'Borrador'
+        }}</span></span
+    ><time>{{ post.createdAt | date: 'dd MMM yyyy' }}</time
+    ><span class="row-arrow">↗</span>
+</button>

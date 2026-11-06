@@ -1,0 +1,214 @@
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 34px;
+}
+.stats article {
+    position: relative;
+    border: 1px solid #e9e9ee;
+    border-radius: 11px;
+    background: white;
+    padding: 23px;
+    min-height: 141px;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+.stat-icon {
+    width: 39px;
+    height: 39px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    font-size: 23px;
+}
+.peach {
+    color: #c88970;
+    background: #fbefea;
+}
+.green {
+    color: #6f9c87;
+    background: #edf5f0;
+}
+.lavender {
+    color: #8b7bae;
+    background: #f1eef8;
+}
+.stats article div > span {
+    font-size: 10px;
+    color: #92909d;
+}
+.stats strong {
+    display: block;
+    font-size: 28px;
+    letter-spacing: -1px;
+    font-weight: 600;
+    margin-top: 7px;
+    line-height: 1;
+}
+.stats article > small {
+    position: absolute;
+    bottom: 19px;
+    left: 23px;
+    font-size: 10px;
+    color: #aaa7b1;
+}
+.collection {
+    background: #fff;
+    border: 1px solid #e8e8ee;
+    border-radius: 11px;
+    overflow: hidden;
+}
+.collection-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 18px 22px;
+}
+.tabs {
+    display: flex;
+    gap: 7px;
+}
+.tabs button {
+    background: none;
+    border: 0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    color: #92909d;
+}
+.tabs button.selected {
+    background: #f0eef7;
+    color: #71688e;
+    font-weight: 600;
+}
+.tabs button span {
+    background: #e3dfef;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 9px;
+    margin-left: 5px;
+}
+.table-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 116px 112px 20px;
+    align-items: center;
+    gap: 12px;
+}
+.table-heading {
+    padding: 12px 24px;
+    background: #fafafb;
+    border-top: 1px solid #f0f0f3;
+    border-bottom: 1px solid #f0f0f3;
+    font-size: 9px;
+    letter-spacing: 1.2px;
+    color: #9b98a5;
+}
+.collection-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 17px 24px;
+    color: #aaa6b4;
+    font-size: 10px;
+}
+.collection-footer > span {
+    font-size: 9px;
+}
+@media (max-width: 1150px) {
+    .table-heading {
+        grid-template-columns: minmax(0, 1fr) 90px 85px 16px;
+        gap: 8px;
+    }
+    .stats article {
+        padding: 18px;
+        gap: 10px;
+    }
+    .stat-icon {
+        width: 32px;
+        height: 32px;
+    }
+    .stats article > small {
+        left: 18px;
+    }
+}
+@media (max-width: 800px) {
+    .stats {
+        gap: 10px;
+    }
+    .stats article {
+        padding: 17px 12px;
+        min-height: 125px;
+    }
+    .stats article > small {
+        display: none;
+    }
+    .stats strong {
+        font-size: 26px;
+    }
+    .stats article > div > span {
+        font-size: 9px;
+    }
+    .stats article {
+        gap: 8px;
+    }
+    .stat-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 18px;
+    }
+    .collection-toolbar {
+        padding: 15px;
+        flex-wrap: wrap;
+    }
+    .table-heading {
+        grid-template-columns: minmax(0, 1fr) 85px 16px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .table-heading > span:nth-child(3) {
+        display: none;
+    }
+}
+@media (max-width: 520px) {
+    .stats {
+        gap: 7px;
+    }
+    .stats article {
+        display: block;
+        min-height: 129px;
+        padding: 12px;
+    }
+    .stat-icon {
+        width: 23px;
+        height: 23px;
+        margin-bottom: 10px;
+        font-size: 16px;
+        border-radius: 6px;
+    }
+    .stats strong {
+        font-size: 23px;
+    }
+    .tabs {
+        gap: 0;
+    }
+    .tabs button {
+        padding: 7px 9px;
+        font-size: 10px;
+    }
+    .collection-footer > span {
+        display: none;
+    }
+}
+
+.post-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+@media (max-width: 600px) {
+    .page-heading {
+        flex-wrap: wrap;
+    }
+}

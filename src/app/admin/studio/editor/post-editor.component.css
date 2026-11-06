@@ -1,0 +1,121 @@
+.editor-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+.back-button {
+    padding: 0;
+    background: none;
+    border: 0;
+    color: #8b859a;
+    font-size: 11px;
+}
+.save-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.save-state {
+    font-size: 10px;
+    color: #a19bab;
+    margin-right: 8px;
+}
+.editor-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 275px;
+    gap: 25px;
+}
+.writing-panel {
+    background: #fff;
+    border: 1px solid #e9e7ef;
+    border-radius: 12px;
+    padding: 28px;
+    min-width: 0;
+}
+.writing-panel .title-input {
+    font-size: 29px;
+    letter-spacing: -1px;
+    font-weight: 600;
+    line-height: 1.3;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    resize: none;
+    margin-top: 19px;
+    margin-bottom: 25px;
+    box-shadow: none;
+}
+.writing-panel textarea:not(.title-input) {
+    font-size: 12px;
+    line-height: 1.8;
+}
+.content-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 28px 0 14px;
+}
+.content-label label {
+    margin: 0;
+}
+.content-label span,
+.editor-tip {
+    font-size: 9px;
+    color: #a39bad;
+}
+.editor-tip {
+    margin-top: 12px;
+    line-height: 1.6;
+}
+.settings-panel {
+    display: grid;
+    align-content: start;
+    gap: 18px;
+}
+@media (max-width: 1150px) {
+    .editor-grid {
+        grid-template-columns: minmax(0, 1fr) 235px;
+        gap: 17px;
+    }
+    .writing-panel {
+        padding: 20px;
+    }
+    .save-state {
+        display: none;
+    }
+}
+@media (max-width: 800px) {
+    .editor-grid {
+        grid-template-columns: 1fr;
+    }
+    .settings-panel {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .editor-heading {
+        align-items: flex-start;
+    }
+    .save-actions {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+}
+@media (max-width: 520px) {
+    .settings-panel {
+        grid-template-columns: 1fr;
+    }
+    .editor-heading {
+        display: block;
+    }
+    .save-actions {
+        margin-top: 15px;
+        justify-content: flex-start;
+    }
+    .writing-panel {
+        padding: 15px;
+    }
+    .title-input {
+        font-size: 25px !important;
+    }
+}

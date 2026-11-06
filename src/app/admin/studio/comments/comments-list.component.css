@@ -1,0 +1,12 @@
+.comment-search {
+    background: white;
+    max-width: 100%;
+    margin-bottom: 25px;
+}
+.count-pill {
+    font-size: 11px;
+    color: #8e819f;
+    background: #ece8f4;
+    border-radius: 20px;
+    padding: 9px 15px;
+}

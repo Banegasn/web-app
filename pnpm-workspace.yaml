@@ -5,3 +5,7 @@ allowBuilds:
   esbuild: true
   lmdb: true
   msgpackr-extract: true
+overrides:
+  '@toast-ui/editor>dompurify': '^3.4.17'
+patchedDependencies:
+  '@toast-ui/editor@3.2.2': patches/toast-ui-editor.patch

@@ -1,0 +1,25 @@
+@let p = post();
+<section class="settings-card">
+    <h2>Imagen de portada</h2>
+    @if (p.imageUrl) {
+        <img class="cover-preview" [src]="p.imageUrl" alt="Portada del post" />
+    }
+    <label class="upload-zone" for="cover-upload"
+        ><span>▧</span
+        ><strong>{{ uploading() ? 'Subiendo…' : 'Subir imagen' }}</strong
+        ><small>O elige una nueva portada</small></label
+    ><input
+        id="cover-upload"
+        class="sr-only"
+        type="file"
+        accept="image/png,image/jpeg,image/webp,image/gif"
+        [disabled]="uploading()"
+        (change)="selectFile($event)"
+    /><label for="cover-url">URL de imagen</label
+    ><input
+        id="cover-url"
+        [ngModel]="p.imageUrl"
+        (ngModelChange)="changed.emit({ imageUrl: $event })"
+        placeholder="https://…"
+    />
+</section>

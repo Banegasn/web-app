@@ -1,0 +1,101 @@
+:host {
+    display: block;
+}
+.import-card {
+    padding: 26px;
+    background: #fff;
+    border: 1px solid #e8e5ee;
+    border-radius: 12px;
+    margin-bottom: 22px;
+    min-width: 0;
+}
+h2 {
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 600;
+    margin: 0 0 10px;
+}
+p {
+    font-size: 12px;
+    line-height: 1.85;
+    color: #81798b;
+    margin: 0 0 22px;
+}
+.import-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+.import-heading label {
+    cursor: pointer;
+}
+.import-card textarea {
+    font: 12px/1.8 monospace;
+    resize: vertical;
+    min-height: 240px;
+}
+.import-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 18px;
+}
+.import-actions > span {
+    font-size: 10px;
+    color: #97899f;
+    overflow-wrap: anywhere;
+}
+.preview-card h2 {
+    font-size: 23px;
+    margin: 17px 0 12px;
+}
+.preview-card dl {
+    display: grid;
+    gap: 0;
+    margin: 0;
+}
+.preview-card dl > div {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 15px;
+    padding: 12px 0;
+    border-top: 1px solid #efedf4;
+    font-size: 11px;
+}
+.preview-card dt {
+    color: #a194aa;
+}
+.preview-card dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+    color: #73637f;
+}
+.import-note {
+    background: #f7f5fa;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 20px 0;
+    font-size: 11px;
+}
+@media (max-width: 600px) {
+    .import-card {
+        padding: 18px;
+    }
+    .import-heading,
+    .import-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+    .import-heading label {
+        align-self: flex-start;
+    }
+    .preview-card dl > div {
+        grid-template-columns: 75px 1fr;
+        gap: 10px;
+    }
+    .preview-card h2 {
+        font-size: 19px;
+    }
+}

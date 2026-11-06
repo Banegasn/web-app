@@ -1,0 +1,60 @@
+@if (session.checking()) {
+    <main class="checking">Abriendo Studio…</main>
+} @else if (!session.authenticated()) {
+    <app-studio-login />
+} @else {
+    <div class="studio-shell">
+        <app-studio-sidebar
+            [section]="section()"
+            [postCount]="posts.posts().length"
+            [commentCount]="comments.comments().length"
+            (navigate)="navigate($event)"
+            (logout)="logout()"
+        />
+        <div class="studio-content">
+            <header class="topbar">
+                <span
+                    >Tu espacio creativo <span class="slash">/</span>
+                    <strong>{{ heading() }}</strong></span
+                ><a routerLink="/blog">banegasn.dev ↗</a>
+            </header>
+            <main class="main-content">
+                <app-studio-feedback [error]="session.error()" />
+                @if (editor.loading()) {
+                    <p class="checking" role="status">Abriendo post…</p>
+                } @else if (editor.post()) {
+                    <app-studio-editor (back)="navigate('posts')" />
+                } @else {
+                    <app-studio-feedback [error]="editor.error()" />
+                    @switch (section()) {
+                        @case ('posts') {
+                            <app-studio-posts
+                                (create)="open()"
+                                (importPost)="navigate('import')"
+                                (edit)="open($event)"
+                            />
+                        }
+                        @case ('comments') {
+                            <app-studio-comments />
+                        }
+                        @case ('import') {
+                            <app-studio-post-import
+                                (imported)="importPost($event)"
+                            />
+                        }
+                        @case ('agents') {
+                            <app-studio-agent-guide />
+                        }
+                        @case ('media') {
+                            <app-studio-media />
+                        }
+                    }
+                }
+                <footer class="main-footer">
+                    <span>banegasn<span class="accent">.</span> studio</span
+                    ><span>Un pequeño espacio. Infinitas ideas.</span>
+                </footer>
+            </main>
+        </div>
+    </div>
+}

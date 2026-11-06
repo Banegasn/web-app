@@ -1,6 +1,5 @@
 import { Router } from 'express';
-import type { Request } from 'express';
-import { timingSafeEqual } from 'node:crypto';
+import { adminRequestIsAuthorized } from './admin-auth';
 import { mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
@@ -57,8 +56,8 @@ export function createCommentsRouter(
     });
 
     router.get('/admin', (request, response) => {
-        if (!adminRequestIsAuthorized(request)) {
-            response.setHeader('WWW-Authenticate', 'Bearer');
+        if (!adminRequestIsAuthorized(request) || (request.method !== 'GET' && request.header('x-admin-request') !== '1')) {
+
             response.status(401).json({ error: 'Unauthorized.' });
             return;
         }
@@ -266,8 +265,8 @@ export function createCommentsRouter(
     });
 
     router.delete('/:postId/:commentId', (request, response) => {
-        if (!adminRequestIsAuthorized(request)) {
-            response.setHeader('WWW-Authenticate', 'Bearer');
+        if (!adminRequestIsAuthorized(request) || (request.method !== 'GET' && request.header('x-admin-request') !== '1')) {
+
             response.status(401).json({ error: 'Unauthorized.' });
             return;
         }
@@ -397,16 +396,6 @@ function normalizedVoterId(value: string | undefined): string {
     return /^[a-zA-Z0-9_-]{16,80}$/.test(voterId) ? voterId : '';
 }
 
-function adminRequestIsAuthorized(request: Request): boolean {
-    const adminToken = process.env['COMMENTS_ADMIN_TOKEN'];
-    const authorization = request.header('authorization');
-    if (!adminToken || !authorization?.startsWith('Bearer ')) return false;
-
-    const suppliedToken = authorization.slice('Bearer '.length);
-    const expected = Buffer.from(adminToken);
-    const supplied = Buffer.from(suppliedToken);
-    return expected.length === supplied.length && timingSafeEqual(expected, supplied);
-}
 
 function consumeAttempt(
     attemptsByClient: Map<string, number[]>,

@@ -1,6 +1,7 @@
 {
   "name": "banegasn",
   "version": "0.0.0",
+  "packageManager": "pnpm@12.15.0",
   "scripts": {
     "ng": "ng",
     "dev": "concurrently -k -n web,comments -c cyan,magenta \"ng serve\" \"pnpm dev:comments\"",
@@ -13,6 +14,9 @@
     "test:seo": "tsx --test tests/seo-analyzer.test.ts tests/seo-score.test.ts tests/seo-agent-prompt.test.ts",
     "postbuild": "tsx scripts/package-posts.ts",
     "predev": "tsx scripts/prepare-posts.ts",
+    "admin:password": "tsx scripts/admin-password.ts",
+    "test:runtime": "tsx --test tests/post-runtime.test.ts",
+    "test:admin": "tsx --test tests/admin.test.ts tests/post-editor-store.test.ts tests/post-import.test.ts",
     "test:posts": "tsx --test tests/posts.test.ts tests/posts-service.test.ts",
     "migrate:posts": "tsx scripts/migrate-posts.ts"
   },
@@ -32,6 +36,7 @@
     "@angular/platform-server": "^22.2.4",
     "@angular/router": "^22.2.4",
     "@angular/ssr": "^22.2.6",
+    "@toast-ui/editor": "^3.2.2",
     "express": "^4.18.2",
     "highlight.js": "^11.11.1",
     "htmlparser2": "^12.0.0",

@@ -1,0 +1,35 @@
+@let c = comment();
+<article class="comment-card">
+    <header>
+        <span class="avatar">{{ c.author.slice(0, 2).toUpperCase() }}</span>
+        <div>
+            <strong>{{ c.author }}</strong
+            ><small
+                >{{ c.createdAt | date: 'dd MMM yyyy HH:mm' }}
+                @if (c.parentId) {
+                    · respuesta a #{{ c.parentId }}
+                }
+            </small>
+        </div>
+        <a [routerLink]="['/blog', c.postId]">{{ c.postId }} ↗</a>
+    </header>
+    <p>{{ c.body }}</p>
+    <footer>
+        @if (confirming()) {
+            <span>También se ocultarán sus respuestas.</span
+            ><button class="secondary" (click)="confirming.set(false)">
+                Cancelar</button
+            ><button
+                class="danger"
+                [disabled]="busy()"
+                (click)="remove.emit(c)"
+            >
+                Confirmar eliminación
+            </button>
+        } @else {
+            <button class="quiet-danger" (click)="confirming.set(true)">
+                Retirar comentario
+            </button>
+        }
+    </footer>
+</article>

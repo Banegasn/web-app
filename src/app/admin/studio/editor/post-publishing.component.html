@@ -1,0 +1,43 @@
+@let p = post();
+<section class="settings-card">
+    <h2>
+        Publicación
+        <span class="badge" [class.live]="p.published">{{
+            p.published ? 'Publicado' : 'Borrador'
+        }}</span>
+    </h2>
+    <label for="slug">URL del post</label>
+    <div class="slug-prefix">banegasn.dev/blog/</div>
+    <input
+        id="slug"
+        [ngModel]="p.id"
+        [readOnly]="p.revision >= 0"
+        (ngModelChange)="changed.emit({ id: $event })"
+        placeholder="mi-proximo-post"
+    /><label for="post-date">Fecha de publicación</label
+    ><input
+        id="post-date"
+        type="date"
+        [ngModel]="date()"
+        (ngModelChange)="dateChanged.emit($event)"
+    /><label for="author">Autor</label
+    ><input
+        id="author"
+        [ngModel]="p.author"
+        (ngModelChange)="changed.emit({ author: $event })"
+    /><label for="language">Idioma</label
+    ><select
+        id="language"
+        [ngModel]="p.language"
+        (ngModelChange)="changed.emit({ language: $event })"
+    >
+        <option value="es">Español</option>
+        <option value="en">English</option>
+        <option value="">Sin especificar</option>
+    </select>
+    @if (p.published) {
+        <a class="view-post" [routerLink]="['/blog', p.id]"
+            >Ver post publicado ↗</a
+        >
+    }
+</section>
