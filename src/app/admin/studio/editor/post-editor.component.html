@@ -1,0 +1,96 @@
+<app-studio-feedback [error]="state.error()" [notice]="state.notice()" />
+@if (state.post(); as p) {
+    <div class="editor-heading">
+        <button class="back-button" (click)="back.emit()">
+            ← Todos los posts
+        </button>
+        <div class="save-actions">
+            <span class="save-state">{{
+                state.dirty() ? '● Cambios sin guardar' : '✓ Todo guardado'
+            }}</span
+            ><button
+                class="secondary"
+                [disabled]="state.busy() || state.media.uploading()"
+                (click)="state.save(false)"
+            >
+                {{
+                    p.published ? 'Retirar a borrador' : 'Guardar borrador'
+                }}</button
+            ><button
+                class="primary"
+                [disabled]="state.busy() || state.media.uploading()"
+                (click)="state.save(true)"
+            >
+                {{
+                    state.busy()
+                        ? 'Guardando…'
+                        : p.published
+                          ? 'Actualizar post'
+                          : 'Publicar post'
+                }}
+                ↗
+            </button>
+        </div>
+    </div>
+    <div class="editor-grid">
+        <section class="writing-panel">
+            <span class="eyebrow">{{
+                p.revision < 0 ? 'UNA NUEVA IDEA' : 'CONTINÚA TU HISTORIA'
+            }}</span
+            ><label class="sr-only" for="post-title">Título del post</label
+            ><textarea
+                id="post-title"
+                class="title-input"
+                rows="2"
+                placeholder="Dale un título a tu idea…"
+                [ngModel]="p.title"
+                (ngModelChange)="state.titleChanged($event)"
+            ></textarea
+            ><label class="field-label" for="summary">Resumen</label
+            ><textarea
+                id="summary"
+                rows="3"
+                placeholder="Una breve introducción que invite a seguir leyendo…"
+                [ngModel]="p.summary"
+                (ngModelChange)="state.patch({ summary: $event })"
+            ></textarea>
+            <div class="content-label">
+                <label class="field-label">Contenido</label
+                ><span>Visual + Markdown</span>
+            </div>
+            <app-markdown-editor
+                [value]="p.content"
+                (changed)="state.contentChanged($event)"
+                (failure)="state.error.set($event)"
+            />
+            <p class="editor-tip">
+                Puedes pegar imágenes o arrastrarlas al editor.
+                {{
+                    state.media.uploading()
+                        ? 'Subiendo imagen…'
+                        : 'PNG, JPEG, WebP y GIF · hasta 8 MB'
+                }}
+            </p>
+        </section>
+        <aside class="settings-panel">
+            <app-post-publishing
+                [post]="p"
+                [date]="state.date"
+                (changed)="state.patch($event)"
+                (dateChanged)="state.updateDate($event)"
+            />
+            <app-post-cover
+                [post]="p"
+                [uploading]="state.media.uploading()"
+                (changed)="state.patch($event)"
+                (upload)="state.uploadCover($event)"
+            />
+            <app-post-seo
+                [post]="p"
+                [tags]="state.tags"
+                (changed)="state.patch($event)"
+                (tagsChanged)="state.updateTags($event)"
+            />
+        </aside>
+    </div>
+}

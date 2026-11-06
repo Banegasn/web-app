@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 
 @Component({
@@ -7,9 +7,13 @@ import { NavbarComponent } from './navbar/navbar.component';
     standalone: true,
     imports: [RouterOutlet, NavbarComponent],
     template: `
-        <app-navbar />
+        @if (!router.url.startsWith('/admin')) {
+            <app-navbar />
+        }
         <router-outlet />
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent { }
+export class AppComponent {
+    readonly router = inject(Router);
+}

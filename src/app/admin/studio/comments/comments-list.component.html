@@ -1,0 +1,33 @@
+<app-studio-feedback [error]="store.error()" [notice]="store.notice()" />
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">LA CONVERSACIÓN CONTINÚA</span>
+        <h1>Comentarios<span>.</span></h1>
+        <p>Un espacio para escuchar, responder y cuidar tu comunidad.</p>
+    </div>
+    <span class="count-pill">{{ store.comments().length }} públicos</span>
+</div>
+<label class="search comment-search"
+    ><span>⌕</span
+    ><input
+        type="search"
+        aria-label="Buscar comentarios"
+        placeholder="Buscar por autor, post o contenido…"
+        [ngModel]="query()"
+        (ngModelChange)="query.set($event)"
+/></label>
+<div class="comment-list">
+    @for (c of filteredComments(); track c.id) {
+        <app-studio-comment-card
+            [comment]="c"
+            [busy]="store.busy()"
+            (remove)="store.remove($event)"
+        />
+    } @empty {
+        <div class="empty">
+            <span>◷</span>
+            <h3>Todo al día</h3>
+            <p>No hay comentarios que mostrar.</p>
+        </div>
+    }
+</div>

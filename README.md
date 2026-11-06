@@ -14,19 +14,50 @@ requests are canceled. Completed article bodies are not kept in a global browser
 Prerendered pages transfer the data needed for hydration so the same request does not
 need to run again for the same language.
 
-Markdown and the publishing manifest live in `content/posts/`, outside the public assets.
-They remain the versioned editing source. `pnpm build` validates and imports them into a
-build SQLite catalog, then generates the sitemap and prerender routes from that database.
-The build packages this catalog at `dist/banegasn/server/posts.sqlite`. At startup the server
-merges it transactionally into the existing persistent SQLite file, updating changed posts
-and retiring removed ones without deleting their comments. A failed import rolls back.
-Only one source post is parsed at a time; request handling never reads Markdown files.
+The administrator publishes at `/admin` (the old `/admin/comments` URL redirects there).
+Studio includes a visual/Markdown editor, draft/published states, post metadata and SEO,
+cover images, a media library, and comment moderation. New posts publish immediately without
+code deployments. Markdown remains the content format stored in SQLite.
 
-Use `pnpm migrate:posts` to import the source into the local database manually.
-Use `pnpm dev` to prepare the catalog and start Angular plus the local posts/comments API.
-Restart the API after editing Markdown. Angular proxies `/api` to port 4001.
-Run `pnpm test:posts` for migration, content fidelity, language selection, search,
-pagination, API validation and comment preservation checks.
+`content/posts/` is the legacy seed catalog. Builds import and package that catalog, but once a
+post is saved through Studio it becomes managed content: future imports, restarts, and deployments
+cannot overwrite or retire it. Existing comments are preserved. Revision checks reject stale
+concurrent saves; existing slugs remain stable to preserve links and comment associations.
+Drafts are excluded from the public API, SSR, and the dynamic sitemap. Switching a published
+article to a draft removes it from the blog. Public blog HTML is rendered from the live database;
+public API responses revalidate on every request, so the prerendered build never hides CMS edits.
+
+Images (PNG/JPEG/WebP/GIF, up to 8 MiB each) are stored as binary blobs in the same persistent
+SQLite database and served at `/api/media/:id`. No external storage credentials are needed.
+Image insertion in the editor supports file selection, paste and drag/drop. Uploaded files
+are public by URL, including images attached to drafts; do not upload private material.
+Keep the database on the existing persistent volume and include it in backups.
+
+Set `ADMIN_USERNAME` and `ADMIN_PASSWORD_HASH` in the server environment. To generate a
+salted scrypt hash, run `pnpm admin:password` and provide the password through stdin. Only the
+hash is configured on the server; no default account or password is shipped in the repository.
+Access uses an 8-hour HttpOnly/SameSite=Strict cookie (Secure over HTTPS), server-side sessions,
+a 10-attempt/15-minute login limit per client IP, and a required custom header on admin mutations.
+Sessions end on logout, expiry or server restart. No credentials are stored in browser storage.
+`COMMENTS_ADMIN_TOKEN` is no longer accepted and may be removed from the deployment.
+Keep one replica while using SQLite and in-process sessions.
+
+Studio follows feature components with separate templates and styles: login, sidebar, post list/row,
+editor, publication/cover/SEO panels, comment list/card, and media library. The root coordinates
+navigation. `AdminApiService` owns HTTP, `AdminSessionService` owns sessions, and domain stores own
+posts, comments, media and the current draft. Presentation components communicate through typed
+inputs/outputs. Unsaved editor state survives session expiry; stale async loads and edits made
+while saving are protected. Shared visual primitives live in `studio-theme.css`.
+
+The TOAST UI ESM patch in `patches/toast-ui-editor.patch` replaces its bundled legacy sanitizer
+with its updated DOMPurify dependency. Keep that patch and the pnpm override when updating the editor.
+Editor JavaScript and its stylesheet load only when editing a post.
+
+Use `pnpm dev` to prepare the catalog and start Angular plus the local API. Production-like
+preview: `pnpm build`, configure the admin variables and `pnpm start`.
+`pnpm test:posts` checks catalog imports and public APIs; `pnpm test:admin` covers authentication,
+CSRF checks, session revocation, publication, revision conflicts, import preservation, uploads,
+and comment moderation. `pnpm migrate:posts` remains available for importing the legacy source.
 
 ## Blog comments
 
@@ -41,20 +72,9 @@ Comments can be nested to any depth. Anonymous upvotes and downvotes are associa
 identifier stored in the browser; this keeps the feature lightweight, but it is not an identity or
 anti-abuse system. Existing databases are migrated automatically when the server starts.
 
-Keep the service at one replica while it uses SQLite. Set `COMMENTS_ADMIN_TOKEN` to enable the
-moderation panel at `/admin/comments`. Enter the token there to list and remove public comments.
-The browser keeps it only in `sessionStorage`, so closing the tab ends the admin session. The route
-is marked `noindex` and every moderation API request still requires the bearer token.
-
-Removing a comment hides it and its visible reply branch without physically deleting the database
-records. The same operation is available from the command line:
-
-```bash
-curl -X DELETE \
-  -H "Authorization: Bearer $COMMENTS_ADMIN_TOKEN" \
-  https://banegasn.dev/api/comments/<post-id>/<comment-id>
-```
-
+Manage comments in the Comments section of `/admin` using the same admin session as posts.
+Removing a comment hides it and its visible reply branch without physically deleting records.
+The old bearer-token moderation endpoints now require the admin session cookie.
 
 ## SEO HTML analyzer
 

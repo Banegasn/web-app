@@ -1,3 +1,4 @@
+@import './app/admin/studio/studio-theme.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

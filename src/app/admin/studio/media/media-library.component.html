@@ -1,0 +1,40 @@
+<app-studio-feedback [error]="error() || store.error()" [notice]="notice()" />
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">DALE IMAGEN A TUS IDEAS</span>
+        <h1>Biblioteca<span>.</span></h1>
+        <p>Tus imágenes, listas para acompañar una buena historia.</p>
+    </div>
+    <label class="primary" for="media-upload">＋ Subir imagen</label
+    ><input
+        id="media-upload"
+        class="sr-only"
+        type="file"
+        accept="image/png,image/jpeg,image/webp,image/gif"
+        [disabled]="store.uploading()"
+        (change)="upload($event)"
+    />
+</div>
+<div class="media-grid">
+    @for (item of store.items(); track item.id) {
+        <article>
+            <img
+                [src]="'/api/media/' + item.id"
+                [alt]="mediaName(item.name)"
+                loading="lazy"
+            />
+            <div>
+                <strong>{{ mediaName(item.name) }}</strong
+                ><button class="secondary" (click)="copyImage(item.id)">
+                    Copiar enlace ↗
+                </button>
+            </div>
+        </article>
+    } @empty {
+        <div class="empty">
+            <span>▧</span>
+            <h3>Tu biblioteca está lista</h3>
+            <p>Sube la primera imagen para usarla en tus posts.</p>
+        </div>
+    }
+</div>

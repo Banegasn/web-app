@@ -1,0 +1,89 @@
+<app-studio-feedback [error]="store.error()" />
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">EL ESPACIO DE TUS IDEAS</span>
+        <h1>Tus posts<span>.</span></h1>
+        <p>Todo lo que compartes con el mundo, en un solo lugar.</p>
+    </div>
+    <button class="primary" (click)="create.emit()">
+        <span>＋</span> Crear post
+    </button>
+</div>
+<div class="stats">
+    <article>
+        <span class="stat-icon peach">▤</span>
+        <div>
+            <span>Total de posts</span
+            ><strong>{{ store.posts().length }}</strong>
+        </div>
+        <small>Tu colección de ideas</small>
+    </article>
+    <article>
+        <span class="stat-icon green">↗</span>
+        <div>
+            <span>Publicados</span><strong>{{ store.published() }}</strong>
+        </div>
+        <small>Ya forman parte del blog</small>
+    </article>
+    <article>
+        <span class="stat-icon lavender">✎</span>
+        <div>
+            <span>Borradores</span
+            ><strong>{{ store.posts().length - store.published() }}</strong>
+        </div>
+        <small>Historias por contar</small>
+    </article>
+</div>
+<section class="collection">
+    <div class="collection-toolbar">
+        <div class="tabs">
+            <button
+                [class.selected]="filter() === 'all'"
+                (click)="filter.set('all')"
+            >
+                Todos
+                <span>{{ store.posts().length }}</span></button
+            ><button
+                [class.selected]="filter() === 'published'"
+                (click)="filter.set('published')"
+            >
+                Publicados</button
+            ><button
+                [class.selected]="filter() === 'draft'"
+                (click)="filter.set('draft')"
+            >
+                Borradores
+            </button>
+        </div>
+        <label class="search"
+            ><span>⌕</span
+            ><input
+                aria-label="Buscar posts"
+                type="search"
+                placeholder="Buscar un post…"
+                [ngModel]="query()"
+                (ngModelChange)="query.set($event)"
+        /></label>
+    </div>
+    <div class="posts-table">
+        <div class="table-heading">
+            <span>POST</span><span>ESTADO</span><span>FECHA</span><span></span>
+        </div>
+        @for (post of filtered(); track post.id) {
+            <app-studio-post-row [entry]="post" (edit)="edit.emit($event)" />
+        } @empty {
+            <div class="empty">
+                <span>✎</span>
+                <h3>Aquí empieza tu próxima historia</h3>
+                <p>No hay posts que mostrar.</p>
+                <button class="secondary" (click)="create.emit()">
+                    Crear un post
+                </button>
+            </div>
+        }
+    </div>
+    <footer class="collection-footer">
+        {{ filtered().length }} posts
+        <span>Hecho para compartir lo que sabes.</span>
+    </footer>
+</section>

@@ -1,3 +1,5 @@
+import { createAuthRouter } from './admin-auth';
+import { createAdminRouter, createMediaRouter } from './admin';
 import express from 'express';
 import { join } from 'node:path';
 import { PostsRepository } from './posts-repository';
@@ -9,6 +11,9 @@ const port = Number.parseInt(process.env['COMMENTS_PORT'] || '4001', 10);
 
 const posts = new PostsRepository(commentsDatabasePath());
 posts.importDirectory(join(process.cwd(), 'content', 'posts'));
+    server.use('/api/auth', createAuthRouter());
+    server.use('/api/admin', createAdminRouter(posts));
+    server.use('/api/media', createMediaRouter(posts));
 server.use('/api/posts', createPostsRouter(posts));
 
 server.use(

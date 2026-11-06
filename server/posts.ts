@@ -4,7 +4,7 @@ import type { PostsRepository } from './posts-repository';
 export function createPostsRouter(repository: PostsRepository): Router {
     const router = Router();
     router.use((_request, response, next) => {
-        response.setHeader('Cache-Control', 'public, max-age=60, s-maxage=300');
+        response.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
         response.setHeader('X-Content-Type-Options', 'nosniff');
         next();
     });

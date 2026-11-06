@@ -1,0 +1,36 @@
+<aside class="sidebar">
+    <a class="brand" routerLink="/">b<span>.</span> <small>studio</small></a>
+    <div class="workspace">
+        <span class="workspace-icon">B</span>
+        <div>banegasn.dev<small>Espacio de publicación</small></div>
+        <span class="online"></span>
+    </div>
+    <p class="nav-label">CONTENIDO</p>
+    <nav aria-label="Administración">
+        <button
+            [class.active]="section() === 'posts'"
+            (click)="navigate.emit('posts')"
+        >
+            <span>▤</span> Posts <small>{{ postCount() }}</small></button
+        ><button
+            [class.active]="section() === 'comments'"
+            (click)="navigate.emit('comments')"
+        >
+            <span>◷</span> Comentarios
+            <small>{{ commentCount() }}</small></button
+        ><button
+            [class.active]="section() === 'media'"
+            (click)="navigate.emit('media')"
+        >
+            <span>▧</span> Biblioteca
+        </button>
+    </nav>
+    <div class="sidebar-bottom">
+        <a routerLink="/blog">Ver sitio web <span>↗</span></a
+        ><button (click)="logout.emit()">Cerrar sesión <span>↪</span></button>
+        <div class="profile">
+            <span>NB</span>
+            <div>Administrador<small>banegasn.dev</small></div>
+        </div>
+    </div>
+</aside>
