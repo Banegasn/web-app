@@ -5,12 +5,16 @@
     "ng": "ng",
     "dev": "concurrently -k -n web,comments -c cyan,magenta \"ng serve\" \"pnpm dev:comments\"",
     "dev:comments": "tsx watch server/comments-dev.ts",
-    "prebuild": "node generate-sitemap.js && node generate-prerender-routes.js",
+    "prebuild": "tsx scripts/prepare-posts.ts",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "start": "node dist/banegasn/server/server.mjs",
     "lint": "ng lint",
-    "test:seo": "tsx --test tests/seo-analyzer.test.ts tests/seo-score.test.ts tests/seo-agent-prompt.test.ts"
+    "test:seo": "tsx --test tests/seo-analyzer.test.ts tests/seo-score.test.ts tests/seo-agent-prompt.test.ts",
+    "postbuild": "tsx scripts/package-posts.ts",
+    "predev": "tsx scripts/prepare-posts.ts",
+    "test:posts": "tsx --test tests/posts.test.ts tests/posts-service.test.ts",
+    "migrate:posts": "tsx scripts/migrate-posts.ts"
   },
   "private": true,
   "engines": {

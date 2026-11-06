@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import type { Request } from 'express';
 import { timingSafeEqual } from 'node:crypto';
-import { existsSync, mkdirSync } from 'node:fs';
+import { mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
 
@@ -43,7 +43,7 @@ export interface PublicComment {
 
 export function createCommentsRouter(
     databasePath = commentsDatabasePath(),
-    postsDirectory?: string,
+    postExists?: (id: string) => boolean,
 ): Router {
     const router = Router();
     const database = openCommentsDatabase(databasePath);
@@ -91,7 +91,7 @@ export function createCommentsRouter(
             response.status(400).json({ error: 'Invalid post identifier.' });
             return;
         }
-        if (postsDirectory && !postExists(postsDirectory, postId)) {
+        if (postExists && !postExists(postId)) {
             response.status(404).json({ error: 'Post not found.' });
             return;
         }
@@ -125,7 +125,7 @@ export function createCommentsRouter(
             response.status(400).json({ error: 'Invalid post identifier.' });
             return;
         }
-        if (postsDirectory && !postExists(postsDirectory, postId)) {
+        if (postExists && !postExists(postId)) {
             response.status(404).json({ error: 'Post not found.' });
             return;
         }
@@ -364,9 +364,6 @@ function normalizedPostId(value: string | undefined): string {
     return /^[a-z0-9][a-z0-9-]{0,99}$/.test(postId) ? postId : '';
 }
 
-function postExists(postsDirectory: string, postId: string): boolean {
-    return existsSync(join(postsDirectory, `${postId}.md`));
-}
 
 function normalizedText(value: unknown, maximumLength: number): string {
     return typeof value === 'string'

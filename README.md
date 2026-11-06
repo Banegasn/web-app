@@ -2,14 +2,40 @@
 
 Personal website and blog showcasing software engineering projects and insights. Built using modern web standards.
 
+## Blog storage and publishing
+
+Posts and comments share the existing SQLite file (`.data/comments.sqlite` locally).
+`COMMENTS_DB_PATH` and `RAILWAY_VOLUME_MOUNT_PATH` still control its location.
+
+The browser reads `/api/posts` for paginated metadata (no Markdown bodies) and
+`/api/posts/:id` for one article plus translation metadata. Listing, language selection,
+content search, ordering and pagination run in SQLite. Search is debounced and obsolete
+requests are canceled. Completed article bodies are not kept in a global browser cache.
+Prerendered pages transfer the data needed for hydration so the same request does not
+need to run again for the same language.
+
+Markdown and the publishing manifest live in `content/posts/`, outside the public assets.
+They remain the versioned editing source. `pnpm build` validates and imports them into a
+build SQLite catalog, then generates the sitemap and prerender routes from that database.
+The build packages this catalog at `dist/banegasn/server/posts.sqlite`. At startup the server
+merges it transactionally into the existing persistent SQLite file, updating changed posts
+and retiring removed ones without deleting their comments. A failed import rolls back.
+Only one source post is parsed at a time; request handling never reads Markdown files.
+
+Use `pnpm migrate:posts` to import the source into the local database manually.
+Use `pnpm dev` to prepare the catalog and start Angular plus the local posts/comments API.
+Restart the API after editing Markdown. Angular proxies `/api` to port 4001.
+Run `pnpm test:posts` for migration, content fidelity, language selection, search,
+pagination, API validation and comment preservation checks.
+
 ## Blog comments
 
 Comments are stored in SQLite by the SSR Express process. Locally, the database is created at
 `.data/comments.sqlite`. In production, attach a persistent Railway volume at `/data`; the app uses
 `RAILWAY_VOLUME_MOUNT_PATH` automatically. You can override the file with `COMMENTS_DB_PATH`.
 
-`pnpm dev` starts Angular on port 4200 and the local comments API on port 4001. Angular proxies
-`/api/comments` to that API, so the browser continues using same-origin requests during development.
+`pnpm dev` starts Angular on port 4200 and the local blog API on port 4001. Angular proxies
+`/api` to that API, so the browser continues using same-origin requests during development.
 
 Comments can be nested to any depth. Anonymous upvotes and downvotes are associated with a random
 identifier stored in the browser; this keeps the feature lightweight, but it is not an identity or
@@ -71,7 +97,7 @@ Use Node.js 24 LTS (24.22.1 or newer within the 24.x release line). Run `nvm ins
 and `nvm use` to select the version in `.nvmrc`, then install dependencies with `pnpm install`.
 Railway reads the supported Node.js range from `engines.node` in `package.json`.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Run `pnpm dev` for the dev server and blog API. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
@@ -79,7 +105,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `pnpm build` to import posts, generate SEO routes, build the project and package the SQLite catalog. The build artifacts will be stored in the `dist/` directory.
 
 ## Running unit tests
 

@@ -1,10 +1,13 @@
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy, Renderer2, computed, effect, inject, input, signal } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { catchError, map, of, startWith, switchMap, timer } from 'rxjs';
+import { PostsService } from '../../services/posts.service';
 import { Meta, Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { BlogPostCardComponent } from '../../components/post-card/blog-post-card.component';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
-import { Post } from '../../models/post.model';
+import { PostSummary } from '../../models/post.model';
 
 @Component({
     selector: 'app-blog-list',
@@ -15,7 +18,7 @@ import { Post } from '../../models/post.model';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BlogListComponent implements OnDestroy {
-    readonly posts = input.required<Post[]>();
+    readonly posts = input.required<PostSummary[]>();
     readonly search = signal<string>('');
 
     private readonly titleService = inject(Title);
@@ -24,16 +27,29 @@ export class BlogListComponent implements OnDestroy {
     private readonly renderer = inject(Renderer2);
     private jsonLdScript?: HTMLScriptElement;
 
-    readonly filteredPosts = computed(() => {
-        const term = this.search()?.toLowerCase();
-        if (!term) {
-            return this.posts();
-        }
-        return this.posts().filter(post =>
-            post.title.toLowerCase().includes(term) ||
-            post.content.toLowerCase().includes(term)
-        );
-    });
+    readonly page = signal(0);
+    private readonly postsService = inject(PostsService);
+    private readonly query = computed(() => ({ search: this.search().trim().slice(0, 200), page: this.page() }));
+    private readonly results = toSignal(toObservable(this.query).pipe(
+        switchMap(query => {
+            if (!query.search && query.page === 0) return of({ posts: this.posts(), loading: false, error: false });
+            return timer(query.search ? 250 : 0).pipe(
+                switchMap(() => this.postsService.getAllPosts({ search: query.search, limit: 25, offset: query.page * 24 })),
+                map(posts => ({ posts, loading: false, error: false })),
+                catchError(() => of({ posts: [] as PostSummary[], loading: false, error: true })),
+                startWith({ posts: [] as PostSummary[], loading: true, error: false }),
+            );
+        })
+    ));
+    readonly filteredPosts = computed(() => (this.results()?.posts ?? this.posts()).slice(0, 24));
+    readonly hasMore = computed(() => (this.results()?.posts ?? this.posts()).length > 24);
+    readonly loading = computed(() => this.results()?.loading ?? false);
+    readonly searchError = computed(() => this.results()?.error ?? false);
+
+    setSearch(value: string): void {
+        this.search.set(value);
+        this.page.set(0);
+    }
 
     constructor() {
         const origin = this.getOrigin();
@@ -58,14 +74,12 @@ export class BlogListComponent implements OnDestroy {
         this.setCanonicalUrl(canonicalUrl);
 
         effect(() => {
-            const posts = this.posts();
-            if (posts.length) {
-                this.setItemListJsonLd(posts, canonicalUrl);
-            }
+            const posts = this.filteredPosts();
+            this.setItemListJsonLd(posts, canonicalUrl);
         });
     }
 
-    private setItemListJsonLd(posts: Post[], canonicalUrl: string): void {
+    private setItemListJsonLd(posts: PostSummary[], canonicalUrl: string): void {
         if (!this.jsonLdScript) {
             this.jsonLdScript = this.renderer.createElement('script');
             this.renderer.setAttribute(this.jsonLdScript, 'type', 'application/ld+json');

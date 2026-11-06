@@ -1,7 +1,9 @@
 import express from 'express';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createCommentsRouter } from './server/comments';
+import { PostsRepository } from './server/posts-repository';
+import { createPostsRouter } from './server/posts';
+import { commentsDatabasePath, createCommentsRouter } from './server/comments';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -31,10 +33,14 @@ export function app(): express.Express {
         next();
     });
 
+    const posts = new PostsRepository(commentsDatabasePath());
+    posts.importDatabase(join(serverDistFolder, 'posts.sqlite'));
+    server.use('/api/posts', createPostsRouter(posts));
+
     server.use(
         '/api/comments',
         express.json({ limit: '8kb', type: 'application/json' }),
-        createCommentsRouter(undefined, join(browserDistFolder, 'posts')),
+        createCommentsRouter(undefined, id => posts.exists(id)),
     );
 
     // Serve static files from /browser
@@ -51,13 +57,11 @@ export function app(): express.Express {
             if (filePath.endsWith('robots.txt') || filePath.endsWith('sitemap.xml') || filePath.endsWith('.webmanifest')) {
                 res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600');
             }
-            if (filePath.endsWith('.md') || filePath.endsWith('posts.json')) {
-                res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-            }
+
         },
     }));
 
-    // Do not pass missing post assets into Angular SSR, which would return app HTML.
+    // Keep retired public Markdown URLs from returning the application shell.
     server.get('/posts/*', (_req, res) => {
         res.status(404).type('text/plain').send('Post not found');
     });

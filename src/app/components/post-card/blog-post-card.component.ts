@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Post } from '../../models/post.model';
+import { PostSummary } from '../../models/post.model';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -10,5 +10,5 @@ import { Post } from '../../models/post.model';
     templateUrl: './blog-post-card.component.html'
 })
 export class BlogPostCardComponent {
-    readonly post = input<Post>();
+    readonly post = input<PostSummary>();
 } 

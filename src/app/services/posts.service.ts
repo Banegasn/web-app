@@ -1,201 +1,90 @@
 import { isPlatformBrowser } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Injectable, PLATFORM_ID, inject } from '@angular/core';
-import { Observable, catchError, forkJoin, map, mergeMap, of, shareReplay, tap } from 'rxjs';
-import { Post } from '../models/post.model';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable, InjectionToken, PLATFORM_ID, TransferState, inject, makeStateKey } from '@angular/core';
+import { Observable, catchError, defer, finalize, map, of, shareReplay, tap, throwError } from 'rxjs';
+import { PostArticle, PostSummary, PostsQuery } from '../models/post.model';
 
-const REQUIRED_FRONT_MATTER_FIELDS = ['id', 'title', 'summary', 'createdAt'] as const;
-
-function parseFrontMatterDate(value: string, field: string, postId: string): Date {
-    // Convert the existing "YYYY-MM-DD HH:mm:ss" values to ISO 8601 before parsing.
-    const normalizedValue = value.replace(
-        /^(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2}:\d{2}(?:\.\d+)?)$/,
-        '$1T$2'
-    );
-    const date = new Date(normalizedValue);
-
-    if (Number.isNaN(date.getTime())) {
-        throw new Error(`Post "${postId}" has an invalid ${field} value: "${value}".`);
-    }
-
-    return date;
+export interface PostsSource {
+    list(query: PostsQuery): Observable<PostSummary[]>;
+    article(id: string): Observable<PostArticle | undefined>;
 }
 
-function parseMarkdown(markdown: string, requestedId: string): Post {
-    const frontMatterRegex = /^---[ \t]*\r?\n([\s\S]*?)\r?\n---[ \t]*(?:\r?\n|$)([\s\S]*)$/;
-    const match = markdown.match(frontMatterRegex);
+export const POSTS_SOURCE = new InjectionToken<PostsSource>('POSTS_SOURCE', {
+    providedIn: 'root',
+    factory: () => {
+        const http = inject(HttpClient);
+        return {
+            list: query => http.get<PostSummary[]>('/api/posts', {
+                params: { language: query.language || 'en', search: query.search || '', limit: query.limit ?? 24, offset: query.offset ?? 0 },
+                transferCache: false,
+            }),
+            article: id => http.get<PostArticle>(`/api/posts/${encodeURIComponent(id)}`, { transferCache: false }).pipe(
+                catchError(error => error instanceof HttpErrorResponse && error.status === 404
+                    ? of(undefined) : throwError(() => error))
+            ),
+        };
+    },
+});
 
-    if (!match?.[1]) {
-        throw new Error(`Post "${requestedId}" does not contain valid front matter.`);
-    }
-
-    const yamlContent = match[1];
-    const mainContent = match[2] || '';
-    const metadata: Record<string, string> = {};
-    yamlContent.split(/\r?\n/).forEach(line => {
-        const parts = line.match(/^\s*"?([^"]*?)"?\s*:\s*(.*)\s*$/);
-        if (parts && parts.length >= 3) {
-            const key = parts[1].trim();
-            const value = parts[2].trim().replace(/^['"]|['"]$/g, '');
-            metadata[key] = value;
-        }
-    });
-
-    const missingFields = REQUIRED_FRONT_MATTER_FIELDS.filter(field => !metadata[field]);
-    if (missingFields.length > 0) {
-        throw new Error(`Post "${requestedId}" is missing required front matter: ${missingFields.join(', ')}.`);
-    }
-    if (metadata['id'] !== requestedId) {
-        throw new Error(`Post "${requestedId}" declares a different id: "${metadata['id']}".`);
-    }
-
-    return {
-        id: metadata['id'],
-        title: metadata['title'],
-        seoTitle: metadata['seoTitle'],
-        summary: metadata['summary'],
-        createdAt: parseFrontMatterDate(metadata['createdAt'], 'createdAt', requestedId),
-        updatedAt: metadata['updatedAt']
-            ? parseFrontMatterDate(metadata['updatedAt'], 'updatedAt', requestedId)
-            : undefined,
-        author: metadata['author'],
-        tags: metadata['tags'] ? metadata['tags'].split(',').map(tag => tag.trim()).filter(Boolean) : [],
-        keywords: metadata['keywords'],
-        language: metadata['language'],
-        translationGroup: metadata['translationGroup'],
-        imageUrl: metadata['imageUrl'],
-        content: mainContent.trim()
-    };
-}
-
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class PostsService {
-    private http = inject(HttpClient);
-    private platformId = inject(PLATFORM_ID);
-    private postsUrl = '/posts/'; // Assumes posts are in src/assets/posts/
-    private postsManifestUrl = `${this.postsUrl}posts.json`; // Assumes manifest file lists post IDs
+    private readonly source = inject(POSTS_SOURCE);
+    private readonly platformId = inject(PLATFORM_ID);
+    private readonly state = inject(TransferState);
+    // Deduplicate concurrent subscriptions only; completed bodies are not retained.
+    private readonly pending = new Map<string, Observable<unknown>>();
 
-    private allPostsCache$: Observable<Post[]> | null = null; // Cache unfiltered posts
-    private postCache = new Map<string, Observable<Post | undefined>>();
+    getAllPosts(query: PostsQuery = {}): Observable<PostSummary[]> {
+        const normalized = { language: this.getUserLanguage(), ...query };
+        return this.load(`list:${JSON.stringify(normalized)}`, () => this.source.list(normalized)).pipe(
+            map(posts => posts.map(post => this.restoreDates(post)))
+        );
+    }
 
-    /**
-     * Detects user's preferred language from browser or defaults to 'en'
-     */
+    getLatestPosts(count: number): Observable<PostSummary[]> {
+        return this.getAllPosts({ limit: count });
+    }
+
+    getArticle(id: string): Observable<PostArticle | undefined> {
+        return this.load(`article:${id}`, () => this.source.article(id)).pipe(
+            map(article => article ? {
+                post: this.restoreDates(article.post),
+                translations: article.translations.map(post => this.restoreDates(post)),
+            } : undefined)
+        );
+    }
+
     private getUserLanguage(): string {
         if (isPlatformBrowser(this.platformId)) {
-            const browserLang = navigator.language || 'en';
-            // Extract primary language code (e.g., 'es' from 'es-ES', 'en' from 'en-US')
-            const langCode = browserLang.split('-')[0].toLowerCase();
-            // Support common languages: en, es, or default to en
-            return ['en', 'es'].includes(langCode) ? langCode : 'en';
+            const language = navigator.language.split('-')[0].toLowerCase();
+            return language === 'es' ? 'es' : 'en';
         }
-        return 'en'; // Default for SSR
+        return 'en';
     }
 
-    /**
-     * Filters posts by language and deduplicates by translationGroup
-     * If multiple posts share the same translationGroup, only the one matching user's language is shown
-     * Posts with language but without translationGroup are always shown (never filtered)
-     */
-    private filterPostsByLanguage(posts: Post[]): Post[] {
-        const userLang = this.getUserLanguage();
-        const translationGroups = new Map<string, Post[]>();
+    private restoreDates<T extends PostSummary>(post: T): T {
+        return { ...post, createdAt: new Date(post.createdAt), updatedAt: post.updatedAt ? new Date(post.updatedAt) : undefined };
+    }
 
-        // Group posts by translationGroup
-        posts.forEach(post => {
-            if (post.translationGroup) {
-                if (!translationGroups.has(post.translationGroup)) {
-                    translationGroups.set(post.translationGroup, []);
-                }
-                translationGroups.get(post.translationGroup)!.push(post);
+    private load<T>(key: string, fetch: () => Observable<T>): Observable<T> {
+        return defer(() => {
+            const stateKey = makeStateKey<T>(`posts:${key}`);
+            if (isPlatformBrowser(this.platformId) && this.state.hasKey(stateKey)) {
+                const value = this.state.get(stateKey, undefined as T);
+                this.state.remove(stateKey);
+                return of(value);
             }
-        });
-
-        // Filter posts
-        return posts.filter(post => {
-            // If post has a translationGroup, apply language filtering within that group
-            if (post.translationGroup) {
-                const groupPosts = translationGroups.get(post.translationGroup)!;
-                // Find the best match for user's language
-                const preferredPost = groupPosts.find(p => p.language === userLang)
-                    || groupPosts.find(p => !p.language)
-                    || groupPosts[0];
-                // Only show this post if it's the preferred one
-                return post.id === preferredPost.id;
-            }
-            // Posts without translationGroup are always shown (regardless of language)
-            // This includes posts with language but without translationGroup
-            return true;
-        });
-    }
-
-    getAllPosts(): Observable<Post[]> {
-        return this.getAllPostsUnfiltered().pipe(
-            map(posts => this.filterPostsByLanguage(posts))
-        );
-    }
-
-    getAllPostsUnfiltered(): Observable<Post[]> {
-        if (!this.allPostsCache$) {
-            // Cache unfiltered posts
-            this.allPostsCache$ = this.http.get<{ posts: string[] }>(this.postsManifestUrl).pipe(
-                mergeMap(manifest => {
-                    if (!manifest || !manifest.posts || manifest.posts.length === 0) {
-                        return of([]);
-                    }
-                    const postObservables = manifest.posts.map(id =>
-                        this.getPostById(id).pipe(
-                            catchError(err => {
-                                console.error(`Error fetching post ${id}:`, err);
-                                return of(undefined);
-                            })
-                        )
-                    );
-                    return forkJoin(postObservables).pipe(
-                        map(posts => posts.filter((post): post is Post => post !== undefined)),
-                        map(posts => posts.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()))
-                    );
+            const pending = this.pending.get(key) as Observable<T> | undefined;
+            if (pending) return pending;
+            const request = defer(fetch).pipe(
+                tap(value => {
+                    if (!isPlatformBrowser(this.platformId) && value !== undefined) this.state.set(stateKey, value);
                 }),
-                catchError(err => {
-                    console.error("Error fetching posts manifest:", err);
-                    this.allPostsCache$ = null;
-                    return of([]);
-                }),
-                tap(posts => {
-                    if (!this.allPostsCache$) {
-                        this.allPostsCache$ = of(posts);
-                    }
-                })
+                finalize(() => this.pending.delete(key)),
+                shareReplay({ bufferSize: 1, refCount: true }),
             );
-        }
-        return this.allPostsCache$;
-    }
-
-    getLatestPosts(count: number): Observable<Post[]> {
-        return this.getAllPosts().pipe(
-            map(posts => posts.slice(0, count))
-        );
-    }
-
-    getPostById(id: string): Observable<Post | undefined> {
-        const cachedPost = this.postCache.get(id);
-        if (cachedPost) return cachedPost;
-
-        const post$ = this.http.get(`${this.postsUrl}${id}.md`, { responseType: 'text' }).pipe(
-            map(markdownContent => parseMarkdown(markdownContent, id)),
-            catchError(err => {
-                const message = err instanceof Error || typeof err?.message === 'string'
-                    ? err.message
-                    : String(err);
-                console.warn(`Could not load post "${id}": ${message}`);
-                return of(undefined);
-            }),
-            shareReplay({ bufferSize: 1, refCount: false })
-        );
-
-        this.postCache.set(id, post$);
-        return post$;
+            this.pending.set(key, request);
+            return request;
+        });
     }
 }

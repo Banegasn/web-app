@@ -1,13 +1,26 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { DOCUMENT, DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, Renderer2, ViewEncapsulation, effect, inject, input, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, Renderer2, ViewEncapsulation, computed, effect, inject, input, viewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
-import hljs from 'highlight.js';
-import { marked } from 'marked';
+import hljs from 'highlight.js/lib/core';
+import bash from 'highlight.js/lib/languages/bash';
+import json from 'highlight.js/lib/languages/json';
+import markdown from 'highlight.js/lib/languages/markdown';
+import plaintext from 'highlight.js/lib/languages/plaintext';
+import typescript from 'highlight.js/lib/languages/typescript';
+import xml from 'highlight.js/lib/languages/xml';
+import yaml from 'highlight.js/lib/languages/yaml';
+import { Marked } from 'marked';
 import { ShareDialogComponent } from '../../components/share/share.dialog.component';
-import { Post } from '../../models/post.model';
+import { Post, PostArticle, PostSummary } from '../../models/post.model';
 import { BlogCommentsComponent } from '../blog-comments/blog-comments.component';
+
+// Register only the languages used by published posts, once per module.
+for (const [name, language] of Object.entries({ bash, json, markdown, plaintext, typescript, xml, yaml })) {
+    hljs.registerLanguage(name, language);
+}
+hljs.registerAliases(['shell'], { languageName: 'bash' });
 
 @Component({
     selector: 'app-blog-post',
@@ -19,11 +32,13 @@ import { BlogCommentsComponent } from '../blog-comments/blog-comments.component'
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BlogPostComponent implements OnDestroy {
-    readonly post = input.required<Post>();
-    readonly translations = input<Post[]>([]);
+    readonly article = input<PostArticle>();
+    readonly post = computed(() => this.article()?.post);
+    readonly translations = computed(() => this.article()?.translations ?? []);
 
     readonly markdownContent = viewChild<ElementRef<HTMLDivElement>>('markdownContent');
 
+    private readonly markdown = new Marked();
     private readonly renderer = inject(Renderer2);
     private readonly titleService = inject(Title);
     private readonly metaService = inject(Meta);
@@ -36,7 +51,7 @@ export class BlogPostComponent implements OnDestroy {
 
     constructor() {
         // Configure marked to use highlight.js for syntax highlighting
-        marked.use({
+        this.markdown.use({
             renderer: {
                 code(this, args: { code?: string; lang?: string; text?: string; raw?: string }): string | false {
                     const code = args.text || args.code || '';
@@ -108,13 +123,8 @@ export class BlogPostComponent implements OnDestroy {
 
                 // --- Markdown Rendering ---
                 if (element) {
-                    if (typeof marked === 'function') {
-                        const htmlContent = marked(this.stripDuplicateTitle(post));
-                        this.renderer.setProperty(element, 'innerHTML', htmlContent);
-                    } else {
-                        this.renderer.setProperty(element, 'textContent', post.content);
-                        console.warn('Marked function not available yet. Displaying raw content.');
-                    }
+                    const htmlContent = this.markdown.parse(this.stripDuplicateTitle(post), { async: false });
+                    this.renderer.setProperty(element, 'innerHTML', htmlContent);
                 }
             }
         });
@@ -154,7 +164,7 @@ export class BlogPostComponent implements OnDestroy {
         this.renderer.setAttribute(link, 'href', canonicalUrl);
     }
 
-    private setHreflangTags(post: Post, translations: Post[], origin: string): void {
+    private setHreflangTags(post: Post, translations: PostSummary[], origin: string): void {
         this.hreflangLinks.forEach(link => this.renderer.removeChild(this.document.head, link));
         this.hreflangLinks = [];
 

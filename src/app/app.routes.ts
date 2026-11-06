@@ -1,7 +1,5 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Routes } from '@angular/router';
-import { map, mergeMap, of } from 'rxjs';
-import { Post } from './models/post.model';
 import { PostsService } from './services/posts.service';
 
 export const routes: Routes = [
@@ -24,7 +22,7 @@ export const routes: Routes = [
         resolve: {
             posts: () => {
                 const postsService = inject(PostsService);
-                return postsService.getAllPosts();
+                return postsService.getAllPosts({ limit: 25 });
             }
         },
         loadComponent: () => import('./blog/blog-list/blog-list.component').then(m => m.BlogListComponent)
@@ -32,25 +30,7 @@ export const routes: Routes = [
     {
         path: 'blog/:id',
         resolve: {
-            post: (route: ActivatedRouteSnapshot) => {
-                const postsService = inject(PostsService);
-                return postsService.getPostById(route.params['id']);
-            },
-            translations: (route: ActivatedRouteSnapshot) => {
-                const postsService = inject(PostsService);
-                return postsService.getPostById(route.params['id']).pipe(
-                    mergeMap((post: Partial<Post> | undefined) => {
-                        if (!post?.translationGroup) return of([]);
-                        return postsService.getAllPostsUnfiltered().pipe(
-                            map(allPosts =>
-                                allPosts.filter(p =>
-                                    p.translationGroup === post.translationGroup && p.id !== post.id
-                                )
-                            )
-                        );
-                    })
-                );
-            }
+            article: (route: ActivatedRouteSnapshot) => inject(PostsService).getArticle(route.params['id'])
         },
         loadComponent: () => import('./blog/blog-post/blog-post.component').then(m => m.BlogPostComponent)
     },
