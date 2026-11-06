@@ -1,3 +1,4 @@
+import type { ImportedPost } from '../import/post-import';
 import { Injectable, inject, signal } from '@angular/core';
 import { AdminApiService } from './admin-api.service';
 import { AdminPost, newPost, normalizePost } from './admin.models';
@@ -41,6 +42,28 @@ export class PostEditorStore {
         } finally {
             if (generation === this.generation) this.loading.set(false);
         }
+    }
+    importPost(imported: ImportedPost, existing?: AdminPost): void {
+        this.generation++;
+        const post = normalizePost({
+            ...(existing || newPost()),
+            ...imported,
+            id: existing?.id || imported.id,
+            published: existing?.published || false,
+            revision: existing?.revision ?? -1,
+        });
+        this.post.set(post);
+        this.tags = post.tags.join(', ');
+        this.date = post.createdAt.slice(0, 10);
+        this.changeVersion++;
+        this.dirty.set(true);
+        this.loading.set(false);
+        this.error.set('');
+        this.notice.set(
+            existing
+                ? 'Actualización importada. Revisa los cambios antes de guardar.'
+                : 'Post importado. Revisa el borrador y guárdalo cuando esté listo.',
+        );
     }
     patch(changes: Partial<AdminPost>): void {
         const post = this.post();

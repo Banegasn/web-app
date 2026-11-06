@@ -12,6 +12,7 @@ import { StudioFeedbackComponent } from '../shared/studio-feedback.component';
 export class PostsListComponent {
     readonly store = inject(PostsStore);
     readonly create = output<void>();
+    readonly importPost = output<void>();
     readonly edit = output<string>();
     readonly query = signal('');
     readonly filter = signal<'all' | 'published' | 'draft'>('all');

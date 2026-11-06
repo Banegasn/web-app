@@ -16,7 +16,7 @@
     "predev": "tsx scripts/prepare-posts.ts",
     "admin:password": "tsx scripts/admin-password.ts",
     "test:runtime": "tsx --test tests/post-runtime.test.ts",
-    "test:admin": "tsx --test tests/admin.test.ts tests/post-editor-store.test.ts",
+    "test:admin": "tsx --test tests/admin.test.ts tests/post-editor-store.test.ts tests/post-import.test.ts",
     "test:posts": "tsx --test tests/posts.test.ts tests/posts-service.test.ts",
     "migrate:posts": "tsx scripts/migrate-posts.ts"
   },

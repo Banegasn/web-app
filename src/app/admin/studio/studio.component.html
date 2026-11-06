@@ -30,11 +30,20 @@
                         @case ('posts') {
                             <app-studio-posts
                                 (create)="open()"
+                                (importPost)="navigate('import')"
                                 (edit)="open($event)"
                             />
                         }
                         @case ('comments') {
                             <app-studio-comments />
+                        }
+                        @case ('import') {
+                            <app-studio-post-import
+                                (imported)="importPost($event)"
+                            />
+                        }
+                        @case ('agents') {
+                            <app-studio-agent-guide />
                         }
                         @case ('media') {
                             <app-studio-media />

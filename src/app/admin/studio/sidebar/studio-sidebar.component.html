@@ -24,6 +24,18 @@
         >
             <span>▧</span> Biblioteca
         </button>
+        <button
+            [class.active]="section() === 'agents'"
+            (click)="navigate.emit('agents')"
+        >
+            <span>✧</span> Guía para agentes
+        </button>
+        <button
+            [class.active]="section() === 'import'"
+            (click)="navigate.emit('import')"
+        >
+            <span>↥</span> Importar post
+        </button>
     </nav>
     <div class="sidebar-bottom">
         <a routerLink="/blog">Ver sitio web <span>↗</span></a

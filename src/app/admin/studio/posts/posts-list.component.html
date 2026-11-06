@@ -5,9 +5,14 @@
         <h1>Tus posts<span>.</span></h1>
         <p>Todo lo que compartes con el mundo, en un solo lugar.</p>
     </div>
-    <button class="primary" (click)="create.emit()">
-        <span>＋</span> Crear post
-    </button>
+    <div class="post-actions">
+        <button class="secondary" (click)="importPost.emit()">
+            Importar post ↗
+        </button>
+        <button class="primary" (click)="create.emit()">
+            <span>＋</span> Crear post
+        </button>
+    </div>
 </div>
 <div class="stats">
     <article>

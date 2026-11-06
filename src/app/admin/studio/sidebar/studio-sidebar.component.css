@@ -184,3 +184,6 @@
         display: none;
     }
 }
+@media (max-width: 800px) {
+    .sidebar nav { flex-wrap: wrap; min-width: 0; }
+}

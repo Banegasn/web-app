@@ -88,8 +88,53 @@ test('edits made during saving are retained with the new revision for the next s
     assert.equal(submitted.content, 'Version one');
     assert.equal(store.post()?.content, 'Version two');
     assert.equal(store.post()?.title, 'Renamed while saving');
-    assert.equal(store.post()?.id, submitted.id, 'a newly created post keeps its saved URL');
+    assert.equal(
+        store.post()?.id,
+        submitted.id,
+        'a newly created post keeps its saved URL',
+    );
     assert.equal(store.post()?.revision, 1);
     assert.equal(store.tags, 'Angular, Markdown');
+    assert.equal(store.dirty(), true);
+});
+
+test('imports complete agent packages as unsaved drafts and preserves existing identity on explicit updates', () => {
+    const store = setup({});
+    const imported = {
+        id: 'agent-post',
+        title: 'Imported',
+        summary: 'Summary',
+        content: '**Markdown**',
+        tags: ['Angular'],
+        language: 'es',
+        createdAt: '2026-11-06T12:00:00.000Z',
+    };
+    store.importPost(imported);
+    assert.equal(store.post()?.published, false);
+    assert.equal(store.post()?.revision, -1);
+    assert.equal(store.post()?.content, imported.content);
+    assert.equal(store.tags, 'Angular');
+    assert.equal(store.date, '2026-11-06');
+    assert.equal(store.dirty(), true);
+    const existing = {
+        ...newPost(),
+        id: 'existing-post',
+        revision: 5,
+        published: true,
+        createdAt: '2025-04-24T17:32:11.000Z',
+    };
+    store.importPost(
+        {
+            id: 'changed-id',
+            title: 'Revised',
+            summary: 'Revised summary',
+            content: 'Revised body',
+        },
+        existing,
+    );
+    assert.equal(store.post()?.id, existing.id);
+    assert.equal(store.post()?.revision, existing.revision);
+    assert.equal(store.post()?.published, true);
+    assert.equal(store.post()?.createdAt, existing.createdAt);
     assert.equal(store.dirty(), true);
 });

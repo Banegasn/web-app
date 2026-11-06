@@ -1,0 +1,108 @@
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">DE LA IDEA A LA PUBLICACIÓN</span>
+        <h1>Guía para agentes<span>.</span></h1>
+        <p>Comparte el encargo y el formato que necesita tu próximo post.</p>
+    </div>
+    <button class="primary" (click)="copy()">Copiar instrucciones ↗</button>
+</div>
+<app-studio-feedback [notice]="notice()" />
+<section class="brief-card" aria-labelledby="brief-title">
+    <h2 id="brief-title">Un buen post empieza con un buen encargo</h2>
+    <p>
+        Añade el tema, el lector, el tono y las fuentes. Las instrucciones
+        incluyen cómo entregar el Markdown, completar los metadatos y montar el
+        post en Studio.
+    </p>
+    <label class="field-label" for="agent-brief"
+        >¿Qué quieres que prepare el agente?</label
+    >
+    <textarea
+        id="agent-brief"
+        rows="4"
+        placeholder="Por ejemplo: un post en español sobre lo que aprendí construyendo una app con Angular. Dirigido a desarrolladores, con ejemplos prácticos y estas fuentes…"
+        [ngModel]="brief()"
+        (ngModelChange)="brief.set($event); notice.set('')"
+    ></textarea>
+    <div class="guide-steps">
+        <span><b>01</b> Define el encargo</span
+        ><span><b>02</b> Copia las instrucciones</span
+        ><span><b>03</b> Compártelas con tu agente</span>
+    </div>
+</section>
+<div class="guide-grid">
+    <section class="guide-card">
+        <h2>Un paquete listo para importar</h2>
+        <p>
+            El agente entrega un JSON con metadata y content. Pégalo o súbelo en
+            «Importar post» para completar todos los campos de una vez.
+        </p>
+        <pre><code>{{ packageExample }}</code></pre>
+    </section>
+    <section class="guide-card">
+        <h2>Un flujo, de principio a fin</h2>
+        <ol>
+            <li>
+                <strong>Preparar el artículo</strong
+                ><span>Texto, resumen, autor, idioma, etiquetas y SEO.</span>
+            </li>
+            <li>
+                <strong>Montarlo en Studio</strong
+                ><span
+                    >Completar los campos, pegar el Markdown y subir las
+                    imágenes.</span
+                >
+            </li>
+            <li>
+                <strong>Revisar el borrador</strong
+                ><span
+                    >Comprobar la vista visual, los enlaces y la portada.</span
+                >
+            </li>
+            <li>
+                <strong>Publicar cuando corresponda</strong
+                ><span
+                    >Publicar o actualizar según el encargo y abrir el artículo
+                    para verificarlo.</span
+                >
+            </li>
+        </ol>
+        <p class="guide-note">
+            Todo desde la consola. Los nuevos posts no necesitan cambios en el
+            repositorio ni despliegues.
+        </p>
+    </section>
+</div>
+<section class="guide-card fields-card">
+    <h2>Qué significa cada campo</h2>
+    <div class="fields-list">
+        @for (field of fields; track field.name) {
+            <div class="field-row">
+                <div>
+                    <code>{{ field.name }}</code
+                    ><span class="field-kind">{{
+                        field.required ? 'Requerido' : 'Opcional'
+                    }}</span>
+                </div>
+                <p>{{ field.description }}</p>
+            </div>
+        }
+    </div>
+</section>
+<details class="guide-card" [open]="expanded()">
+    <summary>Instrucciones completas</summary>
+    <p>
+        Puedes revisar o seleccionar este texto antes de compartirlo. Incluye el
+        encargo que escribiste arriba.
+    </p>
+    <label class="sr-only" for="agent-instructions"
+        >Instrucciones completas</label
+    ><textarea
+        #promptField
+        id="agent-instructions"
+        class="prompt-text"
+        readonly
+        rows="18"
+        [value]="instructions()"
+    ></textarea>
+</details>

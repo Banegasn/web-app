@@ -1,0 +1,169 @@
+:host {
+    display: block;
+}
+.brief-card,
+.guide-card {
+    background: #fff;
+    border: 1px solid #e8e5ee;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 22px;
+    min-width: 0;
+}
+h2 {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    margin: 0 0 12px;
+}
+p {
+    font-size: 12px;
+    line-height: 1.85;
+    color: #81798b;
+    margin: 0 0 22px;
+}
+.brief-card textarea {
+    font-size: 13px;
+    line-height: 1.8;
+}
+.guide-steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    font-size: 11px;
+    color: #837a91;
+    margin-top: 22px;
+}
+.guide-steps b {
+    color: #9b8bb1;
+    margin-right: 9px;
+}
+.guide-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 22px;
+}
+.guide-card pre {
+    background: #f7f6fa;
+    border-radius: 8px;
+    padding: 18px;
+    font: 11px/1.8 monospace;
+    color: #6a607c;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    margin: 0;
+}
+.guide-card ol {
+    padding: 0;
+    list-style: none;
+    counter-reset: steps;
+    display: grid;
+    gap: 23px;
+}
+.guide-card li {
+    counter-increment: steps;
+    padding-left: 35px;
+    position: relative;
+    font-size: 12px;
+}
+.guide-card li:before {
+    content: counter(steps);
+    position: absolute;
+    left: 0;
+    background: #f0edf7;
+    color: #8f7ca8;
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    display: grid;
+    place-items: center;
+    font-size: 10px;
+}
+.guide-card li strong {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 7px;
+}
+.guide-card li span {
+    font-size: 11px;
+    line-height: 1.8;
+    color: #92869f;
+}
+.guide-note {
+    border-top: 1px solid #eeebf3;
+    padding-top: 17px;
+    margin: 25px 0 0;
+}
+.field-row {
+    display: grid;
+    grid-template-columns: 165px 1fr;
+    gap: 20px;
+    border-top: 1px solid #f0edf4;
+    padding: 16px 0;
+}
+.field-row:last-child {
+    padding-bottom: 0;
+}
+.field-row code {
+    font-size: 12px;
+    color: #726284;
+}
+.field-kind {
+    display: block;
+    font-size: 9px;
+    color: #aaa0b4;
+    margin-top: 5px;
+}
+.field-row p {
+    margin: 0;
+    font-size: 11px;
+}
+.guide-card summary {
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+}
+.guide-card details > p,
+.guide-card > summary + p {
+    margin-top: 18px;
+}
+.prompt-text {
+    font: 11px/1.8 monospace;
+    min-height: 250px;
+    resize: vertical;
+}
+.guide-card summary:focus-visible {
+    outline: 2px solid #9a8ab0;
+    outline-offset: 5px;
+}
+@media (max-width: 800px) {
+    .guide-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    .field-row {
+        grid-template-columns: 120px 1fr;
+        gap: 12px;
+    }
+    .guide-steps {
+        gap: 15px;
+        font-size: 10px;
+    }
+}
+@media (max-width: 520px) {
+    .brief-card,
+    .guide-card {
+        padding: 18px;
+    }
+    .field-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    .field-kind {
+        display: inline;
+        margin-left: 10px;
+    }
+    .page-heading {
+        flex-wrap: wrap;
+    }
+}

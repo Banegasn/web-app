@@ -1,4 +1,5 @@
-export type StudioSection = 'posts' | 'comments' | 'media';
+export type StudioSection =
+    'posts' | 'comments' | 'media' | 'agents' | 'import';
 
 export interface AdminPost {
     id: string;

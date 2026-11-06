@@ -1,0 +1,102 @@
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">DEL AGENTE A TU EDITOR</span>
+        <h1>Importar post<span>.</span></h1>
+        <p>Una entrega completa. Todos los campos listos para revisar.</p>
+    </div>
+</div>
+<app-studio-feedback [error]="error()" />
+<section class="import-card">
+    <div class="import-heading">
+        <div>
+            <h2>Pega la entrega de tu agente</h2>
+            <p>
+                JSON con metadatos y contenido, o los bloques JSON + Markdown
+                del agente.
+            </p>
+        </div>
+        <label class="secondary" for="post-import-file">Elegir archivo ↗</label
+        ><input
+            class="sr-only"
+            id="post-import-file"
+            type="file"
+            accept=".json,.md,.markdown,.txt,application/json,text/plain,text/markdown"
+            [disabled]="busy()"
+            (change)="selectFile($event)"
+        />
+    </div>
+    <label class="field-label" for="post-import-source">Paquete del post</label
+    ><textarea
+        id="post-import-source"
+        rows="12"
+        spellcheck="false"
+        placeholder="Pega aquí el JSON completo o los bloques JSON y Markdown…"
+        [ngModel]="source()"
+        (ngModelChange)="setSource($event)"
+    ></textarea>
+    <div class="import-actions">
+        <span>{{
+            filename() || 'Archivos .json, .md o .txt · hasta 1 MB'
+        }}</span
+        ><button
+            class="primary"
+            [disabled]="busy() || !source().trim()"
+            (click)="review()"
+        >
+            Revisar importación →
+        </button>
+    </div>
+</section>
+@if (preview(); as post) {
+    <section class="import-card preview-card">
+        <span class="eyebrow">VISTA PREVIA DE LA IMPORTACIÓN</span>
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.summary }}</p>
+        <dl>
+            <div>
+                <dt>URL</dt>
+                <dd>/blog/{{ post.id }}</dd>
+            </div>
+            <div>
+                <dt>Idioma</dt>
+                <dd>{{ post.language || 'Sin especificar' }}</dd>
+            </div>
+            <div>
+                <dt>Contenido</dt>
+                <dd>
+                    {{ post.content.length.toLocaleString('es') }} caracteres
+                </dd>
+            </div>
+            <div>
+                <dt>Etiquetas</dt>
+                <dd>{{ post.tags?.join(', ') || 'Sin etiquetas' }}</dd>
+            </div>
+            <div>
+                <dt>Portada</dt>
+                <dd>{{ post.imageUrl || 'Puedes subirla en el editor' }}</dd>
+            </div>
+        </dl>
+        @if (collision(); as existing) {
+            <p class="import-note">
+                Ya existe «{{ existing.title }}» con este slug. Puedes preparar
+                una actualización conservando su URL, revisión y estado de
+                publicación. El contenido guardado solo cambia cuando lo guardes
+                desde el editor.
+            </p>
+            <button class="primary" [disabled]="busy()" (click)="load(true)">
+                {{
+                    busy() ? 'Cargando…' : 'Preparar actualización en el editor'
+                }}
+                →
+            </button>
+        } @else {
+            <p class="import-note">
+                Se cargarán el contenido y los metadatos en un post nuevo. No se
+                guarda ni se publica automáticamente.
+            </p>
+            <button class="primary" [disabled]="busy()" (click)="load()">
+                Abrir borrador en el editor →
+            </button>
+        }
+    </section>
+}

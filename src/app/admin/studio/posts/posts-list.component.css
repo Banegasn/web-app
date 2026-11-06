@@ -201,3 +201,14 @@
         display: none;
     }
 }
+
+.post-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+@media (max-width: 600px) {
+    .page-heading {
+        flex-wrap: wrap;
+    }
+}

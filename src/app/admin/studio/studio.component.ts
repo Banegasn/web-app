@@ -1,4 +1,9 @@
 import {
+    PostImportComponent,
+    PostImportRequest,
+} from './import/post-import.component';
+import { AgentGuideComponent } from './agents/agent-guide.component';
+import {
     Component,
     DestroyRef,
     computed,
@@ -35,6 +40,8 @@ import { StudioFeedbackComponent } from './shared/studio-feedback.component';
         CommentsListComponent,
         MediaLibraryComponent,
         StudioFeedbackComponent,
+        AgentGuideComponent,
+        PostImportComponent,
     ],
     providers: [
         AdminApiService,
@@ -57,9 +64,13 @@ export class StudioComponent {
     readonly heading = computed(() =>
         this.editor.post()
             ? 'Editor'
-            : { posts: 'Posts', comments: 'Comentarios', media: 'Biblioteca' }[
-                  this.section()
-              ],
+            : {
+                  posts: 'Posts',
+                  comments: 'Comentarios',
+                  media: 'Biblioteca',
+                  agents: 'Guía para agentes',
+                  import: 'Importar post',
+              }[this.section()],
     );
     constructor() {
         inject(Title).setTitle('Studio · banegasn.dev');
@@ -87,6 +98,11 @@ export class StudioComponent {
         if (!this.leave()) return;
         this.section.set('posts');
         void this.editor.open(id);
+    }
+    importPost(request: PostImportRequest): void {
+        if (!this.leave()) return;
+        this.section.set('posts');
+        this.editor.importPost(request.post, request.existing);
     }
     async logout(): Promise<void> {
         if (this.leave() && (await this.session.logout())) this.editor.close();

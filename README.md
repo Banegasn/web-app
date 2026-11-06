@@ -16,7 +16,12 @@ need to run again for the same language.
 
 The administrator publishes at `/admin` (the old `/admin/comments` URL redirects there).
 Studio includes a visual/Markdown editor, draft/published states, post metadata and SEO,
-cover images, a media library, and comment moderation. New posts publish immediately without
+cover images, a media library, and comment moderation. The «Guía para agentes» section builds
+a copyable brief with metadata, Markdown, image and publication instructions. «Importar post»
+accepts the complete JSON package (metadata + content), flat JSON, or separate fenced JSON and
+Markdown blocks, pasted or uploaded as a text file. It validates the payload and opens the editor
+without saving or publishing; existing slugs can be loaded as an explicit update with the current
+revision and publication state preserved. New posts publish immediately without
 code deployments. Markdown remains the content format stored in SQLite.
 
 `content/posts/` is the legacy seed catalog. Builds import and package that catalog, but once a
