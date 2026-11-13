@@ -1,10 +1,10 @@
-.prose {
+.blog-post .prose {
     color: var(--text-main);
     line-height: 1.8;
     font-size: 1.125rem;
 }
 
-.prose :where(h1, h2, h3, h4) {
+.blog-post .prose :where(h1, h2, h3, h4) {
     font-family: 'Outfit', sans-serif;
     color: var(--text-main);
     font-weight: 800;
@@ -14,38 +14,38 @@
     letter-spacing: -0.02em;
 }
 
-.prose h1 {
+.blog-post .prose h1 {
     font-size: 2rem;
 }
 
-.prose h2 {
+.blog-post .prose h2 {
     font-size: 1.75rem;
 }
 
-.prose h3 {
+.blog-post .prose h3 {
     font-size: 1.35rem;
 }
 
-.prose p {
+.blog-post .prose p {
     margin-bottom: 1em;
 }
 
-.prose :where(ul, ol) {
+.blog-post .prose :where(ul, ol) {
     margin-bottom: 1em;
     padding-left: 1em;
 }
 
-.prose li {
+.blog-post .prose li {
     margin-bottom: 0.5em;
 }
 
-.prose :where(pre, code) {
+.blog-post .prose :where(pre, code) {
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
     font-size: 0.9em;
     border-radius: 8px;
 }
 
-.prose pre {
+.blog-post .prose pre {
     background: #0f172a;
     color: #f8fafc;
     padding: 1.5rem;
@@ -54,14 +54,14 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.prose pre code {
+.blog-post .prose pre code {
     background: transparent;
     color: inherit;
     padding: 0;
 }
 
 /* Syntax highlighting for code elements */
-.prose code:not(pre > code) {
+.blog-post .prose code:not(pre > code) {
     background: rgb(16, 18, 20);
     color: #feffff;
     padding: 0.2em 0.5em;
@@ -69,7 +69,7 @@
     font-size: 0.875em;
 }
 
-.hljs {
+.blog-post .hljs {
     display: block;
     overflow-x: auto;
     padding: 0;
@@ -77,34 +77,34 @@
     color: transparent;
 }
 
-.hljs-attr,
-.hljs-attribute {
+.blog-post .hljs-attr,
+.blog-post .hljs-attribute {
     color: #79dbb5;
 }
 
-.hljs-literal,
-.hljs-meta,
-.hljs-number,
-.hljs-type {
+.blog-post .hljs-literal,
+.blog-post .hljs-meta,
+.blog-post .hljs-number,
+.blog-post .hljs-type {
     color: #d4a373;
 }
 
-.hljs-regexp,
-.hljs-string {
+.blog-post .hljs-regexp,
+.blog-post .hljs-string {
     color: #c4d4a8;
 }
 
-.hljs-built_in,
-.hljs-builtin-name {
+.blog-post .hljs-built_in,
+.blog-post .hljs-builtin-name {
     color: #db8a6b;
 }
 
-.hljs-bullet,
-.hljs-code {
+.blog-post .hljs-bullet,
+.blog-post .hljs-code {
     color: #69c7d8;
 }
 
-.prose blockquote {
+.blog-post .prose blockquote {
     border-left: 4px solid var(--primary);
     padding-left: 1.5rem;
     font-style: italic;
@@ -112,30 +112,30 @@
     margin: 2rem 0;
 }
 
-.prose img {
+.blog-post .prose img {
     border-radius: 1rem;
     margin: 2.5rem 0;
 }
 
-a {
+.blog-post a {
     text-decoration: underline;
     color: var(--primary);
 }
 
 @media (max-width: 768px) {
-    .prose {
+    .blog-post .prose {
         font-size: 1rem;
     }
 
-    .prose h1 {
+    .blog-post .prose h1 {
         font-size: 1.75rem;
     }
 
-    .prose h2 {
+    .blog-post .prose h2 {
         font-size: 1.5rem;
     }
 
-    .prose h3 {
+    .blog-post .prose h3 {
         font-size: 1.25rem;
     }
 }

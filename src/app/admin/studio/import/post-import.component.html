@@ -11,8 +11,7 @@
         <div>
             <h2>Pega la entrega de tu agente</h2>
             <p>
-                JSON con metadatos y contenido, o los bloques JSON + Markdown
-                del agente.
+                Sube un ZIP con el post y sus imágenes, o pega la entrega JSON de tu agente.
             </p>
         </div>
         <label class="secondary" for="post-import-file">Elegir archivo ↗</label
@@ -20,11 +19,21 @@
             class="sr-only"
             id="post-import-file"
             type="file"
-            accept=".json,.md,.markdown,.txt,application/json,text/plain,text/markdown"
+            accept=".zip,.json,.md,.markdown,.txt,application/zip,application/json,text/plain,text/markdown"
             [disabled]="busy()"
             (change)="selectFile($event)"
         />
     </div>
+    @if (archiveReview(); as archive) {
+        <div class="archive-summary">
+            <strong>{{ filename() }}</strong>
+            <p>{{ archive.images.length }} imágenes enlazadas al post. Se subirán al abrir el borrador.</p>
+            @if (archive.images.length) {
+                <ul>@for (image of archive.images; track image.id) { <li>{{ image.name }}</li> }</ul>
+            }
+            <button class="secondary" [disabled]="busy()" (click)="setSource('')">Usar texto en su lugar</button>
+        </div>
+    } @else {
     <label class="field-label" for="post-import-source">Paquete del post</label
     ><textarea
         id="post-import-source"
@@ -32,11 +41,12 @@
         spellcheck="false"
         placeholder="Pega aquí el JSON completo o los bloques JSON y Markdown…"
         [ngModel]="source()"
+        [disabled]="busy()"
         (ngModelChange)="setSource($event)"
     ></textarea>
     <div class="import-actions">
         <span>{{
-            filename() || 'Archivos .json, .md o .txt · hasta 1 MB'
+            busy() ? 'Revisando archivo…' : filename() || 'ZIP hasta 32 MB · JSON, Markdown o texto hasta 1 MB'
         }}</span
         ><button
             class="primary"
@@ -46,6 +56,8 @@
             Revisar importación →
         </button>
     </div>
+    }
+    <p class="archive-help">ZIP: un post.json o studio-import.json con metadata y content, más las imágenes referenciadas con rutas relativas. PNG, JPEG, WebP o GIF · hasta 8 MB por imagen.</p>
 </section>
 @if (preview(); as post) {
     <section class="import-card preview-card">
@@ -85,7 +97,7 @@
             </p>
             <button class="primary" [disabled]="busy()" (click)="load(true)">
                 {{
-                    busy() ? 'Cargando…' : 'Preparar actualización en el editor'
+                    busy() ? 'Importando…' : 'Preparar actualización en el editor'
                 }}
                 →
             </button>
@@ -95,8 +107,11 @@
                 guarda ni se publica automáticamente.
             </p>
             <button class="primary" [disabled]="busy()" (click)="load()">
-                Abrir borrador en el editor →
+                {{ busy() ? 'Importando…' : 'Abrir borrador en el editor' }} →
             </button>
+        }
+        @if (archiveReview()?.images?.length) {
+            <p class="archive-help">El post no se guarda ni publica al importar. Las imágenes subidas quedan disponibles por URL, igual que en la biblioteca.</p>
         }
     </section>
 }

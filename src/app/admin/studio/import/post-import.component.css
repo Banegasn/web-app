@@ -79,6 +79,10 @@ p {
     margin: 20px 0;
     font-size: 11px;
 }
+.archive-summary { padding: 18px; background: #f7f5fa; border-radius: 8px; }
+.archive-summary ul { margin: 0 0 18px; padding-left: 20px; font-size: 12px; overflow-wrap: anywhere; }
+.archive-summary p, .archive-help { margin: 12px 0; }
+.archive-help { font-size: 11px; }
 @media (max-width: 600px) {
     .import-card {
         padding: 18px;

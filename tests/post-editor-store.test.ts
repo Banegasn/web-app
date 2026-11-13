@@ -24,6 +24,28 @@ function deferred<T>() {
     return { promise, resolve };
 }
 
+test('preview snapshots contain unsaved form edits without saving or publishing', async () => {
+    let saves = 0;
+    const store = setup({
+        post: async () => ({ ...newPost(), createdAt: '2026-01-01T10:00:00.000Z' }),
+        savePost: async (post) => { saves++; return post; },
+    });
+    await store.open('draft');
+    store.titleChanged('Unsaved preview');
+    store.contentChanged('## Current body\n\n![Image](/api/media/test)');
+    store.updateTags('Preview, Draft');
+    store.updateDate('2026-11-13');
+    const snapshot = store.snapshot()!;
+    assert.equal(snapshot.title, 'Unsaved preview');
+    assert.match(snapshot.content, /Current body/);
+    assert.deepEqual(snapshot.tags, ['Preview', 'Draft']);
+    assert.equal(snapshot.createdAt, '2026-11-13T00:00:00.000Z');
+    assert.equal(snapshot.published, false);
+    assert.equal(snapshot.revision, -1);
+    assert.equal(saves, 0);
+    assert.equal(store.dirty(), true);
+});
+
 test('legacy metadata is editable without changing its content, URL, or publication timestamp', async () => {
     const original = {
         ...newPost(),

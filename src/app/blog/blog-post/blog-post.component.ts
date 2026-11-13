@@ -1,7 +1,7 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { DOCUMENT, DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, Renderer2, ViewEncapsulation, computed, effect, inject, input, viewChild } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, Renderer2, SecurityContext, ViewEncapsulation, computed, effect, inject, input, viewChild } from '@angular/core';
+import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
 import hljs from 'highlight.js/lib/core';
 import bash from 'highlight.js/lib/languages/bash';
@@ -33,12 +33,14 @@ hljs.registerAliases(['shell'], { languageName: 'bash' });
 })
 export class BlogPostComponent implements OnDestroy {
     readonly article = input<PostArticle>();
+    readonly preview = input(false);
     readonly post = computed(() => this.article()?.post);
     readonly translations = computed(() => this.article()?.translations ?? []);
 
     readonly markdownContent = viewChild<ElementRef<HTMLDivElement>>('markdownContent');
 
     private readonly markdown = new Marked();
+    private readonly sanitizer = inject(DomSanitizer);
     private readonly renderer = inject(Renderer2);
     private readonly titleService = inject(Title);
     private readonly metaService = inject(Meta);
@@ -77,6 +79,7 @@ export class BlogPostComponent implements OnDestroy {
             const element = this.markdownContent()?.nativeElement;
 
             if (post) {
+                if (!this.preview()) {
                 this.document.documentElement.lang = post.language || 'es';
                 // --- SEO Meta Tag Updates ---
                 const postTitle = post.seoTitle || post.title;
@@ -120,17 +123,21 @@ export class BlogPostComponent implements OnDestroy {
 
                 // --- hreflang tags for translations ---
                 this.setHreflangTags(post, this.translations(), origin);
+                }
 
                 // --- Markdown Rendering ---
                 if (element) {
                     const htmlContent = this.markdown.parse(this.stripDuplicateTitle(post), { async: false });
-                    this.renderer.setProperty(element, 'innerHTML', htmlContent);
+                    this.renderer.setProperty(element, 'innerHTML', this.preview()
+                        ? this.sanitizer.sanitize(SecurityContext.HTML, htmlContent) || ''
+                        : htmlContent);
                 }
             }
         });
     }
 
     sharePost(): void {
+        if (this.preview()) return;
         const currentUrl = this.document.location.href;
         this.dialog.open<string>(ShareDialogComponent, {
             data: { shareUrl: currentUrl },
@@ -238,6 +245,7 @@ export class BlogPostComponent implements OnDestroy {
     }
 
     ngOnDestroy() {
+        if (this.preview()) return;
         this.document.documentElement.lang = this.previousLang;
         // Remove all meta tags when component is destroyed
         this.metaService.removeTag('name="description"');

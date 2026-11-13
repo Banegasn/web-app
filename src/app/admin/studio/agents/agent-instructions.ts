@@ -60,7 +60,7 @@ export const metadataFields: MetadataField[] = [
         name: 'imageUrl',
         required: false,
         description:
-            'URL devuelta al subir la portada a Studio, o una URL HTTPS. No uses una ruta local de tu equipo.',
+            'URL de la portada subida a Studio, una URL HTTPS o, dentro de un ZIP, una ruta relativa a su JSON. No uses rutas absolutas de tu equipo.',
     },
     {
         name: 'translationGroup',
@@ -105,12 +105,19 @@ ENCARGO
 ${brief.trim() || '[Describe aquí el tema, la audiencia, el idioma, el objetivo y las fuentes que debe usar el agente.]'}
 
 ENTREGA
-Devuelve un único bloque JSON válido, sin explicaciones adicionales, con dos propiedades: metadata (objeto de metadatos) y content (cadena con el artículo completo en Markdown).
+Si puedes entregar archivos y el encargo incluye imágenes, prepara un ZIP con un único post.json y las imágenes referenciadas. Si entregas texto, devuelve un único bloque JSON válido con dos propiedades: metadata (objeto de metadatos) y content (cadena con el artículo completo en Markdown).
 Este paquete se importa directamente en Studio → Importar post. Usa esta estructura y sustituye todos los valores por los del artículo:
 \`\`\`json
 ${packageExample}
 \`\`\`
-Escapa los saltos de línea dentro de content como \\n para que el JSON sea válido. No pongas front matter YAML dentro de content. El contenido no debe superar 500.000 caracteres y el paquete completo no debe superar 1 MB. No incluyas imágenes en base64; se suben por separado.
+Escapa los saltos de línea dentro de content como \\n para que el JSON sea válido. No pongas front matter YAML dentro de content. El contenido no debe superar 500.000 caracteres y el JSON no debe superar 1 MB. No incluyas imágenes en base64: inclúyelas como archivos en el ZIP o súbelas por separado si entregas solo JSON.
+
+PAQUETE ZIP CON IMÁGENES
+- Incluye un único post.json (también se acepta studio-import.json) con el mismo formato metadata + content. Puede estar en la raíz o dentro de una carpeta.
+- Incluye las imágenes usadas por el artículo y su portada: PNG, JPEG, WebP o GIF. En content usa rutas relativas al JSON, por ejemplo ![Descripción](images/captura.jpg); imageUrl también puede ser images/portada.jpg.
+- No uses rutas absolutas, «..», enlaces simbólicos ni archivos cifrados. No incluyas credenciales ni datos privados.
+- Límites: ZIP de 32 MB, 64 MB descomprimidos, 128 entradas, hasta 30 imágenes referenciadas de 8 MB cada una y JSON de 1 MB.
+- Studio revisa el ZIP antes de subir imágenes. Al abrir el borrador, importa las imágenes referenciadas y sustituye las rutas por sus URLs reales. No guarda ni publica el post automáticamente. Las imágenes importadas son públicas por URL.
 
 CONTENIDO
 - Escribe en el idioma del encargo y respeta la voz y los datos que te hayan proporcionado.
@@ -127,11 +134,11 @@ ${metadataFields.map((field) => `- ${field.name}${field.required ? ' (requerido)
 
 MONTAJE EN STUDIO
 1. Inicia sesión únicamente con el acceso que el administrador te haya autorizado. No solicites ni incluyas contraseñas o cookies en el artículo, el JSON, archivos del repositorio o instrucciones compartidas.
-2. Abre Studio → Importar post y pega el paquete completo, o sube el archivo .json. También se aceptan entregas anteriores con un bloque json de metadatos y un bloque markdown de contenido.
-3. Pulsa «Revisar importación». Si los datos son válidos, abre el borrador en el editor: título, resumen, Markdown y metadatos se completan automáticamente.
+2. Abre Studio → Importar post y sube el ZIP con el post y sus imágenes, o pega/sube el JSON. También se aceptan entregas anteriores con un bloque json de metadatos y un bloque markdown de contenido.
+3. El ZIP se revisa al seleccionarlo; con JSON, pulsa «Revisar importación». Si los datos son válidos, abre el borrador en el editor: título, resumen, Markdown y metadatos se completan automáticamente, y las imágenes del ZIP se importan al abrirlo.
 4. Si el slug ya existe, elige «Preparar actualización en el editor» solo si estás editando ese artículo. Se conservan la URL, la revisión y el estado de publicación. La importación por sí sola no guarda ni publica; revisa la vista WYSIWYG y los metadatos antes de guardar.
-5. Sube las imágenes desde el editor, la portada o Biblioteca. Se aceptan PNG, JPEG, WebP y GIF, hasta 8 MB por archivo. Usa las URLs reales que devuelve Studio; para imágenes del cuerpo, insértalas o pégalas en el editor. Los archivos subidos son accesibles por URL aunque el post esté en borrador.
-6. Guarda primero como borrador si es un post nuevo. Revisa el Markdown y su vista visual, portada, enlaces, metadatos, idioma y etiquetas. No retires a borrador un post ya publicado salvo que el encargo lo indique.
+5. Las imágenes referenciadas del ZIP ya estarán importadas. Para añadir otras, súbelas desde el editor, la portada o Biblioteca. Se aceptan PNG, JPEG, WebP y GIF, hasta 8 MB por archivo. Usa las URLs reales que devuelve Studio; para imágenes del cuerpo, insértalas o pégalas en el editor. Los archivos subidos son accesibles por URL aunque el post esté en borrador.
+6. Guarda primero como borrador si es un post nuevo. Usa «Vista previa» para revisar el contenido actual con el diseño del blog sin publicarlo; incluye cambios sin guardar y vuelve con «Volver al editor». Revisa portada, enlaces, metadatos, idioma y etiquetas. No retires a borrador un post ya publicado salvo que el encargo lo indique.
 7. Publica o actualiza si el encargo lo solicita. Si solo pide preparar contenido, deja un borrador. La fecha es un metadato: «Publicar post» publica ahora.
 8. Después de publicar, abre «Ver post publicado» y comprueba el artículo y su portada. Entrega la URL y el estado final al administrador.
 
