@@ -3,10 +3,33 @@ import { randomUUID } from 'node:crypto';
 import { requireAdmin } from './admin-auth';
 import type { PostsRepository } from './posts-repository';
 import type { Post } from '../src/app/models/post.model';
+import { MAX_ARCHIVE_BYTES } from '../src/app/admin/studio/import/post-archive.models';
+import { inspectPostArchive, PostArchiveError } from './post-archive';
+import { imageType } from './media-type';
 
 export function createAdminRouter(posts: PostsRepository): Router {
     const router = Router();
     router.use(requireAdmin);
+    for (const review of [true, false]) {
+        router.post(
+            review ? '/import/zip/review' : '/import/zip',
+            raw({ type: ['application/zip', 'application/octet-stream'], limit: MAX_ARCHIVE_BYTES }),
+            async (req, res, next) => {
+                try {
+                    if (!Buffer.isBuffer(req.body)) throw new PostArchiveError('Selecciona un archivo ZIP.');
+                    const result = await inspectPostArchive(req.body);
+                    if (!review) posts.addMediaBatch(result.images);
+                    res.json({
+                        post: result.post,
+                        images: result.images.map((image) => ({ id: image.id, name: image.name, size: image.data.length })),
+                    });
+                } catch (error) {
+                    if (error instanceof PostArchiveError) res.status(400).json({ error: error.message });
+                    else next(error);
+                }
+            },
+        );
+    }
     router.get('/posts', (_req, res) => res.json(posts.adminList()));
     router.get('/posts/:id', (req, res) => {
         const post = posts.adminArticle(req.params['id']);
@@ -99,17 +122,7 @@ export function createAdminRouter(posts: PostsRepository): Router {
                 });
                 return;
             }
-            const hex = data.subarray(0, 12).toString('hex');
-            const type = hex.startsWith('89504e470d0a1a0a')
-                ? 'image/png'
-                : hex.startsWith('ffd8ff')
-                  ? 'image/jpeg'
-                  : /^474946383[79]61/.test(hex)
-                    ? 'image/gif'
-                    : data.toString('ascii', 0, 4) === 'RIFF' &&
-                        data.toString('ascii', 8, 12) === 'WEBP'
-                      ? 'image/webp'
-                      : '';
+            const type = imageType(data);
             if (!type || type !== req.header('content-type')?.split(';')[0]) {
                 res.status(400).json({
                     error: 'El archivo no es una imagen válida.',

@@ -103,6 +103,7 @@ export class StudioComponent {
         if (!this.leave()) return;
         this.section.set('posts');
         this.editor.importPost(request.post, request.existing);
+        void this.media.refresh();
     }
     async logout(): Promise<void> {
         if (this.leave() && (await this.session.logout())) this.editor.close();

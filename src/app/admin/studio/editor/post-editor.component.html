@@ -7,8 +7,9 @@
         <div class="save-actions">
             <span class="save-state">{{
                 state.dirty() ? '● Cambios sin guardar' : '✓ Todo guardado'
-            }}</span
-            ><button
+            }}</span>
+            <button class="secondary" [disabled]="state.busy() || state.media.uploading()" (click)="showPreview()">Vista previa</button>
+            <button
                 class="secondary"
                 [disabled]="state.busy() || state.media.uploading()"
                 (click)="state.save(false)"
@@ -93,4 +94,9 @@
             />
         </aside>
     </div>
+}
+@defer (when previewPost()) {
+    @if (previewPost(); as preview) {
+        <app-post-preview [post]="preview" (closed)="previewPost.set(null)" />
+    }
 }

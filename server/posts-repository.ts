@@ -262,6 +262,13 @@ export class PostsRepository {
             .prepare('INSERT INTO media VALUES (?, ?, ?, ?, ?)')
             .run(id, type, data, name, new Date().toISOString());
     }
+    addMediaBatch(images: { id: string; type: string; data: Buffer; name: string }[]): void {
+        this.transaction(() => {
+            const insert = this.database.prepare('INSERT OR IGNORE INTO media VALUES (?, ?, ?, ?, ?)');
+            for (const image of images)
+                insert.run(image.id, image.type, image.data, image.name, new Date().toISOString());
+        });
+    }
     media(id: string): { type: string; data: Uint8Array } | undefined {
         return this.database
             .prepare('SELECT type, data FROM media WHERE id=?')

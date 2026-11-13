@@ -24,6 +24,32 @@ without saving or publishing; existing slugs can be loaded as an explicit update
 revision and publication state preserved. New posts publish immediately without
 code deployments. Markdown remains the content format stored in SQLite.
 
+Studio also accepts a ZIP up to 32 MiB containing exactly one `post.json` or
+`studio-import.json` and the images used by the post. The manifest uses the same
+`{ "metadata": { ... }, "content": "Markdown..." }` format. Body images and the
+cover may use paths relative to the manifest, such as `images/screenshot.jpg`.
+The package may have an enclosing folder. Markdown images, reference images, and
+HTML `img src` are resolved; code examples and remote/site URLs are preserved.
+Local `srcset` is rejected with an actionable error; use Markdown or `img src`.
+
+Selecting the ZIP reviews it without writing to the database. Opening the import
+uploads its referenced images in one transaction, rewrites their URLs, and opens
+the post in the editor without saving or publishing it. Only referenced images
+are imported; unrelated files are ignored. Repeated uploads deduplicate image
+bytes. Archives are inspected in memory, never extracted to disk or executed.
+Traversal paths, symlinks, duplicate paths, encryption, invalid image signatures,
+missing images and oversized entries are rejected. Limits: 128 entries, 64 MiB
+expanded, 30 referenced images, 8 MiB per image and 1 MiB for the JSON manifest.
+Draft images retain the existing public-by-URL media behavior.
+
+The editor's **Vista previa** opens a private full-page view of its current form
+values, including unsaved title, Markdown, tags, cover and date. It reuses the
+public article component and styling, with comments, sharing and public
+navigation suppressed. It does not save, publish, create a public preview URL or
+change public article SEO. The preview sanitizes embedded HTML before rendering.
+Escape or **Volver al editor** returns to the unchanged draft. Authentication
+continues to gate the entire Studio view.
+
 `content/posts/` is the legacy seed catalog. Builds import and package that catalog, but once a
 post is saved through Studio it becomes managed content: future imports, restarts, and deployments
 cannot overwrite or retire it. Existing comments are preserved. Revision checks reject stale
@@ -61,8 +87,9 @@ Editor JavaScript and its stylesheet load only when editing a post.
 Use `pnpm dev` to prepare the catalog and start Angular plus the local API. Production-like
 preview: `pnpm build`, configure the admin variables and `pnpm start`.
 `pnpm test:posts` checks catalog imports and public APIs; `pnpm test:admin` covers authentication,
-CSRF checks, session revocation, publication, revision conflicts, import preservation, uploads,
-and comment moderation. `pnpm migrate:posts` remains available for importing the legacy source.
+CSRF checks, session revocation, publication, revision conflicts, import preservation,
+ZIP validation/imports, unsaved preview snapshots, uploads and comment moderation.
+`pnpm migrate:posts` remains available for importing the legacy source.
 
 ## Blog comments
 

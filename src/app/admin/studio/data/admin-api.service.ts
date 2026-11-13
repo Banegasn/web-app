@@ -5,6 +5,7 @@ import {
     AdminPostSummary,
     MediaItem,
 } from './admin.models';
+import { MAX_ARCHIVE_BYTES, PostArchiveReview } from '../import/post-archive.models';
 
 /** Same-origin transport. All credentials remain in the HttpOnly session cookie. */
 @Injectable()
@@ -63,6 +64,14 @@ export class AdminApiService {
             `admin/posts/${encodeURIComponent(post.id)}`,
             this.json('PUT', post),
         );
+    }
+    importArchive(file: File, review = false): Promise<PostArchiveReview> {
+        if (file.size > MAX_ARCHIVE_BYTES) throw new Error('El ZIP supera los 32 MB permitidos.');
+        return this.request(review ? 'admin/import/zip/review' : 'admin/import/zip', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/zip' },
+            body: file,
+        });
     }
     async listComments(): Promise<AdminComment[]> {
         return (

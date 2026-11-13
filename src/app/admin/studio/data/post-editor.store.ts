@@ -117,6 +117,17 @@ export class PostEditorStore {
         this.error.set('');
         this.notice.set('');
     }
+    /** Current form values, including edits not yet persisted or published. */
+    snapshot(): AdminPost | null {
+        const post = this.post();
+        if (!post) return null;
+        return {
+            ...post,
+            tags: this.tags.split(',').map((tag) => tag.trim()).filter(Boolean),
+            createdAt: this.date === post.createdAt.slice(0, 10)
+                ? post.createdAt : new Date(this.date).toISOString(),
+        };
+    }
     async save(published: boolean): Promise<void> {
         const post = this.post();
         if (!post || this.busy() || this.media.uploading()) return;
@@ -126,16 +137,8 @@ export class PostEditorStore {
         this.notice.set('');
         try {
             const result = await this.api.savePost({
-                ...post,
+                ...this.snapshot()!,
                 published,
-                tags: this.tags
-                    .split(',')
-                    .map((tag) => tag.trim())
-                    .filter(Boolean),
-                createdAt:
-                    this.date === post.createdAt.slice(0, 10)
-                        ? post.createdAt
-                        : new Date(this.date).toISOString(),
             });
             const changedDuringSave = this.changeVersion !== version;
             const current = this.post();

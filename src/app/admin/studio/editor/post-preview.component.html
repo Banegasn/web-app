@@ -1,0 +1,7 @@
+<dialog #surface aria-label="Vista previa privada del post" (cancel)="dismiss($event)">
+    <header class="preview-toolbar">
+        <div><strong>Vista previa privada</strong><p>Así se verá el contenido actual. No se guarda ni se publica.</p></div>
+        <button type="button" autofocus (click)="dismiss()">← Volver al editor</button>
+    </header>
+    <app-blog-post [article]="article()" [preview]="true" />
+</dialog>
